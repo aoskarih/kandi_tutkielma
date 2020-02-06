@@ -4,7 +4,7 @@ import matplotlib.collections as mcoll
 import matplotlib.path as mpath
 
 fig = plt.figure(figsize=(18, 9), edgecolor='w')
-
+plt.rcParams['axes.grid'] = True
 
 
 def rk4(h, t, q0, p0, dq, dp):
@@ -81,24 +81,25 @@ def main():
     def ddq(t, q): return -np.sin(q)
 
     e_plot = ham_calculate(euler, 10, 0.01, 0, 1.0, 1.0, dq, dp)
-    rk4_plot = ham_calculate(rk4, 50, 0.5, 0, 0.0, 1.0, dq, dp)
-    lf_plot = lag_calculate(leapfrog, 50, 0.5, 0, 0.0, 1.0, ddq)
+    rk4_plot = ham_calculate(rk4, 100, 0.5, 0, 0.0, 1.0, dq, dp)
+    lf_plot = lag_calculate(leapfrog, 100, 0.5, 0, 0.0, 1.0, ddq)
 
     ax1 = fig.add_subplot(121)
     ax2 = fig.add_subplot(122)
     
     lc1 = colorline(lf_plot[0], lf_plot[1])
     ax1.add_collection(lc1)
+    ax1.set_title("Leapfrog")
     ax1.set_xlabel("q")
     ax1.set_ylabel("p")
-    ax1.set_xlim(-3.142, 3.142)
+    ax1.set_xlim(-3, 3)
     ax1.set_ylim(-3, 3)
 
     lc2 = colorline(rk4_plot[0], rk4_plot[1])
     ax2.add_collection(lc2)
     ax2.set_xlabel("q")
     ax2.set_ylabel("p")
-    ax2.set_xlim(-3.142, 3.142)
+    ax2.set_xlim(-3, 3)
     ax2.set_ylim(-3, 3)
 
 def colorline(x, y, cm=plt.get_cmap('plasma'), norm=plt.Normalize(0.0, 1.0), linewidth=1):
