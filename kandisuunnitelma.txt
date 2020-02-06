@@ -1,0 +1,63 @@
+Aihe: Symplektiset integrointimenetelmät
+
+Työn otsikon voit keksiä itse, ja sen on hyväkin olla, jahka työn
+sisältö on muotoutunut viimeistelyä vaille valmiiksi. Ohjeellinen pituus
+kandityölle on noin 15-20 sivua, ei ainakaan yhtään päälle 25 sivua.
+Päätarkoitus työssä on oppia kirjoittamaan selkeää tieteellistä tekstiä
+lähdeviitteitä käyttäen. Tieteellinen teksti tässä siis viittaa selkeään
+ja tarkkaan ilmaisuun ilman täytesanoja ja epämääräisyyksiä.
+
+Alustava kappalejako työlle voisi olla seuraavanlainen:
+
+1. Johdanto ja tausta
+2. Liikeyhtälöt ja Hamiltonin mekaniikka
+3. Runge-Kutta-menetelmän johto liikeyhtälöiden numeeriseen ratkaisemiseen
+4. Symplektisen loikkakeinon johto
+5. Menetelmien vertailu jonkin hamiltonisen systeemin tapauksessa
+6. Loppupäätelmät
+
+Tässä voi tarvittaessa yhdistää kappaleet 2 ja 3 tai 3 ja 4, jos kandi
+vaikuttaa paisuvan yli äyräidensä.
+
+Lähdeviitteistä ja kappaleiden sisällöstä:
+
+Hyvä peruslähde koko kandia ajatellen on oppikirja Geometric Numerical
+Integration (kirjoittajat Hairer, Lubich & Wanner). Muita kirjoja joita
+saatat haluta katsoa ovat esimerkiksi:
+Numerical methods for ordinary differential equations (Butcher)
+Solving ordinary differential equations 1, Nonstiff problems (Hairer, Norsett & Wanner)
+
+Nämä löytyvät kaikki Kumpulan kirjastosta.
+
+Kappaleen 2 osalta teoreettisen mekaniikan perusoppikirjat riittänevät.
+Myös em. oppikirjat sisältävät katsauksen Hamiltonin mekaniikkaan ja
+symplektisiin monistoihin, joiden konseptien päälle symplektiset
+menetelmät rakentuvat.
+
+Myös kappaleen 3 tapauksessa esimerkkijohdot löytyvät mainituista
+oppikirjoista, mutta tietysti ajatuksena on, että sisäistät asian ja
+esität sen omin sanoin, ja riittävin välivaihein.
+
+Kappaletta 4 varten saatat haluta lukea mainittujen oppikirjojen ohella
+review-artikkelia "Splitting methods" (2002, McLachlan & Quispel):
+<https://www.cambridge.org/core/services/aop-cambridge-core/content/view/122F5736DAF3D88598989E68FE4D2EF2/S0962492902000053a.pdf/splitting-methods.pdf>
+Loikkakeinoissa on tiettyjä vahvoja rajoitteita soveltuvan Hamiltonin
+funktion muodolle. Jos haluat, voit tutkia ja kirjoittaa myös
+loikkakeinojen laajennuksista, joita nämä rajoitteet eivät koske.
+Kirjoitin itse asiaa käsittelevän paperin
+<https://link.springer.com/article/10.1007/s10569-014-9597-9>. Tuon
+lähteen ja siihen viittavien papereiden perusteella saat asiasta hyvän
+käsityksen.
+
+Viidennessä kappaleessa voit itse valita jonkin sellaisen hamiltonisen
+systeemin, jonka avulla voit tuoda ilmi symplektisten ominaisuuksien
+erityispiirteitä ei-symplektisiin menetelmiin verrattuna. Tähän käy
+esimerkiksi gravitationaalinen kahden kappaleen ongelma varsin hyvin,
+sillä sen analyyttinen ratkaisu on suhteellisen helppo. Myös harmoninen
+oskillattori tai epäideaalinen (ja epälineaarinen) fysikaalinen heiluri
+voivat olla mahdollisia esimerkkejä.
+
+Yleisesti ottaen lähdeviitteiden hakemiseen hyviä palveluita ovat Google
+Scholar <https://scholar.google.com/>, Nasan ADS
+<https://ui.adsabs.harvard.edu/classic-form> ja preprint-tietokanta
+ArXiv <https://arxiv.org/>.
