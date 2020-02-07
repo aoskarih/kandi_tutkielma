@@ -81,8 +81,8 @@ def main():
     def ddq(t, q): return -np.sin(q)
 
     e_plot = ham_calculate(euler, 10, 0.01, 0, 1.0, 1.0, dq, dp)
-    rk4_plot = ham_calculate(rk4, 100, 0.5, 0, 0.0, 1.0, dq, dp)
-    lf_plot = lag_calculate(leapfrog, 100, 0.5, 0, 0.0, 1.0, ddq)
+    rk4_plot = ham_calculate(rk4, 100, 1.0, 0, 0.0, 1.0, dq, dp)
+    lf_plot = lag_calculate(leapfrog, 100, 1.0, 0, 0.0, 1.0, ddq)
 
     ax1 = fig.add_subplot(121)
     ax2 = fig.add_subplot(122)

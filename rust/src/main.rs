@@ -182,21 +182,21 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut par: Vec<Particle> = vec![];
 
-    /*let mut par: Vec<Particle> = vec![
-        Particle::new(Vector3::new(0.0, 0.0, 0.0), Vector3::new(-0.5, 0.0, 0.0), 1.0),
-        Particle::new(Vector3::new(0.0, 1.0, 0.0), Vector3::new(0.5, 0.5, 0.0), 1.0),
-        Particle::new(Vector3::new(-1.0, 0.0, 0.0), Vector3::new(0.5, -0.5, 0.0), 1.0)
-    ]; */
+    let mut par: Vec<Particle> = vec![
+        Particle::new(Vector3::new(0.0, -3.0, 0.0), Vector3::new(-0.5, 0.0, 0.0), 5.0),
+        Particle::new(Vector3::new(0.0, 3.0, 0.0), Vector3::new(0.5, 0.0, 0.0), 5.0),
+        //Particle::new(Vector3::new(-1.0, 0.0, 0.0), Vector3::new(0.5, -0.5, 0.0), 1.0)
+    ]; 
 
-    par.push(Particle::new(Vector3::new(0.0, 0.0, 0.0), Vector3::new(0.0, 0.0, 0.0), 100.0));
+    //par.push(Particle::new(Vector3::new(0.0, 0.0, 0.0), Vector3::new(0.0, 0.0, 0.0), 100.0));
 
-    for _ in 0..n {
-        par.push(Particle::new(Vector3::new(rng![]*4.0, rng![]*4.0, rng![]*4.0), Vector3::new(rng![], rng![], rng![]), 1.0));
-    }
+    //for _ in 0..n {
+    //    par.push(Particle::new(Vector3::new(rng![]*4.0, rng![]*4.0, rng![]*4.0), Vector3::new(rng![], rng![], rng![]), 1.0));
+    //}
 
     let mut t = 0.0;
-    let h = 0.0001;
-    let steps = 75000;
+    let h = 0.005;
+    let steps = 20000;
 
     let afa: u32 = 20;
 
@@ -211,8 +211,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         if i%afa == 0 {
 
-            // let cm: Vector3 = Particle::center_of_mass(&par);
-            let cm: Vector3 = par[0].q;
+            let cm: Vector3 = Particle::center_of_mass(&par);
+            // let cm: Vector3 = par[0].q;
 
             let title = format!("step: {}", i);
 
