@@ -1,0 +1,42 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University/School Laboratory Report
+% LaTeX Template
+
+\documentclass[12pt, finnish]{article}
+
+\usepackage{physics}
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{caption}
+\usepackage{listings}
+
+
+
+%\usepackage{times} % Uncomment to use the Times New Roman font
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Numeeriset menetelmät differentiaaliyhtälöille} % Title
+
+\author{Arttu Hyv\"onen} % Author name
+
+\date{21.2.2020} 
+
+\begin{document}
+
+\maketitle % Insert the title, author and date
+
+
+Differentiaaliyhtälöt kuvaavat suureita ja miten ne muuttuvat suhteessa toisiinsa. Tämä tekee niistä monipuolisen työkalun, joka on osoittautunut hyödylliseksi lukemattomilla eri aloilla. Monesti, etenkin reaalimaailman monimutkaisissa systeemeissä, yhtälöille ei kuitenkaan löydy analyyttistä ratkaisua tai ratkaisu on liian kömpelö käytettäväksi. Tämän vuoksi on kehitetty numeerisia menetelmiä, joilla voidaan löytää ratkaisu silloin kun se ei ole analyyttisesti mahdollista.
+
+Vaikka numeerisilla menetelmillä pystyisikin ratkaisemaan melkein minkä tahansa yhtälön, on niillä myös rajoituksia. Yleensä yksi menetelmä pystyy ratkaisemaan vain tietyn muotoisia yhtälöitä ja menetelmien numeerisen luonteen vuoksi saadussa ratkaisussa saattaa olla virhettä. 
+
+Eri menetelmät pystyvät ratkaisemaan eri muotoisia yhtälöitä ja lisäksi niillä on eri vahvuudet ja heikkoudet. Eulerin menetelmä on yksinkertainen ja melko epätarkka menetelmä, jota on käytetty muiden menetelmien pohjana. Runge-Kutta menetelmät ovat yleisempi ryhmä menetelmiä jotka antavat tarkempia tuloksia, mutta ovat jo huomattavasti monimutkaisempia toteuttaa ja laskennallisesti raskaampia. Lisäksi on menetelmiä, jotka onnistuvat säilyttämään vakiona tiettyjä suureita jotka muissa menetelmissä muuttuvat. 
+
+Suureiden säilyminen on erityisen tärkeää fysiikan kannalta, koska monesti halutaan että esimerkiksi energia säilyy systeemissä. Näissä tilanteissa menetelmä, joka pystyy säilyttämään halutun suuren on hyvä vaihtoehto. Näilläkin menetelmillä kuitenkin saattaa olla systemaattista virhettä, joka voitaisiin välttää toisella menetelmällä.
+
+
+\thispagestyle{empty}
+
+\end{document}

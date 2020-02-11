@@ -1,6 +1,7 @@
 
 use plotters::prelude::*;
 use rand::Rng;
+use std::time::{Duration, SystemTime};
 
 
 macro_rules! rng {
@@ -62,6 +63,80 @@ impl Calculate for Method {
                 let mut p1: Vec<Vector3> = Vec::new();
                 for i in 0..par.len() {
                     p1.push(Vector3::addition(p12[i], sys.dp(i, t, &q1, &p12, &m).scale(h*0.5)));
+                }
+
+                let mut par1: Vec<Particle> = Vec::new();
+                for i in 0..par.len() {
+                    par1.push(Particle::new(q1[i], p1[i], m[i]));
+                }
+
+                return par1;
+            },
+            Method::RungeKutta => {
+                let mut p0: Vec<Vector3> = Vec::new();
+                let mut q0: Vec<Vector3> = Vec::new();
+                let mut m: Vec<f32> = Vec::new();
+                for part in par.iter() {
+                    p0.push(part.p);
+                    q0.push(part.q);
+                    m.push(part.m);
+                }
+
+                let mut k1: Vec<Vector3> = Vec::new();
+                let mut l1: Vec<Vector3> = Vec::new();
+                for i in 0..par.len() {
+                    k1.push(sys.dq(i, t, &q0, &p0, &m).scale(h));
+                    l1.push(sys.dp(i, t, &q0, &p0, &m).scale(h));
+                }
+
+                let mut k2: Vec<Vector3> = Vec::new();
+                let mut l2: Vec<Vector3> = Vec::new();
+                let mut q01: Vec<Vector3> = Vec::new();
+                let mut p01: Vec<Vector3> = Vec::new();
+                for i in 0..par.len() {
+                    q01.push(Vector3::addition(q0[i], k1[i].scale(0.5)));
+                    p01.push(Vector3::addition(p0[i], l1[i].scale(0.5)));
+                }
+                for i in 0..par.len() {
+                    k2.push(sys.dq(i, t+0.5*h, &q01, &p01, &m).scale(h));
+                    l2.push(sys.dp(i, t+0.5*h, &q01, &p01, &m).scale(h));
+                }
+
+                let mut k3: Vec<Vector3> = Vec::new();
+                let mut l3: Vec<Vector3> = Vec::new();
+                let mut q02: Vec<Vector3> = Vec::new();
+                let mut p02: Vec<Vector3> = Vec::new();
+                for i in 0..par.len() {
+                    q02.push(Vector3::addition(q0[i], k2[i].scale(0.5)));
+                    p02.push(Vector3::addition(p0[i], l2[i].scale(0.5)));
+                }
+                for i in 0..par.len() {
+                    k3.push(sys.dq(i, t+0.5*h, &q02, &p02, &m).scale(h));
+                    l3.push(sys.dp(i, t+0.5*h, &q02, &p02, &m).scale(h));
+                }
+                
+                let mut k4: Vec<Vector3> = Vec::new();
+                let mut l4: Vec<Vector3> = Vec::new();
+                let mut q03: Vec<Vector3> = Vec::new();
+                let mut p03: Vec<Vector3> = Vec::new();
+                for i in 0..par.len() {
+                    q03.push(Vector3::addition(q0[i], k3[i]));
+                    p03.push(Vector3::addition(p0[i], k3[i]));
+                }
+                for i in 0..par.len() {
+                    k4.push(sys.dq(i, t+h, &q03, &p03, &m).scale(h));
+                    l4.push(sys.dp(i, t+h, &q03, &p03, &m).scale(h));
+                }
+
+
+                let mut q1: Vec<Vector3> = Vec::new();
+                let mut p1: Vec<Vector3> = Vec::new();
+                for i in 0..par.len() {
+                    let tmp_q = Vector3::addition_n(vec![k1[i], k2[i].scale(2.0), k3[i].scale(2.0), k4[i]]).scale(1.0/6.0);
+                    let tmp_p = Vector3::addition_n(vec![l1[i], l2[i].scale(2.0), l3[i].scale(2.0), l4[i]]).scale(1.0/6.0);
+
+                    q1.push(Vector3::addition(q0[i], tmp_q));
+                    p1.push(Vector3::addition(p0[i], tmp_p));
                 }
 
                 let mut par1: Vec<Particle> = Vec::new();
@@ -142,6 +217,14 @@ impl Vector3 {
         return v;
     }
     
+    fn addition_n(a: Vec<Vector3>) -> Vector3 { 
+        let mut v = Vector3::new(0.0, 0.0, 0.0);
+        for u in a.iter() {
+            v = Vector3::addition(v, *u);
+        }
+        return v;
+    }
+
     fn substraction(a: Vector3, b: Vector3) -> Vector3 {
         let v = Vector3::new(a.x-b.x, a.y-b.y, a.z-b.z);
         return v;
@@ -176,40 +259,50 @@ impl Particle {
 
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let time0 = SystemTime::now();
+
     let root = BitMapBackend::gif("test.gif", (1024, 768), 17)?.into_drawing_area();
     
     let n = 400;
 
     let mut par: Vec<Particle> = vec![];
-
+    
+    /*
     let mut par: Vec<Particle> = vec![
         Particle::new(Vector3::new(0.0, -3.0, 0.0), Vector3::new(-0.5, 0.0, 0.0), 5.0),
         Particle::new(Vector3::new(0.0, 3.0, 0.0), Vector3::new(0.5, 0.0, 0.0), 5.0),
         //Particle::new(Vector3::new(-1.0, 0.0, 0.0), Vector3::new(0.5, -0.5, 0.0), 1.0)
     ]; 
+    */
 
     //par.push(Particle::new(Vector3::new(0.0, 0.0, 0.0), Vector3::new(0.0, 0.0, 0.0), 100.0));
 
-    //for _ in 0..n {
-    //    par.push(Particle::new(Vector3::new(rng![]*4.0, rng![]*4.0, rng![]*4.0), Vector3::new(rng![], rng![], rng![]), 1.0));
-    //}
-
+    for _ in 0..n {
+        par.push(Particle::new(Vector3::new(rng![]*4.0, rng![]*4.0, rng![]*4.0), Vector3::new(rng![], rng![], rng![]), 1.0));
+    }
+    
     let mut t = 0.0;
-    let h = 0.005;
+    let h = 0.0001;
     let steps = 20000;
 
     let afa: u32 = 20;
 
+    let mut rend_t = 0;
+    let mut calc_t = 0;
 
-    let meth: Method = Method::Leapfrog;
+    let meth: Method = Method::RungeKutta;
     let sys: System = System::Gravitational;
 
     for i in 0..steps {
+        let mut step_t = SystemTime::now();
 
         par = meth.next_step(h, t, &par, sys);    
         t = t + h;
 
+        calc_t += step_t.elapsed()?.as_millis();
+        
         if i%afa == 0 {
+            step_t = SystemTime::now();
 
             let cm: Vector3 = Particle::center_of_mass(&par);
             // let cm: Vector3 = par[0].q;
@@ -237,10 +330,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     .map(|(x, y)| Circle::new((*x, *y), 4, BLUE.filled())),
             )?;
             root.present()?;
+
+            rend_t += step_t.elapsed()?.as_millis();
+
         }
+        
 
         if i%(steps/100) == 0 {
-            println!("complete: {}%", (i*100)/steps);
+            println!("complete: {}% \ntime used,\ncalculating: {} ms\nrendering:   {} ms\n", (i*100)/steps, calc_t, rend_t);
         }
 
     }
