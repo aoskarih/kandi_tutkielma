@@ -1,21 +1,20 @@
 
 use plotters::prelude::*;
-use rand::Rng;
+use rand::{SeedableRng, Rng, rngs::StdRng};
 use std::time::{Duration, SystemTime};
 
 
 macro_rules! rng {
-    () => {
-    {
-        let mut rng = rand::thread_rng();
-        let a = 2.0*rng.gen::<f32>() - 1.0;
+    ($rng:expr) => {
+    {   
+        let a = 2.0*$rng.gen::<f32>() - 1.0;
         a
     }
     };
 }
 
 const G: f32 = 1.0;
-
+const COL: f32 = 0.04;
 
 trait Calculate {
     fn next_step(&self, h: f32, t: f32, par: &Vec<Particle>, sys: System) -> Vec<Particle>;
@@ -35,6 +34,44 @@ enum Method {
 #[derive(Copy, Clone)]
 enum System {
     Gravitational,
+}
+
+impl Method {
+    fn collision_check(par: &Vec<Particle>, col: f32, del: f32, cm: Vector3) -> (Vec<Particle>, Vec<u32>) {
+        let mut par1: Vec<Particle> = vec![];
+        let mut destroyed: Vec<u32> = vec![];
+        let mut done: Vec<usize> = vec![];
+        let mut ind = 0;
+        'check: for i in 0..par.len() {
+            if Vector3::substraction(cm, par[i].q).lenght() > del {
+                destroyed.push(par[i].id);
+                continue 'check;
+            }
+            for u in done.iter() {
+                if i == *u {
+                    destroyed.push(par[i].id);
+                    continue 'check;
+                }
+            }
+            for j in i+1..par.len() {
+                let r = Vector3::substraction(par[i].q, par[j].q);
+                if r.lenght() < col {
+                    let m = par[i].m + par[j].m;
+                    let q = Vector3::addition(par[i].q.scale(par[i].m/m), par[j].q.scale(par[j].m/m));
+                    let p = Vector3::addition(par[i].p.scale(par[i].m/m), par[j].p.scale(par[j].m/m));
+                    let np = Particle::new(q, p, m, ind);
+                    par1.push(np);
+                    ind += 1;
+                    done.push(j);
+                    continue 'check;
+                }
+            }
+            par1.push(Particle::new(par[i].q, par[i].p, par[i].m, ind));
+            ind += 1;
+        }
+
+        return (par1, destroyed);
+    }
 }
 
 impl Calculate for Method {
@@ -67,7 +104,7 @@ impl Calculate for Method {
 
                 let mut par1: Vec<Particle> = Vec::new();
                 for i in 0..par.len() {
-                    par1.push(Particle::new(q1[i], p1[i], m[i]));
+                    par1.push(Particle::new(q1[i], p1[i], m[i], par[i].id));
                 }
 
                 return par1;
@@ -141,7 +178,7 @@ impl Calculate for Method {
 
                 let mut par1: Vec<Particle> = Vec::new();
                 for i in 0..par.len() {
-                    par1.push(Particle::new(q1[i], p1[i], m[i]));
+                    par1.push(Particle::new(q1[i], p1[i], m[i], par[i].id));
                 }
 
                 return par1;
@@ -187,7 +224,6 @@ impl EquationsOfMotion for System {
         }
     }
 }
-
 
 #[derive(Copy, Clone)]
 struct Vector3 {
@@ -235,15 +271,17 @@ impl Vector3 {
     }
 }
 
+#[derive(Copy, Clone)]
 struct Particle {
     q: Vector3,
     p: Vector3,
-    m: f32
+    m: f32,
+    id: u32
 }
 
 impl Particle {
-    fn new(q: Vector3, p: Vector3, m: f32) -> Particle {
-        return Particle{q, p, m};
+    fn new(q: Vector3, p: Vector3, m: f32, id: u32) -> Particle {
+        return Particle{q: q, p: p, m: m, id: id};
     }
 
     fn center_of_mass(par: &Vec<Particle>) -> Vector3 {
@@ -257,78 +295,204 @@ impl Particle {
     }
 }
 
+fn hash(n: f32) -> u32 {
+    let un = (n.abs()*10000.0) as u32;
+    return 7 + 17*un + 33*un*un + 23*un*un*un + 13*un*un*un*un;
+}
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    
+    // time
     let time0 = SystemTime::now();
-
-    let root = BitMapBackend::gif("test.gif", (1024, 768), 17)?.into_drawing_area();
-    
-    let n = 400;
-
-    let mut par: Vec<Particle> = vec![];
-    
-    /*
-    let mut par: Vec<Particle> = vec![
-        Particle::new(Vector3::new(0.0, -3.0, 0.0), Vector3::new(-0.5, 0.0, 0.0), 5.0),
-        Particle::new(Vector3::new(0.0, 3.0, 0.0), Vector3::new(0.5, 0.0, 0.0), 5.0),
-        //Particle::new(Vector3::new(-1.0, 0.0, 0.0), Vector3::new(0.5, -0.5, 0.0), 1.0)
-    ]; 
-    */
-
-    //par.push(Particle::new(Vector3::new(0.0, 0.0, 0.0), Vector3::new(0.0, 0.0, 0.0), 100.0));
-
-    for _ in 0..n {
-        par.push(Particle::new(Vector3::new(rng![]*4.0, rng![]*4.0, rng![]*4.0), Vector3::new(rng![], rng![], rng![]), 1.0));
-    }
-    
-    let mut t = 0.0;
-    let h = 0.0001;
-    let steps = 20000;
-
-    let afa: u32 = 20;
 
     let mut rend_t = 0;
     let mut calc_t = 0;
 
-    let meth: Method = Method::RungeKutta;
+    // simulation
+    let meth1: Method = Method::Leapfrog;
+    let meth2: Method = Method::RungeKutta;
     let sys: System = System::Gravitational;
+    
+    let mut n = 5000;
+    let speed_mult: f32 = 2.0;
+    let spawn_area: f32 = 15.0;
+    let mut rng = StdRng::from_seed([5; 32]);
 
-    for i in 0..steps {
+    let mut t = 0.0;
+    let h = 0.001;
+    let steps = 50000;
+
+    let collisions: bool = true;
+    let collision_dis: f32 = 0.05;
+    let deletion_dis: f32 = 100.0;
+
+    // rendering
+    let line_density: u32 = 10;
+    let border: f32 = 15.0;
+    let afa: u32 = 50;
+    let dot_size: f32 = 2.0;
+    let line: bool = false;
+    let line_len: usize = 50;
+
+    let root = BitMapBackend::gif("test.gif", (1000, 1000), 50)?.into_drawing_area();
+
+
+    let mut par1: Vec<Particle> = vec![];
+    //let mut par2: Vec<Particle> = vec![];
+
+    /*
+    let mut par: Vec<Particle> = vec![
+        Particle::new(Vector3::new(0.0, -1.3, 0.0), Vector3::new(0.5, -0.25, 0.0), 5.0, 1),
+        Particle::new(Vector3::new(0.0, 1.3, 0.0), Vector3::new(-0.5, -0.25, 0.0), 5.0, 2),
+        Particle::new(Vector3::new(1.0, 0.0, 0.0), Vector3::new(0.0, 0.5, 0.0), 1.0, 3),
+        //Particle::new(Vector3::new(-2.0, 0.0, 0.0), Vector3::new(0.0, 0.5, 0.0), 1.0, 4)
+    ]; 
+    for p in par.iter() {
+        par1.push(*p);
+        par2.push(*p);
+    }*/
+
+    //par.push(Particle::new(Vector3::new(0.0, 0.0, 0.0), Vector3::new(0.0, 0.0, 0.0), 100.0, 100));
+    
+    for i in 0..n {
+        let p = Particle::new(
+            Vector3::new(rng![rng]*spawn_area, rng![rng]*spawn_area, rng![rng]*spawn_area), 
+            Vector3::new(rng![rng]*speed_mult, rng![rng]*speed_mult, rng![rng]*speed_mult), 
+            0.2,
+            i
+        );
+        par1.push(p);
+        //par2.push(p);
+    }
+
+    let mut lines1 = vec![];
+    //let mut lines2 = vec![];
+
+    if line {
+        for i in 0usize..(n as usize) {
+            lines1.push(vec![par1[i].q]);
+            //lines2.push(vec![par2[i].q]);
+        }
+    }
+
+    'main: for i in 0..steps {
+
         let mut step_t = SystemTime::now();
+        let mut dest: Vec<u32> = vec![];
+        let cm: Vector3 = Particle::center_of_mass(&par1);
 
-        par = meth.next_step(h, t, &par, sys);    
+        par1 = meth1.next_step(h, t, &par1, sys);
+        if collisions {
+            let tmp = Method::collision_check(&par1, collision_dis, deletion_dis, cm);
+            par1 = tmp.0;
+            dest = tmp.1;
+            dest.sort();
+            dest.reverse();
+            if line {
+
+                for id in dest.iter() {
+                    println!("{}   {}", lines1.len(), *id);
+                    lines1.remove(*id as usize);
+                }
+            }
+        }
+
+        n = par1.len() as u32;
+        //par2 = meth2.next_step(h, t, &par2, sys);    
         t = t + h;
 
         calc_t += step_t.elapsed()?.as_millis();
         
+        if i%line_density == 0 {
+            if line {
+                'line_gen: for j in 0usize..(n as usize) {
+                    lines1[j].push(par1[j].q);
+                    if lines1[j].len() > line_len {
+                        lines1[j].remove(0);
+                    }
+                    //lines2[j].push(par2[j].q);
+                }
+            }
+        }
+
         if i%afa == 0 {
             step_t = SystemTime::now();
-
-            let cm: Vector3 = Particle::center_of_mass(&par);
-            // let cm: Vector3 = par[0].q;
+            
+            // let cm: Vector3 = Vector3::new(0.0, 0.0, 0.0);
+            let cm: Vector3 = Particle::center_of_mass(&par1);
+            // let cm: Vector3 = par1[0].q;
 
             let title = format!("step: {}", i);
 
             root.fill(&WHITE)?;
             let mut chart = ChartBuilder::on(&root)
-                .x_label_area_size(40)
-                .y_label_area_size(40)
-                .margin(30)
-                .caption(title, ("sans-serif", 25).into_font())
-                .build_ranged((cm.x-5.0)..(cm.x+5.0), (cm.y-5.0)..(cm.y+5.0))?;
+                .x_label_area_size(0)
+                .y_label_area_size(0)
+                .margin(0)
+                //.caption(title, ("sans-serif", 25).into_font())
+                .build_ranged((cm.x-border)..(cm.x+border), (cm.y-border)..(cm.y+border))?;
         
-            chart.configure_mesh().line_style_2(&WHITE).draw()?;
+            //chart.configure_mesh().line_style_2(&WHITE).draw()?;
             
-            let mut points: Vec<(f32, f32)> = Vec::new();
-            for pi in par.iter() {
-                points.push((pi.q.x, pi.q.y));
+            let mut points1: Vec<(f32, f32, f32)> = Vec::new();
+            'point_loop: for pi in par1.iter() {
+                if (cm.x-pi.q.x.abs()) > border || (cm.y-pi.q.y.abs()) > border {
+                    continue 'point_loop;
+                }
+                points1.push((pi.q.x, pi.q.y, pi.m));
+            }
+            
+            /*let mut points2: Vec<(f32, f32)> = Vec::new();
+            for pi in par2.iter() {
+                points2.push((pi.q.x, pi.q.y));
+            }*/
+            
+            chart.draw_series(
+                points1
+                    .iter()
+                    .map(|(x, y, m)| Circle::new((*x, *y), ((dot_size + *m).sqrt() as i32), BLUE.filled())),
+            )?;
+            //.label("Runge-Kutta")
+            //.legend(|(x, y)| Circle::new((x, y), 8, BLUE.filled()));
+            
+            if line {
+                'line_loop: for j in 0usize..(n as usize) {
+                    let mut lin: Vec<(f32, f32)> = Vec::new();
+                    for point in lines1[j].iter() {
+                        lin.push((point.x, point.y));
+                    }
+                    chart.draw_series(LineSeries::new(
+                        lin
+                            .iter()
+                            .map(|(x, y)| (*x, *y)), &BLUE
+                    ))?;
+                }
             }
 
-            chart.draw_series(
-                points
+            /*chart.draw_series(
+                points2
                     .iter()
-                    .map(|(x, y)| Circle::new((*x, *y), 4, BLUE.filled())),
-            )?;
+                    .map(|(x, y)| Circle::new((*x, *y), dot_size, RED.filled())),
+            )?
+            .label("Leapfrog")
+            .legend(|(x, y)| Circle::new((x, y), 8, RED.filled()));
+            
+            if line {
+                for j in 0..n {
+                    let mut lin: Vec<(f32, f32)> = Vec::new();
+                    for point in lines2[j].iter() {
+                        lin.push((point.x, point.y));
+                    }
+                    chart.draw_series(LineSeries::new(
+                        lin
+                            .iter()
+                            .map(|(x, y)| (*x, *y)), &RED
+                    ))?;
+                }
+            }*/
+
+            chart.configure_series_labels().position(SeriesLabelPosition::UpperRight).label_font(("sans-serif", 40).into_font()).draw()?;
+            
             root.present()?;
 
             rend_t += step_t.elapsed()?.as_millis();
@@ -336,8 +500,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         
 
-        if i%(steps/100) == 0 {
-            println!("complete: {}% \ntime used,\ncalculating: {} ms\nrendering:   {} ms\n", (i*100)/steps, calc_t, rend_t);
+        if i%(steps/500) == 0 {
+            println!("complete: {}% \nparticles: {} \ncalculating: {:.2} s\nrendering:   {:.2} s\n", (i*100)/steps, n, (calc_t as f32)*0.001, (rend_t as f32)*0.001);
         }
 
     }

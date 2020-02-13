@@ -1,6 +1,28 @@
 
+Numeeriset menetelmät differentiaaliyhtälöille
+
 1. kansi
     kaunis kuva + otsikko
 2. sisältö
 
 3. 
+
+
+mihin tarvitaan
+
+euler esittely
++ käytäntö
+
+runge kutta esittely
++ käytäntö
+
+vertaillaan euler pois pelistä rungella
+
+leapfrog esittely
++ käytäntö
++ supervoima
+
+runke kutta vs. leapfrog: epic battle
++ yhden kierroksen tarkkuus
++ n kierroksen tarkkuus
+

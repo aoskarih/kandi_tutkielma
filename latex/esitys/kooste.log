@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.2.11)  11 FEB 2020 16:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.2.11)  14 FEB 2020 00:27
 entering extended mode
 **./kooste.tex
 (kooste.tex
@@ -189,22 +189,28 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count268
- [1
 
-{C:/Users/planckcons/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (koost
-e.aux) ) 
+Underfull \hbox (badness 1142) in paragraph at lines 37--38
+[]\OT1/cmr/m/n/12 Suureiden sailyminen on er-i-tyisen tarkeaa fysi-ikan kan
+nalta, koska
+ []
+
+[1
+
+{C:/Users/planckcons/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+(kooste.aux) ) 
 Here is how much of TeX's memory you used:
  4431 strings out of 481565
- 70534 string characters out of 2911819
+ 70562 string characters out of 2911819
  310619 words of memory out of 3000000
  19698 multiletter control sequences out of 15000+200000
  534299 words of font info for 31 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,7n,42p,559b,217s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/planckcons/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmr12.pfb><C:/Users/planckcons/AppData/Local/Programs/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on kooste.pdf (1 page, 29871 bytes).
+ 43i,7n,42p,576b,217s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/planckcons/AppData/Local/Programs/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmr12.pfb><C:/Users/planckcons/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on kooste.pdf (1 page, 29863 bytes).
 PDF statistics:
  14 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
