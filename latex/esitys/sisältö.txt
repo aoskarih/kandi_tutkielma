@@ -9,20 +9,39 @@ Numeeriset menetelmät differentiaaliyhtälöille
 
 
 mihin tarvitaan
+1
 
 euler esittely
+2
 + käytäntö
+3
 
 runge kutta esittely
+4
 + käytäntö
-
-vertaillaan euler pois pelistä rungella
+5
+6
 
 leapfrog esittely
+7
 + käytäntö
+8
+9
 + supervoima
+10
++ tärkeä supervoima
+11
+
+
+vertaillaan euler pois pelistä rungella
+12
 
 runke kutta vs. leapfrog: epic battle
+13
 + yhden kierroksen tarkkuus
+14
 + n kierroksen tarkkuus
+15
 
+yhteenveto
+16

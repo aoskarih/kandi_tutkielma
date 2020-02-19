@@ -1,0 +1,54 @@
+\frametitle{Menetelmien toteutus koodina}
+	\begin{columns}[onlytextwidth]
+		\begin{column}{.3\textwidth}
+			{\tiny
+			{\small \textcolor{blue}{Eulerin menetelmä}}
+			\begin{lstlisting}
+def euler(h, t, q0, p0, dq, dp):
+    k1 = dq(t, q0, p0)
+    l1 = dp(t, q0, p0)
+	
+    q1 = q0 + k1*h
+    p1 = p0 + l1*h
+    				
+    return [q1, p1]
+			\end{lstlisting}
+			\vspace{1em}
+			{\small \textcolor{blue}{Leapfrog menetelmä}}
+			\begin{lstlisting}
+def leapfrog(h, t, q0, p0, ddq):
+    p12 = p0 + ddq(t, q0)*h*0.5
+    q1 = q0 + p12*h
+    p1 = p12 + ddq(t, q1)*h*0.5
+
+    return [q1, p1]
+			\end{lstlisting}}
+		\end{column}
+		\hfill
+		\begin{column}{.5\textwidth}
+			\vspace{-1.5em}			
+			\begin{figure}[h!]
+			{\tiny
+			{\small \hspace{-5.5em} \textcolor{blue}{Runge-Kutta menetelmä}}
+			\begin{lstlisting}
+def rk4(h, t, q0, p0, dq, dp):
+    k1 = h*dq(t, q0, p0)
+    l1 = h*dp(t, q0, p0)
+
+    k2 = h*dq(t+0.5*h, q0+0.5*k1, p0+0.5*l1)
+    l2 = h*dp(t+0.5*h, q0+0.5*k1, p0+0.5*l1)
+
+    k3 = h*dq(t+0.5*h, q0+0.5*k2, p0+0.5*l2)
+    l3 = h*dp(t+0.5*h, q0+0.5*k2, p0+0.5*l2)
+
+    k4 = h*dq(t+h, q0+k3, p0+l3)
+    l4 = h*dp(t+h, q0+k3, p0+l3)
+
+    q1 = q0 + (k1 + 2*k2 + 2*k3 + k4)/6.0
+    p1 = p0 + (l1 + 2*l2 + 2*l3 + l4)/6.0
+
+    return [q1, p1]
+			\end{lstlisting}}
+			\end{figure}
+		\end{column}
+	\end{columns}

@@ -309,51 +309,54 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut calc_t = 0;
 
     // simulation
-    let meth1: Method = Method::Leapfrog;
-    let meth2: Method = Method::RungeKutta;
+    const parallels: usize = 1;
+    let mut meth = vec![];
+    meth.push(Method::RungeKutta);
+    meth.push(Method::Leapfrog);
     let sys: System = System::Gravitational;
     
-    let mut n = 5000;
-    let speed_mult: f32 = 2.0;
-    let spawn_area: f32 = 15.0;
-    let mut rng = StdRng::from_seed([5; 32]);
+    let mut n = 2;
+    let speed_mult: f32 = 0.5;
+    let spawn_area: f32 = 2.0;
+    let mut rng = StdRng::from_seed([23; 32]);
 
     let mut t = 0.0;
-    let h = 0.001;
-    let steps = 50000;
+    let h = 0.0001;
+    let steps = 1000000;
 
     let collisions: bool = true;
     let collision_dis: f32 = 0.05;
     let deletion_dis: f32 = 100.0;
 
     // rendering
-    let line_density: u32 = 10;
-    let border: f32 = 15.0;
-    let afa: u32 = 50;
-    let dot_size: f32 = 2.0;
-    let line: bool = false;
-    let line_len: usize = 50;
+    let line_density: u32 = 100;
+    let border: f32 = 3.0;
+    let afa: u32 = 100000;
+    let dot_size: f32 = 8.0;
+    let line: bool = true;
+    let line_len: usize = 1000;
 
     let root = BitMapBackend::gif("test.gif", (1000, 1000), 50)?.into_drawing_area();
 
+    let mut par = vec![];
+    for _ in 0..parallels {
+        let mut par1: Vec<Particle> = vec![];
+        par.push(par1);
+    }
 
-    let mut par1: Vec<Particle> = vec![];
-    //let mut par2: Vec<Particle> = vec![];
-
-    /*
-    let mut par: Vec<Particle> = vec![
-        Particle::new(Vector3::new(0.0, -1.3, 0.0), Vector3::new(0.5, -0.25, 0.0), 5.0, 1),
-        Particle::new(Vector3::new(0.0, 1.3, 0.0), Vector3::new(-0.5, -0.25, 0.0), 5.0, 2),
-        Particle::new(Vector3::new(1.0, 0.0, 0.0), Vector3::new(0.0, 0.5, 0.0), 1.0, 3),
+    
+    let mut par_setup: Vec<Particle> = vec![
+        Particle::new(Vector3::new(0.0, 1.0, 0.0), Vector3::new(0.5, 0.0, 0.0), 5.0, 1),
+        Particle::new(Vector3::new(0.0, -1.0, 0.0), Vector3::new(-0.5, 0.0, 0.0), 5.0, 2),
+        //Particle::new(Vector3::new(1.0, 0.0, 0.0), Vector3::new(0.0, 0.5, 0.0), 1.0, 3),
         //Particle::new(Vector3::new(-2.0, 0.0, 0.0), Vector3::new(0.0, 0.5, 0.0), 1.0, 4)
     ]; 
-    for p in par.iter() {
-        par1.push(*p);
-        par2.push(*p);
-    }*/
+    for p in par_setup.iter() {
+        par[0].push(*p);
+        //par[1].push(*p);
+    }
 
-    //par.push(Particle::new(Vector3::new(0.0, 0.0, 0.0), Vector3::new(0.0, 0.0, 0.0), 100.0, 100));
-    
+    /*
     for i in 0..n {
         let p = Particle::new(
             Vector3::new(rng![rng]*spawn_area, rng![rng]*spawn_area, rng![rng]*spawn_area), 
@@ -361,16 +364,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             0.2,
             i
         );
-        par1.push(p);
-        //par2.push(p);
-    }
+        for j in 0..parallels {
+            par[j].push(p);
+        }
+    }*/
 
-    let mut lines1 = vec![];
-    //let mut lines2 = vec![];
+    let mut lines = vec![];
+    for j in 0..parallels {
+        let mut lines1 = vec![];
+        lines.push(lines1);
+    }
 
     if line {
         for i in 0usize..(n as usize) {
-            lines1.push(vec![par1[i].q]);
+            for j in 0..parallels {
+                lines[j].push(vec![par[j][i].q]);
+            }
             //lines2.push(vec![par2[i].q]);
         }
     }
@@ -378,39 +387,43 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     'main: for i in 0..steps {
 
         let mut step_t = SystemTime::now();
-        let mut dest: Vec<u32> = vec![];
-        let cm: Vector3 = Particle::center_of_mass(&par1);
+        
+        for j in 0..parallels {
+            let mut dest: Vec<u32> = vec![];
+            let cm: Vector3 = Particle::center_of_mass(&par[j]);
 
-        par1 = meth1.next_step(h, t, &par1, sys);
-        if collisions {
-            let tmp = Method::collision_check(&par1, collision_dis, deletion_dis, cm);
-            par1 = tmp.0;
-            dest = tmp.1;
-            dest.sort();
-            dest.reverse();
-            if line {
-
-                for id in dest.iter() {
-                    println!("{}   {}", lines1.len(), *id);
-                    lines1.remove(*id as usize);
+            par[j] = meth[j].next_step(h, t, &par[j], sys);
+            if collisions {
+                let tmp = Method::collision_check(&par[j], collision_dis, deletion_dis, cm);
+                par[j] = tmp.0;
+                dest = tmp.1;
+                dest.sort();
+                dest.reverse();
+                if line {
+                    for id in dest.iter() {
+                        println!("sys: {}   par: {}   id: {}", j, lines[j].len(), *id);
+                        lines[j].remove(*id as usize);
+                    }
                 }
             }
         }
-
-        n = par1.len() as u32;
-        //par2 = meth2.next_step(h, t, &par2, sys);    
+        let mut par_n: [i32; parallels] = [0; parallels];
+        for j in 0..parallels {
+            par_n[j] = par[j].len() as i32;
+        }
         t = t + h;
 
         calc_t += step_t.elapsed()?.as_millis();
         
         if i%line_density == 0 {
             if line {
-                'line_gen: for j in 0usize..(n as usize) {
-                    lines1[j].push(par1[j].q);
-                    if lines1[j].len() > line_len {
-                        lines1[j].remove(0);
+                for k in 0..parallels {
+                    'line_gen: for j in 0usize..(par_n[k] as usize) {
+                        lines[k][j].push(par[k][j].q);
+                        if lines[k][j].len() > line_len {
+                            lines[k][j].remove(0);
+                        }
                     }
-                    //lines2[j].push(par2[j].q);
                 }
             }
         }
@@ -418,8 +431,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         if i%afa == 0 {
             step_t = SystemTime::now();
             
-            // let cm: Vector3 = Vector3::new(0.0, 0.0, 0.0);
-            let cm: Vector3 = Particle::center_of_mass(&par1);
+            let cm: Vector3 = Vector3::new(0.0, 0.0, 0.0);
+            // let cm: Vector3 = Particle::center_of_mass(&par[0]);
             // let cm: Vector3 = par1[0].q;
 
             let title = format!("step: {}", i);
@@ -433,63 +446,47 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .build_ranged((cm.x-border)..(cm.x+border), (cm.y-border)..(cm.y+border))?;
         
             //chart.configure_mesh().line_style_2(&WHITE).draw()?;
-            
-            let mut points1: Vec<(f32, f32, f32)> = Vec::new();
-            'point_loop: for pi in par1.iter() {
-                if (cm.x-pi.q.x.abs()) > border || (cm.y-pi.q.y.abs()) > border {
-                    continue 'point_loop;
+            let mut points = vec![];
+            for j in 0..parallels {
+                let mut points1: Vec<(f32, f32, f32)> = Vec::new();
+                points.push(points1);
+            }
+            for j in 0..parallels {
+                'point_loop: for pi in par[j].iter() {
+                    if (cm.x-pi.q.x.abs()) > border || (cm.y-pi.q.y.abs()) > border {
+                        continue 'point_loop;
+                    }
+                    points[j].push((pi.q.x, pi.q.y, pi.m));
                 }
-                points1.push((pi.q.x, pi.q.y, pi.m));
             }
             
-            /*let mut points2: Vec<(f32, f32)> = Vec::new();
-            for pi in par2.iter() {
-                points2.push((pi.q.x, pi.q.y));
-            }*/
-            
-            chart.draw_series(
-                points1
-                    .iter()
-                    .map(|(x, y, m)| Circle::new((*x, *y), ((dot_size + *m).sqrt() as i32), BLUE.filled())),
-            )?;
+            let colors = vec![BLUE, RED, GREEN];
+
+            for j in 0..parallels {
+                chart.draw_series(
+                    points[j]
+                        .iter()
+                        .map(|(x, y, m)| Circle::new((*x, *y), ((dot_size + *m).sqrt() as i32), colors[j%3].filled())),
+                )?;
+            }
             //.label("Runge-Kutta")
             //.legend(|(x, y)| Circle::new((x, y), 8, BLUE.filled()));
             
             if line {
-                'line_loop: for j in 0usize..(n as usize) {
-                    let mut lin: Vec<(f32, f32)> = Vec::new();
-                    for point in lines1[j].iter() {
-                        lin.push((point.x, point.y));
+                for k in 0..parallels {
+                    'line_loop: for j in 0usize..(par_n[k] as usize) {
+                        let mut lin: Vec<(f32, f32)> = Vec::new();
+                        for point in lines[k][j].iter() {
+                            lin.push((point.x, point.y));
+                        }
+                        chart.draw_series(LineSeries::new(
+                            lin
+                                .iter()
+                                .map(|(x, y)| (*x, *y)), &colors[k%3]
+                        ))?;
                     }
-                    chart.draw_series(LineSeries::new(
-                        lin
-                            .iter()
-                            .map(|(x, y)| (*x, *y)), &BLUE
-                    ))?;
                 }
             }
-
-            /*chart.draw_series(
-                points2
-                    .iter()
-                    .map(|(x, y)| Circle::new((*x, *y), dot_size, RED.filled())),
-            )?
-            .label("Leapfrog")
-            .legend(|(x, y)| Circle::new((x, y), 8, RED.filled()));
-            
-            if line {
-                for j in 0..n {
-                    let mut lin: Vec<(f32, f32)> = Vec::new();
-                    for point in lines2[j].iter() {
-                        lin.push((point.x, point.y));
-                    }
-                    chart.draw_series(LineSeries::new(
-                        lin
-                            .iter()
-                            .map(|(x, y)| (*x, *y)), &RED
-                    ))?;
-                }
-            }*/
 
             chart.configure_series_labels().position(SeriesLabelPosition::UpperRight).label_font(("sans-serif", 40).into_font()).draw()?;
             
@@ -501,7 +498,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         
 
         if i%(steps/500) == 0 {
-            println!("complete: {}% \nparticles: {} \ncalculating: {:.2} s\nrendering:   {:.2} s\n", (i*100)/steps, n, (calc_t as f32)*0.001, (rend_t as f32)*0.001);
+            println!(" complete: {}% \n calculating: {:.2} s \n rendering:   {:.2} s\n", (i*100)/steps, (calc_t as f32)*0.001, (rend_t as f32)*0.001);
         }
 
     }

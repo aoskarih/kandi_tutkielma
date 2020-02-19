@@ -1,0 +1,150 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.2.11)  17 FEB 2020 18:25
+entering extended mode
+**./kaava.tex
+(kaava.tex
+LaTeX2e <2020-02-02> patch level 1
+L3 programming layer <2020-02-08>
+("C:\Users\planckcons\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\article.
+cls"
+Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+
+("C:\Users\planckcons\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\fleqn.cl
+o"
+File: fleqn.clo 2016/12/29 v1.2b Standard LaTeX option (flush left equations)
+\mathindent=\dimen134
+Applying: [2015/01/01] Make \[ robust on input line 50.
+LaTeX Info: Redefining \[ on input line 51.
+Already applied: [0000/00/00] Make \[ robust on input line 62.
+Applying: [2015/01/01] Make \] robust on input line 74.
+LaTeX Info: Redefining \] on input line 75.
+Already applied: [0000/00/00] Make \] robust on input line 83.
+)
+("C:\Users\planckcons\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\size10.c
+lo"
+File: size10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count167
+\c@section=\count168
+\c@subsection=\count169
+\c@subsubsection=\count170
+\c@paragraph=\count171
+\c@subparagraph=\count172
+\c@figure=\count173
+\c@table=\count174
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen135
+)
+("C:\Users\planckcons\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsma
+th.sty"
+Package: amsmath 2020/01/20 v2.17e AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+
+("C:\Users\planckcons\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amste
+xt.sty"
+Package: amstext 2000/06/29 v2.01 AMS text
+
+("C:\Users\planckcons\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsge
+n.sty"
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks14
+\ex@=\dimen136
+))
+("C:\Users\planckcons\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsbs
+y.sty"
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen137
+)
+("C:\Users\planckcons\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsop
+n.sty"
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count175
+LaTeX Info: Redefining \frac on input line 227.
+\uproot@=\count176
+\leftroot@=\count177
+LaTeX Info: Redefining \overline on input line 389.
+\classnum@=\count178
+\DOTSCASE@=\count179
+LaTeX Info: Redefining \ldots on input line 486.
+LaTeX Info: Redefining \dots on input line 489.
+LaTeX Info: Redefining \cdots on input line 610.
+\Mathstrutbox@=\box45
+\strutbox@=\box46
+\big@size=\dimen138
+LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
+\macc@depth=\count180
+\c@MaxMatrixCols=\count181
+\dotsspace@=\muskip16
+\c@parentequation=\count182
+\dspbrk@lvl=\count183
+\tag@help=\toks15
+\row@=\count184
+\column@=\count185
+\maxfields@=\count186
+\andhelp@=\toks16
+\eqnshift@=\dimen139
+\alignsep@=\dimen140
+\tagshift@=\dimen141
+\tagwidth@=\dimen142
+\totwidth@=\dimen143
+\lineht@=\dimen144
+\@envbody=\toks17
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks18
+LaTeX Info: Redefining \[ on input line 2859.
+LaTeX Info: Redefining \] on input line 2860.
+)
+("C:\Users\planckcons\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3backend\l3b
+ackend-pdfmode.def"
+File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count187
+\l__pdf_internal_box=\box47
+) (kaava.aux)
+\openout1 = `kaava.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+ [1
+
+{C:/Users/planckcons/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (kaava
+.aux) ) 
+Here is how much of TeX's memory you used:
+ 1001 strings out of 481565
+ 14094 string characters out of 2911819
+ 249393 words of memory out of 3000000
+ 16300 multiletter control sequences out of 15000+200000
+ 532792 words of font info for 26 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 30i,9n,29p,205b,127s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/planckcons/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmex10.pfb><C:/Users/planckcons/AppData/Local/Programs/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/planckcons/AppData/Local/P
+rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/planckcon
+s/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C
+:/Users/planckcons/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmr7.pfb><C:/Users/planckcons/AppData/Local/Programs/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb><C:/Users/planckcons/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on kaava.pdf (1 page, 67963 bytes).
+PDF statistics:
+ 34 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

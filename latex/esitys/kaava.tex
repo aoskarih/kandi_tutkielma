@@ -1,0 +1,15 @@
+\documentclass[fleqn]{article}
+\usepackage{amsmath}
+
+\begin{document}
+	\begin{align}
+		\theta(t) &= 2 \arcsin\!\left\lbrace \sin\frac{\theta_0}{2} \: \mathrm{sn}(u, k)\right\rbrace \\
+		k &= \sin^2\frac{\theta_0}{2} \\ 
+		u &= K\!\left(\sin^2\frac{\theta_0}{2}\right) -\omega_0 t \\
+		\mathrm{sn}(u, k) &=  \frac{\vartheta(0, \tau)}{\vartheta_{10}(0, \tau)} \:\frac{\vartheta_{10}(u \, \vartheta(0, \tau)^{-2}, \tau)}{\vartheta_{01}(u \, \vartheta(0, \tau)^{-2}, \tau)} \\ 
+		\vartheta(z, \tau) &= \sum_{n=-\infty}^{\infty} \exp(\pi i n^2 \tau + 2\pi i n z) \\
+		\vartheta_{01}(z, \tau) &= \vartheta(z + \frac{1}{2}, \tau) \\
+		\vartheta_{10}(z, \tau) &= \exp(\frac{1}{4}\pi i \tau + \pi i z)\vartheta(z + \frac{1}{2}\tau, \tau) \\
+		K(m) &= \int_0^1 \frac{dz}{\sqrt{(1-z^2)(1-mz^2)}}
+	\end{align}
+\end{document}
