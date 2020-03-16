@@ -61,3 +61,32 @@ Yleisesti ottaen lähdeviitteiden hakemiseen hyviä palveluita ovat Google
 Scholar <https://scholar.google.com/>, Nasan ADS
 <https://ui.adsabs.harvard.edu/classic-form> ja preprint-tietokanta
 ArXiv <https://arxiv.org/>.
+
+###################################################################################################################
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+###################################################################################################################
+
+
+
+1. Johdanto ja tausta
+
+
+2. Liikeyhtälöt ja Hamiltonin mekaniikka
+    - selitä hamiltonin mekaniikan perusperiaate
+    - esimerkkinä kahden kappaleen ongelman analyyttinen ratkaisu jota käytetään uudestaan luvussa 5
+    - huomio erikseen syntyneet differentiaaliyhtälöt
+
+3. Runge-Kutta-menetelmän johto liikeyhtälöiden numeeriseen ratkaisemiseen
+    - selitä runge-kutta-menetelmien perusperiaate
+    - johda yleinen menetelmä (GNI .pdf s. 44)
+    - selitä kertoimien rajoitukset ja esittele RK4 jota käytetään
+    - selitä miten ensimmäisen kertaluokan ratkaisijalla (RK) saadaan ratkaistua toisen kertaluokan diff. yht.
+
+4. Symplektisen loikkakeinon johto
+    - 
+
+5. Menetelmien vertailu jonkin hamiltonisen systeemin tapauksessa
+
+
+6. Loppupäätelmät
+
