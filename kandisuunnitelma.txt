@@ -66,6 +66,9 @@ ArXiv <https://arxiv.org/>.
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 ###################################################################################################################
 
+katsaus runge kuttaan ja loikkakeinoon
+niiden toimintaan, käyttöön ja vahvuuksiin
+
 
 
 1. Johdanto ja tausta
@@ -83,10 +86,15 @@ ArXiv <https://arxiv.org/>.
     - selitä miten ensimmäisen kertaluokan ratkaisijalla (RK) saadaan ratkaistua toisen kertaluokan diff. yht.
 
 4. Symplektisen loikkakeinon johto
-    - 
+    - selitä loikkakeinon toiminta ja rajoitukset
+    - johda menetelmä
+    - selitä symplektisyys
+    - näytä että loikkakeino on symplektinen
 
 5. Menetelmien vertailu jonkin hamiltonisen systeemin tapauksessa
-
+    - tarkkuus eri aika-askeleilla
+    - eri pituisilla ajan jaksoilla
 
 6. Loppupäätelmät
+    - symplektisyys on aika cool
 

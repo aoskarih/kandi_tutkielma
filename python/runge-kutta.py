@@ -122,24 +122,24 @@ def leapfrog(h, t, q0, p0, ddq):
 def main():
     
     def dq(t, q, p): return p
-    def dp(t, q, p): return -np.sin(q)
-    def ddq(t, q): return -np.sin(q)
+    def dp(t, q, p): return -q
+    def ddq(t, q): return -q
 
     anal_plot = ham_calculate(rk4, 7000, 0.001, 0, 0.0, 1.0, dq, dp)
     e_plot = ham_calculate(euler, 2000, 0.05, 0, 0.0, 1.0, dq, dp)
-    rk4_plot = ham_calculate(rk4, 1000, 0.01, 0, 0.0, 1.0, dq, dp)
-    lf_plot = lag_calculate(leapfrog, 1000, 0.01, 0, 0.0, 1.0, ddq)
+    rk4_plot = ham_calculate(rk4, 1000, 0.6, 0, 0.0, 1.0, dq, dp)
+    lf_plot = lag_calculate(leapfrog, 1000, 0.6, 0, 0.0, 1.0, ddq)
 
     ax1 = fig.add_subplot(121)
     ax2 = fig.add_subplot(122)
-    
+    """
     ax1.plot(lf_plot[0], lf_plot[1], "-", lw=2.5, label="Leapfrog")
     ax2.plot(rk4_plot[0], rk4_plot[1], "-", lw=2.5, label="Runge-Kutta", color="green")
     ax1.plot(anal_plot[0], anal_plot[1], "--", lw=3.5, label="Analyyttinen", color="red")
     ax2.plot(anal_plot[0], anal_plot[1], "--", lw=3.5, label="Analyyttinen", color="red")
-
-    #lc1 = colorline(lf_plot[0], lf_plot[1], cm="summer")
-    #ax1.add_collection(lc1)
+    """
+    lc1 = colorline(lf_plot[0], lf_plot[1], cm="summer")
+    ax1.add_collection(lc1)
 
     ax1.set_title("")
     ax1.set_xlabel("Paikka")
@@ -151,8 +151,8 @@ def main():
     
 
     
-    #lc2 = colorline(rk4_plot[0], rk4_plot[1], cm="summer")
-    #ax2.add_collection(lc2)
+    lc2 = colorline(rk4_plot[0], rk4_plot[1], cm="summer")
+    ax2.add_collection(lc2)
 
     ax2.set_title("")
     ax2.set_xlabel("Paikka")

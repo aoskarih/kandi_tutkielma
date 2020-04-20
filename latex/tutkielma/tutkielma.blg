@@ -2,47 +2,47 @@ This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: tutkielma.aux
 The style file: apalike.bst
-I found no \citation commands---while reading file tutkielma.aux
 Database file #1: bibliography.bib.bib
-You've used 0 entries,
+Warning--can't use both author and editor fields in arnold_1989
+You've used 3 entries,
             1935 wiz_defined-function locations,
-            471 strings with 3686 characters,
-and the built_in function-call counts, 17 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 0
-:= -- 7
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
-chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 1
+            486 strings with 3961 characters,
+and the built_in function-call counts, 874 in all, are:
+= -- 79
+> -- 32
+< -- 2
++ -- 10
+- -- 10
+* -- 62
+:= -- 168
+add.period$ -- 8
+call.type$ -- 3
+change.case$ -- 18
+chr.to.int$ -- 3
+cite$ -- 4
+duplicate$ -- 38
+empty$ -- 62
+format.name$ -- 13
+if$ -- 163
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 3
-num.names$ -- 0
-pop$ -- 0
+missing$ -- 4
+newline$ -- 17
+num.names$ -- 9
+pop$ -- 22
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 20
 quote$ -- 0
-skip$ -- 1
+skip$ -- 29
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
+substring$ -- 36
+swap$ -- 3
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
-warning$ -- 0
-while$ -- 0
+type$ -- 14
+warning$ -- 1
+while$ -- 6
 width$ -- 0
-write$ -- 2
-(There was 1 error message)
+write$ -- 36
+(There was 1 warning)

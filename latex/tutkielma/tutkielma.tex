@@ -10,11 +10,12 @@
 \usepackage{tikz} % For making vector graphics (hard to learn but powerful)
 %\usepackage{wrapfig} % For nice text-wrapping figures (use at own discretion)
 \usepackage{amsmath, amssymb} % For better math
-%\usepackage[square]{natbib} % For bibliography
+\usepackage[square]{natbib} % For bibliography
 \usepackage[footnotesize,bf]{caption} % For more control over figure captions
 \usepackage{blindtext}
 \usepackage{titlesec}
 \usepackage[titletoc]{appendix}
+
 
 \onehalfspacing %line spacing
 %\singlespacing
@@ -91,7 +92,7 @@ Kirjoita tiivistelmään lyhyt, enintään 250 sanan yhteenveto työstäsi: mitä olet 
 % Place ToC
 \mytableofcontents
 
-%\mynomenclature
+\mynomenclature
 
 % -----------------------------------------------------------------------------------
 % STEP 4: Write the thesis.
@@ -99,33 +100,171 @@ Kirjoita tiivistelmään lyhyt, enintään 250 sanan yhteenveto työstäsi: mitä olet 
 % to change the parameters. Removing the abstract and ToC commands will mess up stuff.
 \chapter{Johdanto}
 
+rakenne
 
-\chapter{Liikeyhtälöt ja Hamilton}
+* taustaa: numeerisia menetelmiä
 
-%Mitä tässä luvussa käsitellään?
-%Mikä on tämän luvun tarkoitus?
+* mitä työllä haetaan: Symplektisyys = cool
+
+* mitä ihmettä: selitetään hamilton + symplektisyys
+
+* miten näytetään: Verrataan 2 menetelmää, symp. ja ei symp.
 
 
-\section{Systeemi}
 
-Systeemi(t) joita työssä tarkastellaan ja analyyttiset ratkaisut.
+\chapter{Liikeyhtälöt}
+Jos halutaan ratkaista fysikaalisen systeemin kehitys, ensin tarvitaan yhtälöt kuvaavaamaan tätä kehitystä. Monesti järkevin tapa systeemin liikeyhtälöiden selvittämiseen on käyttää Hamiltonin mekaniikka. 
 
-\section{Hamilton}
+Hamiltonin mekaniikka voidaan johtaa Lagrangen mekaniikasta, joka uudelleen muotoili Newtonin mekaniikan variaatiolaskennan avulla. Muista tavoista poiketen Hamiltonin mekaniikalla liikeyhtälöiksi saadaan ensimmäisen asteen differentiaaliyhtälöitä, joka tekee numeerisesta laskennasta suoraviivaisempaa.
 
-Yhtälöt, joita ruvetaan ratkaisemaan.
+%Mistä saadaan differentiaaliyhtälöt joita yritetään ratkaista?
 
+\section{Lagrangen mekaniikka}
+Fysikaaliset systeemit useimmiten kehittyvät ajassa seuraten pienimmän vaikutuksen periaatetta\footnote{engl. Principle of least action}. Eli toisin sanoen systeemin, jolla on $N$ vapausastetta, kehitys saadaan funktionaalin
+\begin{align} \label{eq:funktionaali}
+S[\mathbf{q}(t)] = \int_{t_0}^{t_1} L(\mathbf{q}(t), \mathbf{\dot{q}}(t), t) \: dt
+\end{align}
+% Tarviiko selittää auki \dot{q} = aikaderivaatta?
+ääriarvona. Missä Lagrangen funktio $L$ on kineettisen- ja potentiaalienergian erotus, $\mathbf{q}$ on yleistetty $N$ ulotteinen koordinaattivektori ja $\mathbf{\dot{q}}$ vastaava nopeus. Koordinaattivektoreiden komponentteja tullaan merkitsemään alaindeksillä $i$.  
+
+Funktionaalista \ref{eq:funktionaali} voidaan edelleen johtaa Eulerin-Lagrangen yhtälöt
+\begin{align} \label{eq:eulerlag}
+\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_i}\right) - \frac{\partial L}{\partial q_i} = 0
+\end{align}
+joista saadaan $N$ toisen asteen differentiaaliyhtälöä systeemin kehitykselle. \citep{arnold_1989}
+
+\section{Hamiltonin mekaniikka}
+Lagrangen mekaniikan avulla saadaan $N$ toisen asteen differentiaaliyhtälöä. Hamiltonin mekaniikalla saman systeemin kehitys kuvataan ensimmäisen asteen differentiaaliyhtälöillä joita on $2N$ kappaletta.
+
+Legendre muuntamalla Lagrangen funktio $L(\mathbf{q}, \mathbf{\dot{q}}, t)$ muuttujien $\dot{q}_i$ suhteen saadaan Hamiltonin funktio
+\begin{align}
+H(q_i, p_i, t) = \sum_{i=1}^N p_i \dot{q}_i - L(q_i, \dot{q}_i, t)
+\end{align}
+josta voidaan eliminoida $\dot{q}_i$ yleistetyn liikemäärän
+\begin{align} \label{eq:liikemäärä}
+p_i = \frac{\partial L}{\partial \dot{q}_i}
+\end{align}
+avulla. Nyt tarkastelemalla Hamiltonin funktion kokonaisderivaattaa päädytään Hamiltonin yhtälöihin
+\begin{align} \label{eq:hamiltonin}
+\dot{p}_i =& -\frac{\partial H}{\partial q_i} \\
+\dot{q}_i =& \: \frac{\partial H}{\partial p_i}
+\end{align}
+jotka ovat systeemin liikeyhtälöt. Nämä yhtälöt ovat ekvivalentteja yhtälöiden \ref{eq:eulerlag} kanssa. \citep{tuominen_2017}
+
+Lisäksi jos systeemin kineettinen energia on tavallista muotoa $T = \frac{1}{2} \sum m_i \dot{q}_i^2$ ja potentiaalienergia $V = V(\mathbf{q})$, voidaan Hamiltonin funktio kirjoittaa muodossa
+\begin{align}
+H = T + V
+\end{align}
+joka on systeemin kokonaisenergia.\citep{arnold_1989}
+
+\section{Symplektisyys}
+%?????
+%Symplektisyys 101
+
+
+\section{Harmoninen oskillaattori}
+%Johda diffikset ja analyyttinen ratkaisu
+
+
+Harmonisen oskillaattorin Lagrangen funktio on
+\begin{align}
+L(q, \dot{q}) = \frac{1}{2} m \dot{q}^2 - \frac{1}{2} k q^2
+\end{align}
+mistä saadaan liikemäärä yhtälön \ref{eq:liikemäärä} avulla $p = m\dot{q}$. Nyt saadaan Hamiltonin funktio käyttämällä yhtälöä \ref{eq:hamiltonin}
+\begin{align}
+H(q, p) = \frac{p^2}{2m} + \frac{1}{2} k q^2
+\end{align}
+Hamiltonin funktiosta pystytään nyt ratkaisemaan liikeyhtälöt
+\begin{align} \label{eq:harmliike}
+\dot{p} =& -k q \\
+\dot{q} =& \: \frac{p}{m}
+\end{align}
+joilla voidaan kuvata systeemin kehitys. Vaihtoehtoisesti Lagrangen funktiosta voidaan johtaa suoraan toisen asteen differentiaaliyhtälö
+\begin{align} \label{eq:harmtoinen}
+\ddot{q} = -\frac{k}{m} q
+\end{align}
+jonka ratkaisu on yleisesti tunnettu.
+\begin{align} \label{eq:harmanal}
+q(t) = \:A \cos(\sqrt{\frac{k}{m}} t + \phi)
+\end{align}
+missä $A$ ja $\phi$ riippuvat systeemin alkuarvoista.
 
 \chapter{Runge-Kutta}
 
-\section{Johto}
+RK johdantoa
 
-Runge-Kuttan johto.
+Ensimmäisenä menetelmänä käytetään neljännen asteen Runge-Kutta menetelmää. 
+
+
+\section{Menetelmän toiminta/johto}
+
+Runge-Kutta menetelmällä voidaan ratkaista ensimmäisen asteen differentiaaliyhtälöitä. Eli yhtälöitä, jotka ovat muotoa
+\begin{align} \label{eq:rkalkudiff}
+\frac{d y(t)}{dt} = f(t, y)
+\end{align}
+missä $y(t)$ on funktio, joka yritetään ratkaista ja $f(t, y)$ on mielivaltainen tiedetty funktio. Lisäksi tarvitaan alkuarvo $y(t_0) = y_0$, jotta ratkaiseminen voidaan aloittaa.
+
+Integroimalla yhtälöä \ref{eq:rkalkudiff} puolittain yhden aika-askeleen $h$ matkan verran ja merkitsemällä $y_1 \equiv y(t_0 + h)$ saadaan
+\begin{align}
+y_1 = y_0 + \int_{t_0}^{t_0 + h} f(t, y) dt
+\end{align}
+ja tästä voidaan approksimoida puolisuunnikassäännöllä
+\begin{align} \label{eq:y1ongelma}
+y_1 = y_0 + \frac{h}{2} \: [f(t_0, \: y_0) + f(t_0 + h, \: y_1)]
+\end{align}
+Nyt huomataan ongelma. Arvo $y_1$, joka halutaan ratkaista, on yhtälössä molemmilla puolilla. Ongelmasta pästään eroon korvaamalla $y_1$ yhtälön oikealla puolella arviolla $y_1 \approx y_0 + h f(t_0, y_0)$.
+Sijoitetaan arvio yhtälöön \ref{eq:y1ongelma}, jolloin saadaan 
+\begin{align} \label{eq:y1open}
+y_1 = y_0 + \frac{h}{2} \: [ f(t_0, \: y_0) + f(t_0 + h, \: y_0 + h f(t_0, y_0)) ]
+\end{align}
+Nyt voidaan huomata, että $k_1 = f(t_0, y_0)$ ja $k_2 = f(t_0 + h, y_0 + h k_1)$ ovat kulmakertoimia ja kun kirjoitetaan \ref{eq:y1open} uudestaan niiden avulla saadaan
+\begin{align}
+y_1 = y_0 + \frac{h}{2} k_1 + \frac{h}{2} k_2
+\end{align}
+Eli seuraavan aika-askeleen arvo saadaan ottamalla edellisen askeleen arvo ja sen jälkeen seuraamalla ensimmäistä kulmakerrointa aika-askeleen puoleenväliin, minkä jälkeen seurataan toista kulmakerrointa askeleen loppuun. Tämän menetelmän ero pelkkään aika-askeleen puolittamiseen tulee siitä, että toisen kulmakertoimen laskemisessa on käytetty avuksi ensimmäistä kulmakerrointa.
+
+% kuva
+
+Kahden kulmakertoimen sijasta menetelmä voidaan yleistää useammalle kulmakertoimelle joilla jokaisella on oma painotuksensa. Eli seuraavan askeleen arvo $n$:llä kulmakertoimella saadaan summalla
+\begin{align} \label{eq:rkyleinen}
+y_1 = y_0 + h \sum_{i = 1}^n b_i k_i
+\end{align}
+missä $b_i$ ovat tiedettyjä kertoimia. Kahden kulmakertoimen esimerkissä jälkimmäisen kulmakertoimen laskemisessa käytettiin apuna ensimmäistä. Nyt otetaan huomioon kaikki edeltävät kulmakertoimet, jolloin kulmakertoimet saadaan kaavalla
+\begin{align}
+k_i = f(t_0 + h c_i\, , \: y_0 + h \sum_{j = 1}^{i-1} a_{i j}\, k_j)
+\end{align}
+missä $c_i$ ja $a_{ij}$ ovat tiedettyjä kertoimia, jotka yhdessä kaavan \ref{eq:rkyleinen} kertoimien $b_i$ kanssa määrittelevät eri Runge-Kutta menetelmät. 
+
+Näin määritellyt menetelmät ovat eksplisiittisiä. Menetelmä voi olla myös implisiittinen, jolloin kulmakertoimet voivat riippua kaikista aika-askeleen muista kulmakertoimista, eivät vain edeltävistä. Molemmassa tapauksessa kertoimet esitetään yleensä kuten taulukossa \ref{ta:butcheresim}. Eksplisiittisessä tapauksessa kertoimet $a_{ij}$, joissa $i \leq j$ ovat nollia ja monesti jätetään siksi taulukossa tyhjiksi. 
+
+\begin{table}[!h]
+	\centering
+	\begin{tabular}{c | c c c c} 
+		$c_1$	& $a_{11}$ & $a_{12}$ & $\dots$ & $a_{1n}$ \\
+		$c_2$	& $a_{21}$ & $a_{22}$ & $\dots$ & $a_{2n}$ \\
+		$\vdots$& $\vdots$ & $\vdots$ & 	 	 & $\vdots$ \\
+		$c_n$	& $a_{n1}$ & $a_{n2}$ & $\dots$ & $a_{nn}$ \\ \hline
+		 		& $b_1$	   & $b_2$    & $\dots$ & $b_n$    \\
+	\end{tabular}
+	\caption{Butcher taulukko Runge-Kutta menetelmien kertoimille}
+	\label{ta:butcheresim}
+\end{table}
+
+% kertoimien rajoitukset
+
+\citep{hairer_2006}
+\cite{hairer_2006}
+
 
 \section{Toteutus}
 
-Menetelmän toteutus.
+Vertailussa käytetään neljännen asteen Runge-Kutta menetelmää, jonka 
+
+
 
 \chapter{Loikkakeino}
+
+Loikkakeino johdantoa
 
 \section{Johto}
 
@@ -134,6 +273,10 @@ Loikkakeinon johto.
 \section{Toteutus}
 
 Menetelmän toteutus.
+
+
+
+
 
 \chapter{Vertailu}
 

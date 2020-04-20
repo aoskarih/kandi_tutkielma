@@ -1,3 +1,17 @@
 \begin{thebibliography}{}
 
+\bibitem[Arnold, 1989]{arnold_1989}
+Arnold, V.~I. (1989).
+\newblock {\em Mathematical Methods of Classical Mechanics}.
+\newblock Springer.
+
+\bibitem[Hairer et~al., 2006]{hairer_2006}
+Hairer, E., Lubich, C., and Wanner, G. (2006).
+\newblock {\em Geometric Numerical Integration}.
+\newblock Springer.
+
+\bibitem[Tuominen, 2017]{tuominen_2017}
+Tuominen, K. (2017).
+\newblock Analytical mechanics.
+
 \end{thebibliography}
