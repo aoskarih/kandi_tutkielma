@@ -4,14 +4,16 @@
 \contentsline {section}{\numberline {2.1}Lagrangen mekaniikka}{3}{section.2.1}
 \contentsline {section}{\numberline {2.2}Hamiltonin mekaniikka}{3}{section.2.2}
 \contentsline {section}{\numberline {2.3}Symplektisyys}{4}{section.2.3}
-\contentsline {section}{\numberline {2.4}Harmoninen oskillaattori}{4}{section.2.4}
+\contentsline {section}{\numberline {2.4}Harmoninen oskillaattori}{5}{section.2.4}
 \contentsline {chapter}{\numberline {3}Runge-Kutta}{7}{chapter.3}
 \contentsline {section}{\numberline {3.1}Menetelm\"an toiminta/johto}{7}{section.3.1}
 \contentsline {section}{\numberline {3.2}Toteutus}{8}{section.3.2}
-\contentsline {chapter}{\numberline {4}Loikkakeino}{9}{chapter.4}
-\contentsline {section}{\numberline {4.1}Johto}{9}{section.4.1}
-\contentsline {section}{\numberline {4.2}Toteutus}{9}{section.4.2}
-\contentsline {chapter}{\numberline {5}Vertailu}{11}{chapter.5}
-\contentsline {chapter}{\numberline {6}P\"a\"atelm\"at}{13}{chapter.6}
-\contentsline {chapter}{\numberline {7}Liitteet}{15}{chapter.7}
-\contentsline {chapter}{Kirjallisuutta}{17}{section*.3}
+\contentsline {chapter}{\numberline {4}Loikkakeino}{11}{chapter.4}
+\contentsline {section}{\numberline {4.1}Johto}{11}{section.4.1}
+\contentsline {section}{\numberline {4.2}Toteutus}{11}{section.4.2}
+\contentsline {chapter}{\numberline {5}Vertailu}{13}{chapter.5}
+\contentsline {chapter}{\numberline {6}P\"a\"atelm\"at}{15}{chapter.6}
+\contentsline {chapter}{Liitteet}{17}{appendix*.5}
+\contentsline {section}{\numberline {A}Runge-Kutta menetelm\"an koodi}{17}{section.Alph0.1}
+\contentsline {section}{\numberline {B}Loikkakeino menetelm\"an koodi}{17}{section.Alph0.2}
+\contentsline {chapter}{Kirjallisuutta}{19}{section*.6}

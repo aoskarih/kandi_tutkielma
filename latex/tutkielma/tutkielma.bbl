@@ -10,6 +10,17 @@ Hairer, E., Lubich, C., and Wanner, G. (2006).
 \newblock {\em Geometric Numerical Integration}.
 \newblock Springer.
 
+\bibitem[Hairer et~al., 1993]{hairer_1993}
+Hairer, E., Norsett, S.~P., and Wanner, G. (1993).
+\newblock {\em Solving Ordinary Differential Equations I: Nonstiff Problems}.
+\newblock Springer.
+
+\bibitem[Nolte, 2015]{nolte_2015}
+Nolte, D.~D. (2015).
+\newblock {\em Introduction to Modern Dynamics: Chaos, Networks, Space and
+  Time}.
+\newblock Oxford University Press.
+
 \bibitem[Tuominen, 2017]{tuominen_2017}
 Tuominen, K. (2017).
 \newblock Analytical mechanics.

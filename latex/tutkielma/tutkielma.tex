@@ -15,6 +15,8 @@
 \usepackage{blindtext}
 \usepackage{titlesec}
 \usepackage[titletoc]{appendix}
+\usepackage[symbol]{footmisc}
+\usepackage{float}
 
 
 \onehalfspacing %line spacing
@@ -23,6 +25,8 @@
 
 %\fussy 
 \sloppy % sloppy and fussy commands can be used to avoid overlong text lines
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
 
 % STEP 2:
 % Set up all the information for the title page and the abstract form.
@@ -42,7 +46,7 @@
 \address{PL 64 (Gustaf Hällströmin katu 2a)\\00014 Helsingin yliopisto}
 \prof{Pauli Pihajoki}
 \censors{arvostelija Testi}{arvostelija Arvostelija}{}
-\keywords{\LaTeX}
+\keywords{}
 \depositeplace{}
 \additionalinformation{}
 \classification{}
@@ -115,7 +119,7 @@ rakenne
 \chapter{Liikeyhtälöt}
 Jos halutaan ratkaista fysikaalisen systeemin kehitys, ensin tarvitaan yhtälöt kuvaavaamaan tätä kehitystä. Monesti järkevin tapa systeemin liikeyhtälöiden selvittämiseen on käyttää Hamiltonin mekaniikka. 
 
-Hamiltonin mekaniikka voidaan johtaa Lagrangen mekaniikasta, joka uudelleen muotoili Newtonin mekaniikan variaatiolaskennan avulla. Muista tavoista poiketen Hamiltonin mekaniikalla liikeyhtälöiksi saadaan ensimmäisen asteen differentiaaliyhtälöitä, joka tekee numeerisesta laskennasta suoraviivaisempaa.
+Hamiltonin mekaniikka voidaan johtaa Lagrangen mekaniikasta, joka puolestaan uudelleen muotoili Newtonin mekaniikan variaatiolaskennan avulla. Muista tavoista poiketen Hamiltonin mekaniikalla liikeyhtälöiksi saadaan ensimmäisen asteen differentiaaliyhtälöitä, joka tekee numeerisesta laskennasta suoraviivaisempaa.
 
 %Mistä saadaan differentiaaliyhtälöt joita yritetään ratkaista?
 
@@ -145,13 +149,15 @@ josta voidaan eliminoida $\dot{q}_i$ yleistetyn liikemäärän
 p_i = \frac{\partial L}{\partial \dot{q}_i}
 \end{align}
 avulla. Nyt tarkastelemalla Hamiltonin funktion kokonaisderivaattaa päädytään Hamiltonin yhtälöihin
-\begin{align} \label{eq:hamiltonin}
-\dot{p}_i =& -\frac{\partial H}{\partial q_i} \\
-\dot{q}_i =& \: \frac{\partial H}{\partial p_i}
+\begin{align} 
+\dot{p}_i =& -\frac{\partial H}{\partial q_i} \label{eq:hamiltoninp} \\
+\dot{q}_i =& \: \frac{\partial H}{\partial p_i} \label{eq:hamiltoninq}
 \end{align}
 jotka ovat systeemin liikeyhtälöt. Nämä yhtälöt ovat ekvivalentteja yhtälöiden \ref{eq:eulerlag} kanssa. \citep{tuominen_2017}
 
-Lisäksi jos systeemin kineettinen energia on tavallista muotoa $T = \frac{1}{2} \sum m_i \dot{q}_i^2$ ja potentiaalienergia $V = V(\mathbf{q})$, voidaan Hamiltonin funktio kirjoittaa muodossa
+Hamiltonin mekaniikassa kuvataan siis systeemin tila vektoreiden $\mathbf{q}$ ja $\mathbf{p}$ avulla. Voidaan myös miettiä, että systeemin tila on piste paikka ja liikemäärä koordinaattien määrittelemässä $2N$ ulotteisessa avaruudessa. Tätä avaruutta kutsutaan faasiavaruudeksi. \citep{nolte_2015}
+
+Lisäksi jos systeemin kineettinen energia on tavallista muotoa $T = \frac{1}{2} \sum_i m_i \dot{q}_i^2$ ja potentiaalienergia $V = V(\mathbf{q})$, voidaan Hamiltonin funktio kirjoittaa muodossa
 \begin{align}
 H = T + V
 \end{align}
@@ -160,6 +166,22 @@ joka on systeemin kokonaisenergia.\citep{arnold_1989}
 \section{Symplektisyys}
 %?????
 %Symplektisyys 101
+Suuri etu Lagrangen mekaniikassa verrattuna Newtonin mekaniikkaan on kyky vaihtaa koordinaattisysteemiä vapaammin. Myös Hamiltonin mekaniikassa koordinaattisysteemin vaihtaminen onnistuu, mutta sillä on tiukemmat rajoitukset. 
+
+Ensin helpottaa, jos määritellään Hamiltonin yhtälöt \ref{eq:hamiltoninp} ja \ref{eq:hamiltoninq} uudelleen vektorin $x = (q_1, \,\dots, \,q_n, \,p_1, \,\dots, \,p_n)$ ja $2n \times 2n$ matriisin 
+\begin{align}
+J = 
+\begin{pmatrix}
+0 & I \\
+-I & 0
+\end{pmatrix}
+\end{align}
+avulla. Matriisin komponentti $I$ on $n \times n$ identiteetti matriisi. Nyt Hamiltonin yhtälöt saavat muodon
+\begin{align}
+\dot{x} = J \frac{\partial H}{\partial x}
+\end{align}
+
+
 
 
 \section{Harmoninen oskillaattori}
@@ -168,28 +190,29 @@ joka on systeemin kokonaisenergia.\citep{arnold_1989}
 
 Harmonisen oskillaattorin Lagrangen funktio on
 \begin{align}
-L(q, \dot{q}) = \frac{1}{2} m \dot{q}^2 - \frac{1}{2} k q^2
+L(q, \dot{q}) = \frac{1}{2} m \dot{q}^2 - \frac{1}{2} m \omega^2 q^2
 \end{align}
-mistä saadaan liikemäärä yhtälön \ref{eq:liikemäärä} avulla $p = m\dot{q}$. Nyt saadaan Hamiltonin funktio käyttämällä yhtälöä \ref{eq:hamiltonin}
+missä $m$ ja $\omega$ ovat vakioita. Liikemäärä voidaan laskea yhtälön \ref{eq:liikemäärä} avulla, jolloin saadaan $p = m\dot{q}$. Sitten liikemäärää käyttämällä voidaan kirjoitaa systeemin Hamiltonin funktio.
 \begin{align}
-H(q, p) = \frac{p^2}{2m} + \frac{1}{2} k q^2
+H(q, p) = \frac{p^2}{2m} + \frac{1}{2} m \omega^2 q^2
 \end{align}
 Hamiltonin funktiosta pystytään nyt ratkaisemaan liikeyhtälöt
-\begin{align} \label{eq:harmliike}
-\dot{p} =& -k q \\
+\begin{align} \label{eq:harmliike1}
+\dot{p} =& -m \omega^2 q \\
+\label{eq:harmliike2}
 \dot{q} =& \: \frac{p}{m}
 \end{align}
 joilla voidaan kuvata systeemin kehitys. Vaihtoehtoisesti Lagrangen funktiosta voidaan johtaa suoraan toisen asteen differentiaaliyhtälö
 \begin{align} \label{eq:harmtoinen}
-\ddot{q} = -\frac{k}{m} q
+\ddot{q} = -\omega^2 q
 \end{align}
 jonka ratkaisu on yleisesti tunnettu.
 \begin{align} \label{eq:harmanal}
-q(t) = \:A \cos(\sqrt{\frac{k}{m}} t + \phi)
+q(t) = \:A \, \sin(\omega t + \phi)
 \end{align}
 missä $A$ ja $\phi$ riippuvat systeemin alkuarvoista.
 
-\chapter{Runge-Kutta}
+\chapter{Runge-Kutta} \label{ch:rk}
 
 RK johdantoa
 
@@ -230,7 +253,7 @@ Kahden kulmakertoimen sijasta menetelmä voidaan yleistää useammalle kulmakertoim
 y_1 = y_0 + h \sum_{i = 1}^n b_i k_i
 \end{align}
 missä $b_i$ ovat tiedettyjä kertoimia. Kahden kulmakertoimen esimerkissä jälkimmäisen kulmakertoimen laskemisessa käytettiin apuna ensimmäistä. Nyt otetaan huomioon kaikki edeltävät kulmakertoimet, jolloin kulmakertoimet saadaan kaavalla
-\begin{align}
+\begin{align} \label{eq:kulmaki}
 k_i = f(t_0 + h c_i\, , \: y_0 + h \sum_{j = 1}^{i-1} a_{i j}\, k_j)
 \end{align}
 missä $c_i$ ja $a_{ij}$ ovat tiedettyjä kertoimia, jotka yhdessä kaavan \ref{eq:rkyleinen} kertoimien $b_i$ kanssa määrittelevät eri Runge-Kutta menetelmät. 
@@ -239,6 +262,7 @@ Näin määritellyt menetelmät ovat eksplisiittisiä. Menetelmä voi olla myös implis
 
 \begin{table}[!h]
 	\centering
+	\caption{Butcher taulukko Runge-Kutta menetelmien kertoimille}
 	\begin{tabular}{c | c c c c} 
 		$c_1$	& $a_{11}$ & $a_{12}$ & $\dots$ & $a_{1n}$ \\
 		$c_2$	& $a_{21}$ & $a_{22}$ & $\dots$ & $a_{2n}$ \\
@@ -246,7 +270,6 @@ Näin määritellyt menetelmät ovat eksplisiittisiä. Menetelmä voi olla myös implis
 		$c_n$	& $a_{n1}$ & $a_{n2}$ & $\dots$ & $a_{nn}$ \\ \hline
 		 		& $b_1$	   & $b_2$    & $\dots$ & $b_n$    \\
 	\end{tabular}
-	\caption{Butcher taulukko Runge-Kutta menetelmien kertoimille}
 	\label{ta:butcheresim}
 \end{table}
 
@@ -258,17 +281,58 @@ Näin määritellyt menetelmät ovat eksplisiittisiä. Menetelmä voi olla myös implis
 
 \section{Toteutus}
 
-Vertailussa käytetään neljännen asteen Runge-Kutta menetelmää, jonka 
+Vertailussa käytetään neljännen asteen Runge-Kutta menetelmää, joka tunnetaan nimellä Runge-Kutta menetelmä\footnote[2]{engl. The Runge-Kutta method tai classic Runge-Kutta method}. Wilhelm Kutta esitteli menetelmän 1901, minkä jälkeen se on ollut laajassa käytössä. Taulukossa \ref{ta:rk4butcher} on menetelmän kertoimet. \citep{hairer_1993}
 
+\begin{table}[!h]
+	\centering
+	\caption{Butcher taulukko Runge-Kutta menetelmän kertoimille}	
+	\begin{tabular}{c | c c c c} 
+		$0$		&  		&  		&  		&  		\\
+		$1/2$	& $1/2$ &  		&  		&  		\\
+		$1/2$ 	& $0$ 	& $1/2$ & 	 	&  		\\
+		$1$ 	& $0$ 	& $0$ 	& $1$ 	&  		\\ \hline
+		 		& $1/6$	& $2/6$ & $2/6$ & $1/6$ \\
+	\end{tabular}
+	\label{ta:rk4butcher}
+\end{table}
 
+Systeemi, joka halutaan ratkaista koostuu nyt yhtälöistä \ref{eq:harmliike1} ja \ref{eq:harmliike2}. Eli yhtälöt eivät ole muotoa $\dot{y} = f(t, y)$, jolle menetelmä johdettiin. Sen sijaan systeemissä on kaksi yhtälöä, jotka riippuvat toisistaan. 
+\begin{align}
+\dot{p} = f(q) \\
+\dot{q} = g(p)
+\end{align}
+Menetelmää voidaan silti käyttää. Ensin lasketaan ensimmäiset kulmakertoimet.
+\begin{align}
+k_{p,1} = \: f(q_0) = -l q_0 \:,\quad k_{q,1} = \: g(p_0) = \frac{1}{m} p_0
+\end{align}
+Toisia kulmakertoimia laskiessa käytetään ensimmäisessä vaiheessa saatuja kulmakermia niin kuin yhtälössä \ref{eq:kulmaki} määritelläänkin. Nyt vain täytyy käyttää sitä kulmakerrointa, josta funktio riippuu. Eli liikemäärän kulmakertoimia laskiessa käytetään paikan kulmakertoimia ja päinvastoin. Näin saadaan loput kolme paria kulmakertoimia.
+\begin{align}
+k_{p,2} = \: -l(q_0 + \frac{h}{2} k_{q,1}) \:,&\quad k_{q,2} = \: \frac{1}{m}(p_0 + \frac{h}{2} k_{p,1}) \\
+k_{p,3} = \: -l(q_0 + \frac{h}{2} k_{q,2}) \:,&\quad k_{q,3} = \: \frac{1}{m}(p_0 + \frac{h}{2} k_{p,2}) \\
+k_{p,4} = \: -l(q_0 + h k_{q,3}) \:,&\quad k_{q,4} = \: \frac{1}{m}(p_0 + h k_{p,3})
+\end{align}
+Sitten voidaan laskea seuraavan askeleen arvo käyttäen saatuja kulmakertoimia.
+\begin{align}
+p_1 = p_0 + \frac{h}{6}( k_{p,1} + 2 k_{p,2} + 2 k_{p,3} + k_{p,4}) \\
+q_1 = q_0 + \frac{h}{6}( k_{q,1} + 2 k_{q,2} + 2 k_{q,3} + k_{q,4}) 
+\end{align}
+Vertailua varten tehtiin Python koodi, joka käyttää yllä mainittua menetelmää. Koodi on liitteessä \ref{ap:rk4}.
 
-\chapter{Loikkakeino}
+% kirjoita laskennan välivaiheet
+% koodi liitteenä
+
+\chapter{Loikkakeino} \label{ch:lf}
 
 Loikkakeino johdantoa
 
 \section{Johto}
 
 Loikkakeinon johto.
+
+- rajoitukset
+
+- symplektisyys
+
 
 \section{Toteutus}
 
@@ -279,8 +343,41 @@ Menetelmän toteutus.
 
 
 \chapter{Vertailu}
+%%%
+%Vertaillaan Runge-Kuttaa, loikkakeinoa ja analyyttistä ratkaisua.
+%- Virheen arviointi menetelmä
+%- Alkuarvot + vakiot
+%- Vertailu lyhyellä ajanjaksolla
+%- Vertailu pitkällä ajanjaksolla
+%- Aika-askeleen pituuden vaikutus
+%- Menetelmien laskennallisen raskauden vertailu lyhyesti
+%%%
+ 
 
-Vertaillaan Runge-Kuttaa, loikkakeinoa ja analyyttistä ratkaisua.
+Aiemmin luvuissa \ref{ch:rk} ja \ref{ch:lf} käytiin läpi loikkakeino -ja Runge-Kutta menetelmien toimintaperiaatteet ja toteutukset. Nyt menetelmät laitetaan käytäntöön ja niillä saatuja tuloksia vertaillaan.
+
+Jotta menetelmiä voitaisiin käyttää, täytyy vielä tietää systeemin alkuarvot ja vakioiden suuruudet. Koska tarkoituksena on vain vertailla menetelmiä, voidaan alkuarvoiksi valita
+\begin{align}
+p_0 = 1.0 \:,& \quad q_0 = 0.0
+\end{align}
+Kun valitaan vielä vakioiksi $\omega = 1$ ja $m = 1$ saadaan analyyttiselle ratkaisulle \ref{eq:harmanal} arvot
+\begin{align}
+A = 1.0 \:,& \quad \phi = 0.0
+\end{align}
+Näiden valintojen vuoksi saaduilla tuloksilla ei ole yksiköitä ja analyyttinen ratkaisu on käyrä, joka seuraa yksikköympyrää. 
+
+
+
+\begin{figure}[!h]
+	\label{fi:ps_kuvat}
+	\centering
+	\includegraphics[width=\textwidth]{phase_space.png}
+	\caption{Harmonisen oskillaattorin ensimmäinen värähdys kuvattuna faasiavaruudessa. Numeerisilla menetelmillä laskettiin seitsemän ensimmäistä askelta aika-askeleella $0.9$.}
+\end{figure}
+
+asiaa
+
+
 
 
 \chapter{Päätelmät}
@@ -288,9 +385,18 @@ Vertaillaan Runge-Kuttaa, loikkakeinoa ja analyyttistä ratkaisua.
 Mitä johtopäätöksiä voidaan tehdä tuloksista ja vertailusta.
 
 
-\chapter{Liitteet}
-Liitteissä voi esitellä esimerkiksi työssä käytettyjä tietokonekoodeja:
+\appendix
+\chapter*{Liitteet}
+\addcontentsline{toc}{chapter}{Liitteet}
+\renewcommand{\thesection}{\Alph{section}}
 
+\section{Runge-Kutta menetelmän koodi} \label{ap:rk4}
+
+koodia
+
+\section{Loikkakeino menetelmän koodi} \label{ap:lf}
+
+lisää koodia
 
 % STEP 5:
 % Uncomment the following lines and set your .bib file and desired bibliography style

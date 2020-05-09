@@ -4,9 +4,18 @@ import matplotlib.collections as mcoll
 import matplotlib.path as mpath
 import mpl_toolkits.mplot3d.art3d as mpl3d
 
-fig = plt.figure(figsize=(16, 9), edgecolor='w')
+fig = plt.figure(figsize=(18, 9), edgecolor='w')
+fig2 = plt.figure(figsize=(16, 9), edgecolor='w')
+fig3 = plt.figure(figsize=(16, 9), edgecolor='w')
+#fig4 = plt.figure(figsize=(16, 9), edgecolor='w')
+
+
 plt.rcParams['axes.grid'] = True
-plt.rcParams['font.size'] = 26
+plt.rcParams['font.size'] = 20
+
+
+xlim = 1.2
+ylim = 1.2
 
 
 def rk4(h, t, q0, p0, dq, dp):
@@ -62,6 +71,14 @@ def euler(h, t, q0, p0, dq, dp):
 
     return [q1, p1]
 
+def leapfrog(h, t, q0, p0, ddq):
+    
+    p12 = p0 + ddq(t, q0)*h*0.5
+    q1 = q0 + p12*h
+    p1 = p12 + ddq(t, q1)*h*0.5
+    
+    return [q1, p1]
+
 
 def ham_calculate(method, steps, h, t0, q0, p0, dq, dp):
     
@@ -110,57 +127,117 @@ def lag_calculate(method, steps, h, t0, q0, p0, ddq):
 
     return q, p
 
-
-def leapfrog(h, t, q0, p0, ddq):
-    
-    p12 = p0 + ddq(t, q0)*h*0.5
-    q1 = q0 + p12*h
-    p1 = p12 + ddq(t, q1)*h*0.5
-    
-    return [q1, p1]
-
 def main():
     
+    h = 0.9
+    steps = 1700
+
     def dq(t, q, p): return p
     def dp(t, q, p): return -q
     def ddq(t, q): return -q
 
-    anal_plot = ham_calculate(rk4, 7000, 0.001, 0, 0.0, 1.0, dq, dp)
+    def analq(t): return np.sin(t)
+    def analp(t): return np.cos(t)
+
+    time = [i*h for i in range(steps)]
+
+
+    anal_inf = ([analq(t) for t in np.arange(0.0, 6.29, 0.0001)], [analp(t) for t in np.arange(0.0, 6.29, 0.0001)])
+    anal_plot = ([analq(t) for t in time], [analp(t) for t in time])
     e_plot = ham_calculate(euler, 2000, 0.05, 0, 0.0, 1.0, dq, dp)
-    rk4_plot = ham_calculate(rk4, 1000, 0.6, 0, 0.0, 1.0, dq, dp)
-    lf_plot = lag_calculate(leapfrog, 1000, 0.6, 0, 0.0, 1.0, ddq)
+    
+    rk4_plot = ham_calculate(rk4, steps, h, 0, 0.0, 1.0, dq, dp)
+    lf_plot = lag_calculate(leapfrog, steps, h, 0, 1.0, 0.0, ddq)
+
+    #ax21 = fig2.add_subplot(121)
+    ax22 = fig2.add_subplot(111)
+
+    ax3 = fig3.add_subplot(121)
+
+    ax4 = fig3.add_subplot(122)
+
+    #error_lf = [abs(anal_plot[0][i] - lf_plot[0][i]) for i in range(steps)]
+    #error_rk4 = [abs(anal_plot[0][i] - rk4_plot[0][i]) for i in range(steps)]
+
+    errorps_lf = [np.sqrt((anal_plot[0][i] - lf_plot[0][i])**2 + (anal_plot[1][i] - lf_plot[1][i])**2) for i in range(steps)]
+    errorps_rk4 = [np.sqrt((anal_plot[0][i] - rk4_plot[0][i])**2 + (anal_plot[1][i] - rk4_plot[1][i])**2) for i in range(steps)]
+    
+    errornt_lf = [abs(np.sqrt(lf_plot[0][i]**2 + lf_plot[1][i]**2) - 1) for i in range(steps)]
+    errornt_rk4 = [abs(np.sqrt(rk4_plot[0][i]**2 + rk4_plot[1][i]**2) - 1) for i in range(steps)]
+
+    tote_lf = [lf_plot[1][i]**2/2 + lf_plot[0][i]**2/2 for i in range(steps)]
+    tote_rk4 = [rk4_plot[1][i]**2/2 + rk4_plot[0][i]**2/2 for i in range(steps)]
+    tote_anal = [anal_plot[1][i]**2/2 + anal_plot[0][i]**2/2 for i in range(steps)]
+
+    #ax21.plot(time, error_lf, "-", label="Loikkakeino virhe")
+    #ax21.plot(time, error_rk4, "-", label="Runge-Kutta virhe")
+    
+    ax22.plot(time, errorps_lf, "-", color="black", label="Loikkakeino")
+    ax22.plot(time, errorps_rk4, "--", color="black", lw=2.0, label="Runge-Kutta")
+
+    ax3.plot(time, errornt_lf, "-", color="black", label="Loikkakeino")
+    ax3.plot(time, errornt_rk4, "--", color="black", lw=2.0, label="Runge-Kutta")
+
+    ax4.plot(time, tote_lf, "-", color="black", label="Loikkakeino")
+    ax4.plot(time, tote_rk4, "--", color="black", lw=2.0, label="Runge-Kutta")
+    ax4.plot(time, tote_anal, "-.", color="black", lw=2.0, label="Analyyttinen")
+
+
+
+    err_lim = 2.5
+    #ax21.set_ylim(0, err_lim)
+    ax22.set_ylim(0, err_lim)
+    ax22.set_xlim(0, (steps-1)*h)
+    ax22.set_ylabel("Virhe", fontsize=22)
+    ax22.set_xlabel("Aika", fontsize=22)
+
+    ax3.set_xlim(0, (steps-1)*h)
+    ax3.set_ylabel("Virhe", fontsize=22)
+    ax3.set_xlabel("Aika", fontsize=22)
+
+    ax4.set_xlim(0, (steps-1)*h)
+    ax4.set_ylabel("Kokonais energia", fontsize=22)
+    ax4.set_xlabel("Aika", fontsize=22)
+
+    ax3.legend(fontsize="small")
+    ax4.legend(fontsize="small")
+
+    #ax21.legend(fontsize="small")
+    ax22.legend(fontsize="small")
 
     ax1 = fig.add_subplot(121)
     ax2 = fig.add_subplot(122)
-    """
-    ax1.plot(lf_plot[0], lf_plot[1], "-", lw=2.5, label="Leapfrog")
-    ax2.plot(rk4_plot[0], rk4_plot[1], "-", lw=2.5, label="Runge-Kutta", color="green")
-    ax1.plot(anal_plot[0], anal_plot[1], "--", lw=3.5, label="Analyyttinen", color="red")
-    ax2.plot(anal_plot[0], anal_plot[1], "--", lw=3.5, label="Analyyttinen", color="red")
-    """
-    lc1 = colorline(lf_plot[0], lf_plot[1], cm="summer")
-    ax1.add_collection(lc1)
+    
+    ax1.plot(lf_plot[0], lf_plot[1], "+", ms=10.0, mew=3, label="Loikkakeino", color="black")
+    ax2.plot(rk4_plot[0], rk4_plot[1], "+", ms=10.0, mew=3, label="Runge-Kutta", color="black")
+    #ax1.plot(anal_plot[0], anal_plot[1], "x", ms=10.0, mew=3, label="Analyyttinen", color="black")
+    #ax2.plot(anal_plot[0], anal_plot[1], "x", ms=10.0, mew=3, label="Analyyttinen", color="black")
+    ax1.plot(anal_inf[0], anal_inf[1], "-", lw=1, label="Analyyttinen", color="black")
+    ax2.plot(anal_inf[0], anal_inf[1], "-", lw=1, label="Analyyttinen", color="black")
+    
+#    lc1 = colorline(lf_plot[0], lf_plot[1], cm="summer")
+#    ax1.add_collection(lc1)
 
     ax1.set_title("")
-    ax1.set_xlabel("Paikka")
-    ax1.set_ylabel("Liikemäärä")
-    ax1.set_xlim(-1.5, 1.5)
-    ax1.set_ylim(-1.5, 1.5)
-    ax1.set_xticklabels([])
-    ax1.set_yticklabels([])
+    ax1.set_xlabel("Paikka", fontsize=22)
+    ax1.set_ylabel("Liikemäärä", fontsize=22)
+    ax1.set_xlim(-xlim, xlim)
+    ax1.set_ylim(-ylim, ylim)
+#    ax1.set_xticklabels([-1,0,1])
+#    ax1.set_yticklabels([-1,0,1])
     
 
     
-    lc2 = colorline(rk4_plot[0], rk4_plot[1], cm="summer")
-    ax2.add_collection(lc2)
+#    lc2 = colorline(rk4_plot[0], rk4_plot[1], cm="summer")
+#    ax2.add_collection(lc2)
 
     ax2.set_title("")
-    ax2.set_xlabel("Paikka")
-    ax2.set_ylabel("Liikemäärä")
-    ax2.set_xlim(-1.5, 1.5)
-    ax2.set_ylim(-1.5, 1.5)
-    ax2.set_xticklabels([])
-    ax2.set_yticklabels([])
+    ax2.set_xlabel("Paikka", fontsize=22)
+    ax2.set_ylabel("Liikemäärä", fontsize=22)
+    ax2.set_xlim(-xlim, xlim)
+    ax2.set_ylim(-ylim, ylim)
+#    ax2.set_xticklabels([-1,0,1])
+#    ax2.set_yticklabels([-1,0,1])
 
     ax1.legend(loc="upper right", fontsize="small")
     ax2.legend(loc="upper right", fontsize="small")
@@ -303,4 +380,7 @@ if __name__ == "__main__":
     #lotka_volterra()
     #euler_ball()
     fig.tight_layout()
+    fig2.tight_layout()
+    fig3.tight_layout()
+ #   fig4.tight_layout()
     plt.show()
