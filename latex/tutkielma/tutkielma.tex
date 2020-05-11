@@ -4,6 +4,7 @@
 %\usepackage[utf8]{inputenc} % For UTF8 support. Use UTF8 when saving your file.
 \usepackage{lmodern} % Font package
 \usepackage{textcomp} % Package for special symbols
+\usepackage{listings}
 \usepackage[pdftex]{color, graphicx} % For pdf output and jpg/png graphics
 \usepackage[pdftex, plainpages=false]{hyperref} % For hyperlinks and pdf metadata
 \usepackage{fancyhdr} % For nicer page headers
@@ -11,12 +12,13 @@
 %\usepackage{wrapfig} % For nice text-wrapping figures (use at own discretion)
 \usepackage{amsmath, amssymb} % For better math
 \usepackage[square]{natbib} % For bibliography
-\usepackage[footnotesize,bf]{caption} % For more control over figure captions
+\usepackage[footnotesize,bf]{caption2} % For more control over figure captions
 \usepackage{blindtext}
 \usepackage{titlesec}
 \usepackage[titletoc]{appendix}
 \usepackage[symbol]{footmisc}
 \usepackage{float}
+
 
 
 \onehalfspacing %line spacing
@@ -53,6 +55,10 @@
 
 % if you want to quote someone special. You can comment this line and there will be nothing on the document.
 %\quoting{Bachelor's degrees make pretty good placemats if you get them laminated.}{Jeph Jacques} 
+
+\lstset{
+	basicstyle=\footnotesize
+}
 
 
 % OPTIONAL STEP: Set up properties and metadata for the pdf file that pdfLaTeX makes.
@@ -108,9 +114,9 @@ rakenne
 
 * taustaa: numeerisia menetelmiä
 
-* mitä työllä haetaan: Symplektisyys = cool
+* mitä työllä haetaan: Symplektisyys on ihan kätevä ominaisuus menetelmälle
 
-* mitä ihmettä: selitetään hamilton + symplektisyys
+* mitä ihmettä: selitetään hamilton + symplektisyys + menetelmät
 
 * miten näytetään: Verrataan 2 menetelmää, symp. ja ei symp.
 
@@ -141,6 +147,7 @@ joista saadaan $N$ toisen asteen differentiaaliyhtälöä systeemin kehitykselle. \
 Lagrangen mekaniikan avulla saadaan $N$ toisen asteen differentiaaliyhtälöä. Hamiltonin mekaniikalla saman systeemin kehitys kuvataan ensimmäisen asteen differentiaaliyhtälöillä joita on $2N$ kappaletta.
 
 Legendre muuntamalla Lagrangen funktio $L(\mathbf{q}, \mathbf{\dot{q}}, t)$ muuttujien $\dot{q}_i$ suhteen saadaan Hamiltonin funktio
+
 \begin{align}
 H(q_i, p_i, t) = \sum_{i=1}^N p_i \dot{q}_i - L(q_i, \dot{q}_i, t)
 \end{align}
@@ -166,7 +173,12 @@ joka on systeemin kokonaisenergia.\citep{arnold_1989}
 \section{Symplektisyys}
 %?????
 %Symplektisyys 101
-Suuri etu Lagrangen mekaniikassa verrattuna Newtonin mekaniikkaan on kyky vaihtaa koordinaattisysteemiä vapaammin. Myös Hamiltonin mekaniikassa koordinaattisysteemin vaihtaminen onnistuu, mutta sillä on tiukemmat rajoitukset. 
+
+Jos otetaan Hamiltonisen systeemin määrittelemä vektorikenttä ja valitaan siitä pinta-ala. Kun annetaan pinta-alan kehittyä ajassa vektorikentän mukaan, sen koko säilyy (Kuva). Tätä ominaisuutta kutsutaan systeemin virtauksen symplektisyydeksi. \citep{hairer_2006}
+
+Hamiltoniseen systeemin voidaan tehdä muunnoksia, kuten koordinaattimuunnos, ja jos se säilyttää tämän ominaisuuden, sitä kutsutaan symplektiseksi. Jotta muunnos olisin symplektinen, sen pitää täyttää ehto.
+
+% Suuri etu Lagrangen mekaniikassa verrattuna Newtonin mekaniikkaan on kyky vaihtaa koordinaattisysteemiä vapaammin. Myös Hamiltonin mekaniikassa koordinaattisysteemin vaihtaminen onnistuu, mutta sillä on tiukemmat rajoitukset. 
 
 Ensin helpottaa, jos määritellään Hamiltonin yhtälöt \ref{eq:hamiltoninp} ja \ref{eq:hamiltoninq} uudelleen vektorin $x = (q_1, \,\dots, \,q_n, \,p_1, \,\dots, \,p_n)$ ja $2n \times 2n$ matriisin 
 \begin{align}
@@ -176,12 +188,17 @@ J =
 -I & 0
 \end{pmatrix}
 \end{align}
-avulla. Matriisin komponentti $I$ on $n \times n$ identiteetti matriisi. Nyt Hamiltonin yhtälöt saavat muodon
+avulla. Matriisin komponentti $I$ on $n \times n$ identiteetti matriisi. Näin Hamiltonin yhtöille saadaan muoto
 \begin{align}
 \dot{x} = J \frac{\partial H}{\partial x}
 \end{align}
+Sitten voidaan tehdä koordinaattimuunnos $x \mapsto y(x)$, jonka Jacobin matriisi olkoon $A$. Nyt jos Jacobin matriisi $A$ toteuttaa yhtälön 
+\begin{align}
+A J A^T = J
+\end{align}
+niin sanotaan, että se on symplektinen.\citep{tuominen_2017}
 
-
+Myös muut muunnokset voivat olla symplektisiä. Eli voidaan kirjoittaa yleisemmin, jos muunnos $M \!\!:\! \mathbb{R}^{2n} \rightarrow \mathbb{R}^{2n}$ toteuttaa yhtälön $M J M^T = J$, kutsutaan sitä symplektiseksi. Numeeristen mentelmien kannalta on merkittävää, että muunnos aika-askeleesta seuraavan voi täytää symplektisyyden ehdot, jolloin menetelmä itsessään on symplektinen ja säilyttää systeemin ominaisuudet. 
 
 
 \section{Harmoninen oskillaattori}
@@ -221,7 +238,7 @@ Ensimmäisenä menetelmänä käytetään neljännen asteen Runge-Kutta menetelmää.
 
 \section{Menetelmän toiminta/johto}
 
-Runge-Kutta menetelmällä voidaan ratkaista ensimmäisen asteen differentiaaliyhtälöitä. Eli yhtälöitä, jotka ovat muotoa
+Menetelmän johdossa seuraillaan vastaavaa johto, jonka tekivät \cite{hairer_2006}. Runge-Kutta menetelmällä voidaan ratkaista ensimmäisen asteen differentiaaliyhtälöitä. Eli yhtälöitä, jotka ovat muotoa
 \begin{align} \label{eq:rkalkudiff}
 \frac{d y(t)}{dt} = f(t, y)
 \end{align}
@@ -275,8 +292,6 @@ Näin määritellyt menetelmät ovat eksplisiittisiä. Menetelmä voi olla myös implis
 
 % kertoimien rajoitukset
 
-\citep{hairer_2006}
-\cite{hairer_2006}
 
 
 \section{Toteutus}
@@ -364,25 +379,44 @@ Kun valitaan vielä vakioiksi $\omega = 1$ ja $m = 1$ saadaan analyyttiselle ratk
 \begin{align}
 A = 1.0 \:,& \quad \phi = 0.0
 \end{align}
-Näiden valintojen vuoksi saaduilla tuloksilla ei ole yksiköitä ja analyyttinen ratkaisu on käyrä, joka seuraa yksikköympyrää. 
-
-
+Näiden valintojen vuoksi saaduilla tuloksilla ei ole yksiköitä ja analyyttinen ratkaisu on käyrä, joka seuraa yksikköympyrää kuten kuvasta \ref{fi:ps_kuvat} nähdään. 
 
 \begin{figure}[!h]
-	\label{fi:ps_kuvat}
 	\centering
 	\includegraphics[width=\textwidth]{phase_space.png}
 	\caption{Harmonisen oskillaattorin ensimmäinen värähdys kuvattuna faasiavaruudessa. Numeerisilla menetelmillä laskettiin seitsemän ensimmäistä askelta aika-askeleella $0.9$.}
+	\label{fi:ps_kuvat}
 \end{figure}
 
-asiaa
+Menetelmien vertailussa tarkastellaan ensin kuinka paljon ne eroavat analyyttisestä ratkaisusta. Tämä tehdään laskemalla jokaisen menetelmällä lasketun pisteen etäisyys analyyttisestä ratkaisusta faasiavaruudessa vastaavalla ajanhetkellä. 
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{early_error.png}
+	\caption{Numeeristen menetelmien virhe ajankuluessa.}
+	\label{fi:alku_virhe}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{rk_to_1.png}
+	\caption{Numeeristen menetelmien virhe pidemmällä ajanjaksolla.}
+	\label{fi:pitkä_virhe}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{tot_e.png}
+	\caption{Kokonaisenergian kehitys ajan kuluessa numeerisilla menetelmillä.}
+	\label{fi:tot_e}
+\end{figure}
 
 
 
 \chapter{Päätelmät}
 
-Mitä johtopäätöksiä voidaan tehdä tuloksista ja vertailusta.
+Lyhyellä ajanjaksolla Runge-Kutta antaa tarkempia tuloksia, mutta kun aikaa kuluu enemmän loikkakeino säilyttää realistisemman kuvan systeemistä.
+
 
 
 \appendix
@@ -390,13 +424,12 @@ Mitä johtopäätöksiä voidaan tehdä tuloksista ja vertailusta.
 \addcontentsline{toc}{chapter}{Liitteet}
 \renewcommand{\thesection}{\Alph{section}}
 
-\section{Runge-Kutta menetelmän koodi} \label{ap:rk4}
-
-koodia
-
 \section{Loikkakeino menetelmän koodi} \label{ap:lf}
+\lstinputlisting[language=Python]{koodi_lf.py}
+\newpage
+\section{Runge-Kutta menetelmän koodi} \label{ap:rk4}
+\lstinputlisting[language=Python]{koodi_rk.py}
 
-lisää koodia
 
 % STEP 5:
 % Uncomment the following lines and set your .bib file and desired bibliography style

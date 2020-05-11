@@ -130,7 +130,7 @@ def lag_calculate(method, steps, h, t0, q0, p0, ddq):
 def main():
     
     h = 0.9
-    steps = 1700
+    steps = 50
 
     def dq(t, q, p): return p
     def dp(t, q, p): return -q
@@ -147,14 +147,14 @@ def main():
     e_plot = ham_calculate(euler, 2000, 0.05, 0, 0.0, 1.0, dq, dp)
     
     rk4_plot = ham_calculate(rk4, steps, h, 0, 0.0, 1.0, dq, dp)
-    lf_plot = lag_calculate(leapfrog, steps, h, 0, 1.0, 0.0, ddq)
+    lf_plot = lag_calculate(leapfrog, steps, h, 0, 0.0, 1.0, ddq)
 
     #ax21 = fig2.add_subplot(121)
     ax22 = fig2.add_subplot(111)
 
-    ax3 = fig3.add_subplot(121)
+    #ax3 = fig3.add_subplot(121)
 
-    ax4 = fig3.add_subplot(122)
+    ax4 = fig3.add_subplot(111)
 
     #error_lf = [abs(anal_plot[0][i] - lf_plot[0][i]) for i in range(steps)]
     #error_rk4 = [abs(anal_plot[0][i] - rk4_plot[0][i]) for i in range(steps)]
@@ -175,12 +175,12 @@ def main():
     ax22.plot(time, errorps_lf, "-", color="black", label="Loikkakeino")
     ax22.plot(time, errorps_rk4, "--", color="black", lw=2.0, label="Runge-Kutta")
 
-    ax3.plot(time, errornt_lf, "-", color="black", label="Loikkakeino")
-    ax3.plot(time, errornt_rk4, "--", color="black", lw=2.0, label="Runge-Kutta")
+    #ax3.plot(time, errornt_lf, "-", color="black", label="Loikkakeino")
+    #ax3.plot(time, errornt_rk4, "--", color="black", lw=2.0, label="Runge-Kutta")
 
     ax4.plot(time, tote_lf, "-", color="black", label="Loikkakeino")
     ax4.plot(time, tote_rk4, "--", color="black", lw=2.0, label="Runge-Kutta")
-    ax4.plot(time, tote_anal, "-.", color="black", lw=2.0, label="Analyyttinen")
+    ax4.plot(time, tote_anal, linestyle=(0, (14, 4, 4, 4)), color="black", lw=3.0, label="Analyyttinen")
 
 
 
@@ -191,15 +191,15 @@ def main():
     ax22.set_ylabel("Virhe", fontsize=22)
     ax22.set_xlabel("Aika", fontsize=22)
 
-    ax3.set_xlim(0, (steps-1)*h)
-    ax3.set_ylabel("Virhe", fontsize=22)
-    ax3.set_xlabel("Aika", fontsize=22)
+    #ax3.set_xlim(0, (steps-1)*h)
+    #ax3.set_ylabel("Virhe", fontsize=22)
+    #ax3.set_xlabel("Aika", fontsize=22)
 
     ax4.set_xlim(0, (steps-1)*h)
     ax4.set_ylabel("Kokonais energia", fontsize=22)
     ax4.set_xlabel("Aika", fontsize=22)
 
-    ax3.legend(fontsize="small")
+    #ax3.legend(fontsize="small")
     ax4.legend(fontsize="small")
 
     #ax21.legend(fontsize="small")

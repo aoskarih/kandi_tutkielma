@@ -12,8 +12,8 @@
 \contentsline {section}{\numberline {4.1}Johto}{11}{section.4.1}
 \contentsline {section}{\numberline {4.2}Toteutus}{11}{section.4.2}
 \contentsline {chapter}{\numberline {5}Vertailu}{13}{chapter.5}
-\contentsline {chapter}{\numberline {6}P\"a\"atelm\"at}{15}{chapter.6}
-\contentsline {chapter}{Liitteet}{17}{appendix*.5}
-\contentsline {section}{\numberline {A}Runge-Kutta menetelm\"an koodi}{17}{section.Alph0.1}
-\contentsline {section}{\numberline {B}Loikkakeino menetelm\"an koodi}{17}{section.Alph0.2}
-\contentsline {chapter}{Kirjallisuutta}{19}{section*.6}
+\contentsline {chapter}{\numberline {6}P\"a\"atelm\"at}{17}{chapter.6}
+\contentsline {chapter}{Liitteet}{19}{appendix*.2}
+\contentsline {section}{\numberline {A}Loikkakeino menetelm\"an koodi}{19}{section.Alph0.1}
+\contentsline {section}{\numberline {B}Runge-Kutta menetelm\"an koodi}{20}{section.Alph0.2}
+\contentsline {chapter}{Kirjallisuutta}{21}{section*.3}
