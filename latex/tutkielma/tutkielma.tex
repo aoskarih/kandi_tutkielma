@@ -1,5 +1,5 @@
 % STEP 1: Choose oneside or twoside
-\documentclass[finnish,twoside,openright]{HYgradu}
+\documentclass[finnish,oneside,openright]{HYgradu}
 
 %\usepackage[utf8]{inputenc} % For UTF8 support. Use UTF8 when saving your file.
 \usepackage{lmodern} % Font package
@@ -11,13 +11,14 @@
 \usepackage{tikz} % For making vector graphics (hard to learn but powerful)
 %\usepackage{wrapfig} % For nice text-wrapping figures (use at own discretion)
 \usepackage{amsmath, amssymb} % For better math
-\usepackage[square]{natbib} % For bibliography
+\usepackage[round]{natbib} % For bibliography
 \usepackage[footnotesize,bf]{caption2} % For more control over figure captions
 \usepackage{blindtext}
 \usepackage{titlesec}
 \usepackage[titletoc]{appendix}
 \usepackage[symbol]{footmisc}
 \usepackage{float}
+%\usepackage{subfig}
 
 
 
@@ -110,77 +111,107 @@ Kirjoita tiivistelmään lyhyt, enintään 250 sanan yhteenveto työstäsi: mitä olet 
 % to change the parameters. Removing the abstract and ToC commands will mess up stuff.
 \chapter{Johdanto}
 
-rakenne
+% taustaa: numeerisia menetelmiä
+% mitä työllä haetaan: Symplektisyys on ihan kätevä ominaisuus menetelmälle
+% mitä ihmettä: selitetään hamilton + symplektisyys + menetelmät
+% miten näytetään: Verrataan 2 menetelmää, symp. ja ei symp.
 
-* taustaa: numeerisia menetelmiä
+Numeeriset menetelmät ovat työkaluja, joilla ratkaistaan numeerisia ongelmia. Erilaisiin ongelmiin on lukematon määrä erilaisia menetelmiä. Tässä työssä keskitytään menetelmiin, jotka ratkaisevat differentiaaliyhtälöitä. Tarkemmin sanottuna, vertaillaan eri tyyppisten menetelmien saamia vastauksia Hamiltonisen systeemin liikeyhtälöihin.
 
-* mitä työllä haetaan: Symplektisyys on ihan kätevä ominaisuus menetelmälle
+Ensin käydään läpi, mikä on Hamiltonin mekaniikka ja sen antamat liikeyhtälöt, sekä esitellään systeemi, jota käytetään vertailussa. Erityisesti keskitytään Hamiltonisten systeemien symplektisyyteen ja siihen mitä se tarkoittaa. Symplektisyys on systeemien luontainen ominaisuus, minkä vuoksi sen säilyminen on haluttu ominaisuus myös numeerisille menetelmille \citep{ruth_1983}. Numeerisia menetelmiä, jotka säilyttävät systeemin symplektisyyden, kutsutaan niin ikään symplektisiksi.
 
-* mitä ihmettä: selitetään hamilton + symplektisyys + menetelmät
+Tämän työn tavoitteena onkin verrata kahta numeerista menetelmää, joista toinen on symplektinen, ja huomata niiden käyttäytymisessä eroja. Mielenkiinnon kohteena on etenkin symplektisen menetelmän ominaisuudet.
 
-* miten näytetään: Verrataan 2 menetelmää, symp. ja ei symp.
+Verrattaviksi menetelmiksi valittiin ei-symplektinen Runge-Kutta-menetelmä ja symplektinen loikkakeino. Runge-Kutta-menetelmät johdetaan yleisemmin omassa kappaleessaan, mutta vertailussa käytetään yleisintä menetelmää, jonka esitteli \cite{kutta_1901}. Myös loikkakeino johdetaan ja sen symplektisyys todistetaan. 
+
+Runge-Kutta-menetelmät sopivat käyttöön suuressa määrässä eri ongelmia, mutta vertailusta voidaan todeta, että symplektinen loikkakeino suorituu paremmin tietyillä osa-alueilla kun ratkaistavana on Hamiltonisen systeemin kehitys.
+
+
+
 
 
 
 \chapter{Liikeyhtälöt}
-Jos halutaan ratkaista fysikaalisen systeemin kehitys, ensin tarvitaan yhtälöt kuvaavaamaan tätä kehitystä. Monesti järkevin tapa systeemin liikeyhtälöiden selvittämiseen on käyttää Hamiltonin mekaniikka. 
+Jos halutaan ratkaista fysikaalisen systeemin kehitys, ensin tarvitaan yhtälöt kuvaavaamaan tätä kehitystä. Monesti järkevin tapa systeemin liikeyhtälöiden selvittämiseen on käyttää Hamiltonin mekaniikkaa. 
 
-Hamiltonin mekaniikka voidaan johtaa Lagrangen mekaniikasta, joka puolestaan uudelleen muotoili Newtonin mekaniikan variaatiolaskennan avulla. Muista tavoista poiketen Hamiltonin mekaniikalla liikeyhtälöiksi saadaan ensimmäisen asteen differentiaaliyhtälöitä, joka tekee numeerisesta laskennasta suoraviivaisempaa.
+Hamiltonin mekaniikka voidaan johtaa Lagrangen mekaniikasta, joka puolestaan esittää Newtonin mekaniikan variaatiolaskennan avulla. Muista tavoista poiketen Hamiltonin mekaniikalla liikeyhtälöiksi saadaan ensimmäisen asteen differentiaaliyhtälöitä, joka tekee numeerisesta laskennasta suoraviivaisempaa.
 
 %Mistä saadaan differentiaaliyhtälöt joita yritetään ratkaista?
 
 \section{Lagrangen mekaniikka}
-Fysikaaliset systeemit useimmiten kehittyvät ajassa seuraten pienimmän vaikutuksen periaatetta\footnote{engl. Principle of least action}. Eli toisin sanoen systeemin, jolla on $N$ vapausastetta, kehitys saadaan funktionaalin
+Fysikaaliset systeemit useimmiten kehittyvät ajassa seuraten pienimmän vaikutuksen periaatetta\footnote{Engl. principle of least action}. Eli toisin sanoen systeemin, jolla on $N$ vapausastetta, kehitys saadaan selvittämällä rata $\mathbf{q}(t)$, jolla funktionaali
 \begin{align} \label{eq:funktionaali}
 S[\mathbf{q}(t)] = \int_{t_0}^{t_1} L(\mathbf{q}(t), \mathbf{\dot{q}}(t), t) \: dt
 \end{align}
 % Tarviiko selittää auki \dot{q} = aikaderivaatta?
-ääriarvona. Missä Lagrangen funktio $L$ on kineettisen- ja potentiaalienergian erotus, $\mathbf{q}$ on yleistetty $N$ ulotteinen koordinaattivektori ja $\mathbf{\dot{q}}$ vastaava nopeus. Koordinaattivektoreiden komponentteja tullaan merkitsemään alaindeksillä $i$.  
+saavuttaa ääriarvonsa. Tässä Lagrangen funktio $L$ on kineettisen ja potentiaalienergian erotus, $\mathbf{q}$ on yleistettyjen koordinaattien muodostama $N$-ulotteinen vektori ja $\mathbf{\dot{q}}$ vastaava nopeus. Koordinaattivektoreiden komponentteja tullaan merkitsemään alaindeksillä $i$.  
 
-Funktionaalista \ref{eq:funktionaali} voidaan edelleen johtaa Eulerin-Lagrangen yhtälöt
+Funktionaalin (\ref{eq:funktionaali}) ääriarvon tuottavalle radalle voidaan johtaa Eulerin-Lagrangen yhtälöt
 \begin{align} \label{eq:eulerlag}
-\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_i}\right) - \frac{\partial L}{\partial q_i} = 0
+\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_i}\right) - \frac{\partial L}{\partial q_i} = 0,
 \end{align}
-joista saadaan $N$ toisen asteen differentiaaliyhtälöä systeemin kehitykselle. \citep{arnold_1989}
+jotka ovat $N$-kappaletta toisen asteen differentiaaliyhtälöä systeemin kehitykselle. \citep{arnold_1989}
 
 \section{Hamiltonin mekaniikka}
-Lagrangen mekaniikan avulla saadaan $N$ toisen asteen differentiaaliyhtälöä. Hamiltonin mekaniikalla saman systeemin kehitys kuvataan ensimmäisen asteen differentiaaliyhtälöillä joita on $2N$ kappaletta.
+Lagrangen mekaniikan avulla saadaan $N$ toisen asteen differentiaaliyhtälöä. Hamiltonin mekaniikalla saman systeemin kehitys kuvataan ensimmäisen asteen differentiaaliyhtälöillä, joita on $2N$ kappaletta.
 
-Legendre muuntamalla Lagrangen funktio $L(\mathbf{q}, \mathbf{\dot{q}}, t)$ muuttujien $\dot{q}_i$ suhteen saadaan Hamiltonin funktio
+Tekemällä Legendren muunnos Lagrangen funktiolle $L(\mathbf{q}, \mathbf{\dot{q}}, t)$ muuttujien $\dot{q}_i$ suhteen saadaan Hamiltonin funktio
 
-\begin{align}
-H(q_i, p_i, t) = \sum_{i=1}^N p_i \dot{q}_i - L(q_i, \dot{q}_i, t)
+\begin{align} \label{eq:ham_funk}
+H(q_i, p_i, t) = \sum_{i=1}^N p_i \dot{q}_i - L(q_i, \dot{q}_i, t),
 \end{align}
-josta voidaan eliminoida $\dot{q}_i$ yleistetyn liikemäärän
+josta voidaan eliminoida $\dot{q}_i$ yleistettyjen liikemäärien
 \begin{align} \label{eq:liikemäärä}
 p_i = \frac{\partial L}{\partial \dot{q}_i}
 \end{align}
-avulla. Nyt tarkastelemalla Hamiltonin funktion kokonaisderivaattaa päädytään Hamiltonin yhtälöihin
+avulla. 
+
+Hamiltonin funktion kokonaisderivaatta voidaan muodostaa kahdella eri tavalla. Joko käyttämällä määritelmää (\ref{eq:ham_funk}), jolloin saadaan
+\begin{align}
+dH = \sum_{i=1}^N \left( p_i d\dot{q}_i + \dot{q}_i dp_i - \frac{\partial L}{\partial q_i} dq_i - \frac{\partial L}{\partial \dot{q}_i} d\dot{q}_i - \frac{\partial L}{\partial t} dt \right),
+\end{align}
+joka voidaan muuttaa muotoon
+\begin{align} \label{eq:totdH1}
+dH = \sum_{i=1}^N \left( \dot{q}_i dp_i - \dot{p}_i dq_i \right) - \frac{\partial L}{\partial t} dt
+\end{align}
+käyttämällä yhtälöitä (\ref{eq:eulerlag}) ja (\ref{eq:liikemäärä}). Tai käyttämällä tietoa, että $H = H(q_i, p_i, t)$. Tällöin kokonaisderivaatta on
+\begin{align} \label{eq:totdH2}
+dH = \sum_{i=1}^N \left( \frac{\partial H}{\partial p_i} dp_i + \frac{\partial H}{\partial q_i} dq_i \right) + \frac{\partial H}{\partial t} dt.
+\end{align}
+Vertaamalla yhtälöitä (\ref{eq:totdH1}) ja (\ref{eq:totdH2}) päädytään Hamiltonin yhtälöihin
 \begin{align} 
 \dot{p}_i =& -\frac{\partial H}{\partial q_i} \label{eq:hamiltoninp} \\
-\dot{q}_i =& \: \frac{\partial H}{\partial p_i} \label{eq:hamiltoninq}
+\dot{q}_i =& \: \frac{\partial H}{\partial p_i}, \label{eq:hamiltoninq}
 \end{align}
 jotka ovat systeemin liikeyhtälöt. Nämä yhtälöt ovat ekvivalentteja yhtälöiden \ref{eq:eulerlag} kanssa. \citep{tuominen_2017}
 
-Hamiltonin mekaniikassa kuvataan siis systeemin tila vektoreiden $\mathbf{q}$ ja $\mathbf{p}$ avulla. Voidaan myös miettiä, että systeemin tila on piste paikka ja liikemäärä koordinaattien määrittelemässä $2N$ ulotteisessa avaruudessa. Tätä avaruutta kutsutaan faasiavaruudeksi. \citep{nolte_2015}
+Hamiltonin mekaniikassa kuvataan siis systeemin tila vektoreiden $\mathbf{q}$ ja $\mathbf{p}$ avulla. Voidaan myös ajatella, että systeemin tila on piste paikka- ja liikemääräkoordinaattien määrittelemässä $2N$-ulotteisessa avaruudessa. Tätä avaruutta kutsutaan faasiavaruudeksi. \citep{nolte_2015}
 
-Lisäksi jos systeemin kineettinen energia on tavallista muotoa $T = \frac{1}{2} \sum_i m_i \dot{q}_i^2$ ja potentiaalienergia $V = V(\mathbf{q})$, voidaan Hamiltonin funktio kirjoittaa muodossa
+Lisäksi jos systeemin kineettinen energia on tavallista muotoa $T = \frac{1}{2} \sum_i m_i \dot{q}_i^2$ ja potentiaalienergia $V = V(\mathbf{q})$ saa Lagrangen funktio muodon
 \begin{align}
-H = T + V
+L = \frac{1}{2} \sum_i m_i \dot{q}_i^2 - V(\mathbf{q}).
 \end{align}
-joka on systeemin kokonaisenergia.\citep{arnold_1989}
+Kun tämä sijoitetaan Hamiltonin funktion määritelmään (\ref{eq:ham_funk}) systeemin liikemäärän $p_i = m_i \dot{q}_i$ kanssa, saadaan funktioksi
+\begin{align} 
+H = \sum_i m_i \dot{q}_i^2 - \frac{1}{2} \sum_i m_i \dot{q}_i^2 + V(\mathbf{q}),
+\end{align}
+joka voidaan sieventää muotoon
+\begin{align}
+H = T + V.
+\end{align}
+Eli Näillä oletuksilla kineettisestä ja potentiaalienergiasta Hamiltonin funktio kuvaa systeemin kokonaisenergiaa.\citep{arnold_1989}
 
 \section{Symplektisyys}
 %?????
 %Symplektisyys 101
 
-Jos otetaan Hamiltonisen systeemin määrittelemä vektorikenttä ja valitaan siitä pinta-ala. Kun annetaan pinta-alan kehittyä ajassa vektorikentän mukaan, sen koko säilyy (Kuva). Tätä ominaisuutta kutsutaan systeemin virtauksen symplektisyydeksi. \citep{hairer_2006}
+Oletetaan jokin Hamiltonisen systeemin määrittelemä vektorikenttä ja valitaan faasiavaruudesta jokin 2-ulotteinen infinitesimaalinen pinta-ala. Kun annetaan tämän pinta-alan kehittyä ajassa vektorikentän mukaan, sen ala säilyy (Kuva). Tätä ominaisuutta kutsutaan systeemin virtauksen symplektisyydeksi. \citep{hairer_2006}
 
-Hamiltoniseen systeemin voidaan tehdä muunnoksia, kuten koordinaattimuunnos, ja jos se säilyttää tämän ominaisuuden, sitä kutsutaan symplektiseksi. Jotta muunnos olisin symplektinen, sen pitää täyttää ehto.
+Hamiltoniseen systeemin voidaan tehdä koordinattimuunnos. Jos se säilyttää systeemin symplektisyyden, kutsutaan myös muunnosta symplektiseksi. Jotta muunnos olisi symplektinen, sen pitää täyttää seuraavaksi johdettava ehto.
 
 % Suuri etu Lagrangen mekaniikassa verrattuna Newtonin mekaniikkaan on kyky vaihtaa koordinaattisysteemiä vapaammin. Myös Hamiltonin mekaniikassa koordinaattisysteemin vaihtaminen onnistuu, mutta sillä on tiukemmat rajoitukset. 
 
-Ensin helpottaa, jos määritellään Hamiltonin yhtälöt \ref{eq:hamiltoninp} ja \ref{eq:hamiltoninq} uudelleen vektorin $x = (q_1, \,\dots, \,q_n, \,p_1, \,\dots, \,p_n)$ ja $2n \times 2n$ matriisin 
+Ensin helpottaa, jos määritellään Hamiltonin yhtälöt (\ref{eq:hamiltoninp}) ja (\ref{eq:hamiltoninq}) uudelleen vektorin $\mathbf{x} = (q_1, \,\dots, \,q_N, \,p_1, \,\dots, \,p_N)$ ja $2N \times 2N$ matriisin 
 \begin{align}
 J = 
 \begin{pmatrix}
@@ -188,17 +219,18 @@ J =
 -I & 0
 \end{pmatrix}
 \end{align}
-avulla. Matriisin komponentti $I$ on $n \times n$ identiteetti matriisi. Näin Hamiltonin yhtöille saadaan muoto
+avulla. Matriisin komponentti $I$ on $N \times N$ identiteettimatriisi. Näin Hamiltonin yhtälöille saadaan muoto
 \begin{align}
-\dot{x} = J \frac{\partial H}{\partial x}
+\dot{\mathbf{x}} = J \frac{\partial H}{\partial \mathbf{x}}.
 \end{align}
 Sitten voidaan tehdä koordinaattimuunnos $x \mapsto y(x)$, jonka Jacobin matriisi olkoon $A$. Nyt jos Jacobin matriisi $A$ toteuttaa yhtälön 
-\begin{align}
+\begin{align} \label{eq:ehto}
 A J A^T = J
 \end{align}
 niin sanotaan, että se on symplektinen.\citep{tuominen_2017}
 
-Myös muut muunnokset voivat olla symplektisiä. Eli voidaan kirjoittaa yleisemmin, jos muunnos $M \!\!:\! \mathbb{R}^{2n} \rightarrow \mathbb{R}^{2n}$ toteuttaa yhtälön $M J M^T = J$, kutsutaan sitä symplektiseksi. Numeeristen mentelmien kannalta on merkittävää, että muunnos aika-askeleesta seuraavan voi täytää symplektisyyden ehdot, jolloin menetelmä itsessään on symplektinen ja säilyttää systeemin ominaisuudet. 
+%Myös muut muunnokset voivat olla symplektisiä. 
+Symplektisyys ei ole rajoitettu koordinaattimuunnoksiin. Yleisemmin, jos muunnos $M \!\!:\! \mathbb{R}^{2n} \! \rightarrow \mathbb{R}^{2n}$ toteuttaa yhtälön $M J M^T = J$, kutsutaan sitä symplektiseksi. Numeeristen mentelmien kannalta on merkittävää, että muunnos aika-askeleesta seuraavan voi täytää symplektisyyden ehdot, jolloin menetelmä itsessään on symplektinen ja säilyttää systeemin ominaisuudet. 
 
 
 \section{Harmoninen oskillaattori}
@@ -209,77 +241,77 @@ Harmonisen oskillaattorin Lagrangen funktio on
 \begin{align}
 L(q, \dot{q}) = \frac{1}{2} m \dot{q}^2 - \frac{1}{2} m \omega^2 q^2
 \end{align}
-missä $m$ ja $\omega$ ovat vakioita. Liikemäärä voidaan laskea yhtälön \ref{eq:liikemäärä} avulla, jolloin saadaan $p = m\dot{q}$. Sitten liikemäärää käyttämällä voidaan kirjoitaa systeemin Hamiltonin funktio.
+missä $m$ ja $\omega$ ovat vakioita. Liikemäärä voidaan laskea yhtälön (\ref{eq:liikemäärä}) avulla, jolloin saadaan $p = m\dot{q}$. Sitten liikemäärää käyttämällä voidaan kirjoitaa systeemin Hamiltonin funktio
 \begin{align}
-H(q, p) = \frac{p^2}{2m} + \frac{1}{2} m \omega^2 q^2
+H(q, p) = \frac{p^2}{2m} + \frac{1}{2} m \omega^2 q^2.
 \end{align}
 Hamiltonin funktiosta pystytään nyt ratkaisemaan liikeyhtälöt
 \begin{align} \label{eq:harmliike1}
 \dot{p} =& -m \omega^2 q \\
 \label{eq:harmliike2}
-\dot{q} =& \: \frac{p}{m}
+\dot{q} =& \: \frac{p}{m},
 \end{align}
 joilla voidaan kuvata systeemin kehitys. Vaihtoehtoisesti Lagrangen funktiosta voidaan johtaa suoraan toisen asteen differentiaaliyhtälö
 \begin{align} \label{eq:harmtoinen}
-\ddot{q} = -\omega^2 q
+\ddot{q} = -\omega^2 q,
 \end{align}
-jonka ratkaisu on yleisesti tunnettu.
+jonka ratkaisu on yleisesti tunnettu
 \begin{align} \label{eq:harmanal}
-q(t) = \:A \, \sin(\omega t + \phi)
+q(t) = \:A \, \sin(\omega t + \phi),
 \end{align}
 missä $A$ ja $\phi$ riippuvat systeemin alkuarvoista.
 
-\chapter{Runge-Kutta} \label{ch:rk}
+\chapter{Runge-Kutta-menetelmät} \label{ch:rk}
 
-RK johdantoa
+Runge-Kutta-menetelmät ovat joukko numeerisia menetelmiä differentiaaliyhtälöille. Tässä kappaleessa johdetaan yleinen muoto Runge-Kutta-menetelmille ja lasketaan esimerkkinä neljännen kertaluokan menetelmän yksi askel. Esimerkin menetelmää käytetään myöhemmin vertailussa.
 
-Ensimmäisenä menetelmänä käytetään neljännen asteen Runge-Kutta menetelmää. 
+\section{Johto}
 
-
-\section{Menetelmän toiminta/johto}
-
-Menetelmän johdossa seuraillaan vastaavaa johto, jonka tekivät \cite{hairer_2006}. Runge-Kutta menetelmällä voidaan ratkaista ensimmäisen asteen differentiaaliyhtälöitä. Eli yhtälöitä, jotka ovat muotoa
+Menetelmän johdossa seuraillaan lähdettä \cite{hairer_2006}. Runge-Kutta-menetelmillä voidaan ratkaista ensimmäisen asteen differentiaaliyhtälöitä, jotka ovat muotoa
 \begin{align} \label{eq:rkalkudiff}
-\frac{d y(t)}{dt} = f(t, y)
+\frac{d y(t)}{dt} = f(t, y),
 \end{align}
-missä $y(t)$ on funktio, joka yritetään ratkaista ja $f(t, y)$ on mielivaltainen tiedetty funktio. Lisäksi tarvitaan alkuarvo $y(t_0) = y_0$, jotta ratkaiseminen voidaan aloittaa.
+missä $y(t)$ on funktio, joka yritetään ratkaista ja $f(t, y)$ on mielivaltainen tiedetty funktio. Lisäksi tarvitaan alkuarvo $y(t_0) = y_0$, jotta yhtälölle voidaan laskea yksikäsitteinen ratkaisu.
 
-Integroimalla yhtälöä \ref{eq:rkalkudiff} puolittain yhden aika-askeleen $h$ matkan verran ja merkitsemällä $y_1 \equiv y(t_0 + h)$ saadaan
+Integroimalla yhtälöä (\ref{eq:rkalkudiff}) puolittain yhden aika-askeleen $h$ verran ja merkitsemällä $y_1 \equiv y(t_0 + h)$ saadaan
 \begin{align}
-y_1 = y_0 + \int_{t_0}^{t_0 + h} f(t, y) dt
+y_1 = y_0 + \int_{t_0}^{t_0 + h} f(t, y(t)) dt,
 \end{align}
 ja tästä voidaan approksimoida puolisuunnikassäännöllä
 \begin{align} \label{eq:y1ongelma}
-y_1 = y_0 + \frac{h}{2} \: [f(t_0, \: y_0) + f(t_0 + h, \: y_1)]
+y_1 = y_0 + \frac{h}{2} \: [f(t_0, \: y_0) + f(t_0 + h, \: y_1)].
 \end{align}
 Nyt huomataan ongelma. Arvo $y_1$, joka halutaan ratkaista, on yhtälössä molemmilla puolilla. Ongelmasta pästään eroon korvaamalla $y_1$ yhtälön oikealla puolella arviolla $y_1 \approx y_0 + h f(t_0, y_0)$.
-Sijoitetaan arvio yhtälöön \ref{eq:y1ongelma}, jolloin saadaan 
+Sijoitetaan arvio yhtälöön (\ref{eq:y1ongelma}), jolloin saadaan 
 \begin{align} \label{eq:y1open}
-y_1 = y_0 + \frac{h}{2} \: [ f(t_0, \: y_0) + f(t_0 + h, \: y_0 + h f(t_0, y_0)) ]
+y_1 = y_0 + \frac{h}{2} \: [ f(t_0, \: y_0) + f(t_0 + h, \: y_0 + h f(t_0, y_0)) ].
 \end{align}
-Nyt voidaan huomata, että $k_1 = f(t_0, y_0)$ ja $k_2 = f(t_0 + h, y_0 + h k_1)$ ovat kulmakertoimia ja kun kirjoitetaan \ref{eq:y1open} uudestaan niiden avulla saadaan
+Nyt voidaan huomata, että $k_1 = f(t_0, y_0)$ ja $k_2 = f(t_0 + h, y_0 + h k_1)$ ovat kulmakertoimia ja kun kirjoitetaan (\ref{eq:y1open}) uudestaan niiden avulla saadaan
 \begin{align}
-y_1 = y_0 + \frac{h}{2} k_1 + \frac{h}{2} k_2
+y_1 = y_0 + \frac{h}{2} k_1 + \frac{h}{2} k_2.
 \end{align}
 Eli seuraavan aika-askeleen arvo saadaan ottamalla edellisen askeleen arvo ja sen jälkeen seuraamalla ensimmäistä kulmakerrointa aika-askeleen puoleenväliin, minkä jälkeen seurataan toista kulmakerrointa askeleen loppuun. Tämän menetelmän ero pelkkään aika-askeleen puolittamiseen tulee siitä, että toisen kulmakertoimen laskemisessa on käytetty avuksi ensimmäistä kulmakerrointa.
 
 % kuva
 
-Kahden kulmakertoimen sijasta menetelmä voidaan yleistää useammalle kulmakertoimelle joilla jokaisella on oma painotuksensa. Eli seuraavan askeleen arvo $n$:llä kulmakertoimella saadaan summalla
+Kahden kulmakertoimen sijasta menetelmä voidaan yleistää useammalle kulmakertoimelle joilla jokaisella on oma painotuksensa. Eli seuraavan askeleen arvo $n$:llä kulmakertoimella saadaan summasta
 \begin{align} \label{eq:rkyleinen}
-y_1 = y_0 + h \sum_{i = 1}^n b_i k_i
+y_1 = y_0 + h \sum_{i = 1}^n b_i k_i,
 \end{align}
 missä $b_i$ ovat tiedettyjä kertoimia. Kahden kulmakertoimen esimerkissä jälkimmäisen kulmakertoimen laskemisessa käytettiin apuna ensimmäistä. Nyt otetaan huomioon kaikki edeltävät kulmakertoimet, jolloin kulmakertoimet saadaan kaavalla
 \begin{align} \label{eq:kulmaki}
-k_i = f(t_0 + h c_i\, , \: y_0 + h \sum_{j = 1}^{i-1} a_{i j}\, k_j)
+k_i = f(t_0 + h c_i\, , \: y_0 + h \sum_{j = 1}^{i-1} a_{i j}\, k_j),
 \end{align}
-missä $c_i$ ja $a_{ij}$ ovat tiedettyjä kertoimia, jotka yhdessä kaavan \ref{eq:rkyleinen} kertoimien $b_i$ kanssa määrittelevät eri Runge-Kutta menetelmät. 
+missä $c_i$ ja $a_{ij}$ ovat tiedettyjä kertoimia, jotka yhdessä kaavan (\ref{eq:rkyleinen}) kertoimien $b_i$ kanssa määrittelevät eri Runge-Kutta menetelmät. 
 
-Näin määritellyt menetelmät ovat eksplisiittisiä. Menetelmä voi olla myös implisiittinen, jolloin kulmakertoimet voivat riippua kaikista aika-askeleen muista kulmakertoimista, eivät vain edeltävistä. Molemmassa tapauksessa kertoimet esitetään yleensä kuten taulukossa \ref{ta:butcheresim}. Eksplisiittisessä tapauksessa kertoimet $a_{ij}$, joissa $i \leq j$ ovat nollia ja monesti jätetään siksi taulukossa tyhjiksi. 
+Menetelmän kertoimia $a_{ij}$, $b_i$ ja $c_i$ ei voi valita mielivaltaisesti. Sen sijaan kertoimet voidaan johtaa menetelmälle, joka on haluttua kertaluokkaa \citep{butcher_1963}. Menetelmän kertaluokka määräytyy siitä, mitä aika-askeleen kertaluokkaa virhe on. Menetelmä on kertaluokkaa $p$ jos sen virhe on luokkaa $\mathcal{O}(h^{p+1})$ \citep{hairer_2006}.
+
+Näin määritellyt menetelmät ovat eksplisiittisiä. Menetelmä voi olla myös implisiittinen, jolloin kulmakertoimet voivat riippua kaikista aika-askeleen muista kulmakertoimista, eivät vain edeltävistä. Molemmassa tapauksessa kertoimet esitetään yleensä ns Butcher-taulukossa, jollainen on esitetty taulukossa \ref{ta:butcheresim}. Eksplisiittisessä tapauksessa kertoimet $a_{ij}$, joissa $i \leq j$, ovat nollia, ja monesti ne jätetään siksi taulukosta pois.\citep{hairer_2006}
 
 \begin{table}[!h]
 	\centering
-	\caption{Butcher taulukko Runge-Kutta menetelmien kertoimille}
+	\caption{Butcher-taulukko Runge-Kutta menetelmien kertoimille.}
+	\vspace{0.5em}	
 	\begin{tabular}{c | c c c c} 
 		$c_1$	& $a_{11}$ & $a_{12}$ & $\dots$ & $a_{1n}$ \\
 		$c_2$	& $a_{21}$ & $a_{22}$ & $\dots$ & $a_{2n}$ \\
@@ -293,14 +325,14 @@ Näin määritellyt menetelmät ovat eksplisiittisiä. Menetelmä voi olla myös implis
 % kertoimien rajoitukset
 
 
-
 \section{Toteutus}
 
-Vertailussa käytetään neljännen asteen Runge-Kutta menetelmää, joka tunnetaan nimellä Runge-Kutta menetelmä\footnote[2]{engl. The Runge-Kutta method tai classic Runge-Kutta method}. Wilhelm Kutta esitteli menetelmän 1901, minkä jälkeen se on ollut laajassa käytössä. Taulukossa \ref{ta:rk4butcher} on menetelmän kertoimet. \citep{hairer_1993}
+Vertailussa käytetään neljännen kertaluokan Runge-Kutta-menetelmää, jonka esitteli \cite{kutta_1901}. Se on yleisin käytetty Runge-Kutta-menetelmä ja siitä käytetään lyhennettä RK4. Taulukossa \ref{ta:rk4butcher} on menetelmän kertoimet \citep{hairer_1993}.
 
 \begin{table}[!h]
 	\centering
-	\caption{Butcher taulukko Runge-Kutta menetelmän kertoimille}	
+	\caption{Butcher taulukko RK4-menetelmän kertoimille.}	
+	\vspace{0.5em}	
 	\begin{tabular}{c | c c c c} 
 		$0$		&  		&  		&  		&  		\\
 		$1/2$	& $1/2$ &  		&  		&  		\\
@@ -311,48 +343,156 @@ Vertailussa käytetään neljännen asteen Runge-Kutta menetelmää, joka tunnetaan ni
 	\label{ta:rk4butcher}
 \end{table}
 
-Systeemi, joka halutaan ratkaista koostuu nyt yhtälöistä \ref{eq:harmliike1} ja \ref{eq:harmliike2}. Eli yhtälöt eivät ole muotoa $\dot{y} = f(t, y)$, jolle menetelmä johdettiin. Sen sijaan systeemissä on kaksi yhtälöä, jotka riippuvat toisistaan. 
+Systeemi, joka halutaan ratkaista, koostuu nyt yhtälöistä (\ref{eq:harmliike1}) ja (\ref{eq:harmliike2}). Eli yhtälöt eivät ole muotoa $\dot{y} = f(t, y)$, jolle menetelmä johdettiin. Sen sijaan systeemissä on kaksi yhtälöä, jotka riippuvat toisistaan. 
 \begin{align}
 \dot{p} = f(q) \\
 \dot{q} = g(p)
 \end{align}
-Menetelmää voidaan silti käyttää. Ensin lasketaan ensimmäiset kulmakertoimet.
+Menetelmää voidaan silti käyttää. Määritellää uusi muuttuja 
 \begin{align}
-k_{p,1} = \: f(q_0) = -l q_0 \:,\quad k_{q,1} = \: g(p_0) = \frac{1}{m} p_0
+\zeta = \begin{pmatrix}
+\:q\: \\
+p
+\end{pmatrix}
 \end{align}
-Toisia kulmakertoimia laskiessa käytetään ensimmäisessä vaiheessa saatuja kulmakermia niin kuin yhtälössä \ref{eq:kulmaki} määritelläänkin. Nyt vain täytyy käyttää sitä kulmakerrointa, josta funktio riippuu. Eli liikemäärän kulmakertoimia laskiessa käytetään paikan kulmakertoimia ja päinvastoin. Näin saadaan loput kolme paria kulmakertoimia.
+ja käytetään sitä yhdessä aiemmin laskettujen tuloksien (\ref{eq:harmliike1}) ja (\ref{eq:harmliike1}) kanssa. Näin voidaan systeemin kehitys esittää muodossa
 \begin{align}
-k_{p,2} = \: -l(q_0 + \frac{h}{2} k_{q,1}) \:,&\quad k_{q,2} = \: \frac{1}{m}(p_0 + \frac{h}{2} k_{p,1}) \\
-k_{p,3} = \: -l(q_0 + \frac{h}{2} k_{q,2}) \:,&\quad k_{q,3} = \: \frac{1}{m}(p_0 + \frac{h}{2} k_{p,2}) \\
-k_{p,4} = \: -l(q_0 + h k_{q,3}) \:,&\quad k_{q,4} = \: \frac{1}{m}(p_0 + h k_{p,3})
+\dot{\zeta} = \tilde{f}(t, \zeta) = \begin{pmatrix}
+p/m \\
+-m \omega^2 q \:
+\end{pmatrix}.
+\end{align}
+Nyt yhtälö on oikeaa muotoa ja kulmakertoimet voidaan laskea käyttäen yhtälöä (\ref{eq:kulmaki}) ja alkuarvoa
+\begin{align}
+\zeta_0 = \begin{pmatrix}
+q_0 \\
+p_0
+\end{pmatrix}.
+\end{align}
+RK4-menetelmän kertoimilla saadaan kumakertomiksi
+\begin{align}
+k_1 =& \:\tilde{f}(t_0, \zeta_0) = \begin{pmatrix}
+p_0/m \\
+- m \omega^2 q_0
+\end{pmatrix} \\
+k_2 =& \:\tilde{f}(t_0 + \frac{h}{2}, \:\zeta_0 + \frac{h}{2}k_1) \\
+k_3 =& \:\tilde{f}(t_0 + \frac{h}{2}, \:\zeta_0 + \frac{h}{2}k_2) \\
+k_4 =& \:\tilde{f}(t_0 + h, \:\zeta_0 + h k_3).
 \end{align}
 Sitten voidaan laskea seuraavan askeleen arvo käyttäen saatuja kulmakertoimia.
 \begin{align}
-p_1 = p_0 + \frac{h}{6}( k_{p,1} + 2 k_{p,2} + 2 k_{p,3} + k_{p,4}) \\
-q_1 = q_0 + \frac{h}{6}( k_{q,1} + 2 k_{q,2} + 2 k_{q,3} + k_{q,4}) 
+\zeta_{1} = \zeta_0 + \frac{h}{6}(k_{1} + 2 k_{2} + 2 k_{3} + k_{4})
 \end{align}
-Vertailua varten tehtiin Python koodi, joka käyttää yllä mainittua menetelmää. Koodi on liitteessä \ref{ap:rk4}.
+Vertailua varten tehtiin Python ohjelma, joka käyttää yllä mainittua menetelmää. Ohjelman lähdekoodi on liitteessä \ref{ap:rk4}.
 
 % kirjoita laskennan välivaiheet
 % koodi liitteenä
 
 \chapter{Loikkakeino} \label{ch:lf}
 
-Loikkakeino johdantoa
+Loikkakeino\footnote[2]{Engl. The Leapfrog method} on Runge-Kutta-menetelmiin verrattuna käyttötarkoituksiltaan rajoitetumpi menetelmä. Sille on kuitenkin löytynyt käyttöä fysiikan aloilta sen ominaisuuksien vuoksi. 
+
+Tässä kappaleessa menetelmä johdetaan ja yksi sen tärkeistä ominaisuuksista, symplektisyys, todistetaan. Lisäksi käydään läpi esimerkki, jonka mukaisesti menetelmä on toteutettu vertailussa.
 
 \section{Johto}
 
-Loikkakeinon johto.
+Menetelmän johdossa seuraillaan lähdettä \cite{mclachlan_2002}. Tarkastellaan systeemiä, jonka Hamiltonin funktio on muotoa $H = \frac{1}{2} p^2 + V(q)$. Funktio voidaan jakaa kahteen osaan $H_T = \frac{1}{2} p^2$ ja $H_V = V(q)$, joille voidaan kirjoittaa Hamiltonin yhtälöt erikseen. Saadaan yhtälöt
+\begin{align}
+H_T: \;\dot{q} =& \:p\:, \quad \dot{p} = 0 \label{eq:ht} \\
+H_V: \;\dot{q} =& \:0\:,\hspace{0.35em} \quad \dot{p} = - \frac{\partial V(q)}{\partial q}. \label{eq:hv}
+\end{align}
 
-- rajoitukset
+Hamiltonisen systeemin virtaus $\phi_t$ on kuvaus, joka edistää systeemiä ajan $t$ verran lähtien annetuista alkuarvoista. Eli virtaus
+\begin{align}
+\phi_t(q_0, p_0) = (q(t, q_0, p_0), p(t, q_0, p_0)),
+\end{align}
+missä $q(t, q_0, p_0)$ ja $p(t, q_0, p_0)$ ovat ratkaisuja systeemin kehitykselle alkuarvoilla $q_0$ ja $p_0$. \citep{hairer_2006}
 
-- symplektisyys
+Yhtälöistä (\ref{eq:ht}) ja (\ref{eq:hv}) voidaan ratkaista virtaukset $H_T$:n ja $H_V$:n kuvaamille systeemeille. Integroimalla yhtälöä $\dot{q} = p$ puolittain välin $t \in [0, t']$ yli ja käyttämllä hyväksi tietoa $p(t') = p(0)$ saadaan $H_T$:n virtaukseksi
+\begin{align}
+q(t') = q(0) + t' \,p(0)\:, \quad p(t') = p(0).
+\end{align} 
+Samalla tavalla saadaan laskettua $H_V$:n virtaus
+\begin{align}
+q(t') = q(0)\:, \quad p(t') = p(0) - t'\,\frac{\partial V(q(0))}{\partial q}.
+\end{align} 
+Sitten valitsemalla alkuarvot $(q(0), p(0))\! =\! (q_n, p_n)$ ja aika-askeleen $t' = h$ saadaan menetelmä
+\begin{align}
+p_{n+1} =&\: p_n - h \frac{\partial V(q_n)}{\partial q} \label{eq:pp1} \\
+q_{n+1} =&\: q_n + h p_{n+1}, \label{eq:qp1}
+\end{align}
+missä numero alaindeksi merkitsee aika-askelta. Jos otetaan vielä mukaan edeltävä askel
+% kertaluokka
+\begin{align}
+q_{n} =&\: q_{n-1} + h p_{n},
+\end{align}
+ratkaistaan siitä $p_n$ ja yhtälöstä (\ref{eq:qp1}) $p_{n+1}$, voidaan ne sijoittaa yhtälöön (\ref{eq:pp1}), jolloin saadaan loikkakeino
+\begin{align}
+q_{n+1} - 2q_n + q_{n-1} = -h^2\, \frac{\partial V(q_n)}{\partial q}.\label{eq:loikka}
+\end{align}
+Tässä muodossa menetelmä vaatii kahden edellisen askeleen arvon seuraavan laskemiseen. Voimme kuitenkin approksimoida liikemäärää
+\begin{align}
+p_{n+1/2} = \frac{q_{n+1}-q_n}{h},
+\end{align}
+ja tämän avulla kirjoittaa yhtälö (\ref{eq:loikka}) uudelleen muodossa
+\begin{align}
+p_{n+1/2} - p_{n-1/2} = -h \, \frac{\partial V(q_n)}{\partial q}.
+\end{align}
+Jos vielä eliminoidaan yhtälön $p_{n+1/2} - 2 p_n + p_{n-1/2} = 0$ avulla $p_{n-1/2}$, voidaan menetelmä kirjoittaa muodossa
+\begin{align}
+p_{n+1/2} =&\: p_n + \frac{h}{2} f(q_n) \\
+q_{n+1} =&\: q_n + h p_{n+1/2} \\
+p_{n+1} =&\: p_{n+1/2} + \frac{h}{2} f(q_{n+1}),
+\end{align}
+missä on merkitty $-\frac{\partial V(q)}{\partial q} = f(q)$. Näillä merkinnöillä alussa valitun systeemin liikeyhtälöt voidaan kirjoittaa muodossa $\ddot{q} = f(q)$. Loikkakeino vaatii, että ratkaistava yhtälö on tätä muotoa. \citep{hairer_2006}
+
+\section{Loikkakeinon symplektisyys}
+
+Näytetään ensin, että yhtälöiden (\ref{eq:pp1}) ja (\ref{eq:qp1}) määrittelemä menetelmä on symplektinen. Lasketaan menetelmän määrittelemän muunnoksen Jacobin matriisi
+\begin{align}
+A = \begin{pmatrix}
+\frac{\partial q_{n+1}}{\partial q_{n}} & \frac{\partial q_{n+1}}{\partial p_{n}} \\[0.3em]
+\frac{\partial p_{n+1}}{\partial q_{n}} & \frac{\partial p_{n+1}}{\partial p_{n}} 
+\end{pmatrix} = \begin{pmatrix}
+1 + h^2 f'(q_n) & h\: \\
+h f'(q_n) & 1 \:
+\end{pmatrix}.
+\end{align}
+Sitten voimme tarkistaa menetelmän symplektisyyden ehdon (\ref{eq:ehto}) avulla
+\begin{align}
+\begin{pmatrix}
+1 + h^2 f'(q_n) & h\: \\
+h f'(q_n) & 1 \:
+\end{pmatrix}
+\begin{pmatrix}
+0 & 1 \: \\
+-1 & 0 \:
+\end{pmatrix}
+\begin{pmatrix}
+1 + h^2 f'(q_n) & h f'(q_n) \\
+h & 1
+\end{pmatrix} = \begin{pmatrix}
+0 & 1 \: \\
+-1 & 0 \:
+\end{pmatrix}.
+\end{align}
+Ehto $A J A^T = J$ toteutuu, joten tämä menetelmä on symplektinen. Tästä seuraa myös loikkakeinon symplektisyys, koska loikkakeino saatiin käyttäen vain useampaa edellisen menetelmän askelta \citep{hairer_2006}.
 
 
 \section{Toteutus}
 
-Menetelmän toteutus.
+Loikkakeinon rajoitusksien vuoksi käytetään liikeyhtälöiden muotoa (\ref{eq:harmtoinen}). Eli nyt $f(q) = -\omega^2 q$. Valitaan alkuarvot $q_0$ ja $p_0$, minkä jälkeen menetelmää voidaan iteroida askel kerrallaan.
 
+Ensin lasketaan liikemäärä askeleen puolessa välissä
+\begin{align}
+p_{1/2} = p_0\, \frac{h}{2}\, \omega^2 q_0,
+\end{align}
+minkä jälkeen voidaan laskea paikan ja liikemäärän arvot askeleen lopussa
+\begin{align}
+q_1 =&\: q_0 + h\, p_{1/2} \\
+p_1 =&\: p_{1/2} - \frac{h}{2}\, \omega^2 q_1.
+\end{align}
+Vertailua verten tehtiin Python ohjelma, joka käyttää yllä mainittua menetelmää. Ohjelman lähdekoodi on liitteessä \ref{ap:lf}.
 
 
 
@@ -369,54 +509,89 @@ Menetelmän toteutus.
 %%%
  
 
-Aiemmin luvuissa \ref{ch:rk} ja \ref{ch:lf} käytiin läpi loikkakeino -ja Runge-Kutta menetelmien toimintaperiaatteet ja toteutukset. Nyt menetelmät laitetaan käytäntöön ja niillä saatuja tuloksia vertaillaan.
+Aiemmin luvuissa \ref{ch:rk} ja \ref{ch:lf} käytiin läpi loikkakeino- ja RK4-menetelmien toimintaperiaatteet ja toteutukset. Tässä luvussa menetelmiä testataan käytännössä ja niillä saatuja tuloksia vertaillaan.
 
-Jotta menetelmiä voitaisiin käyttää, täytyy vielä tietää systeemin alkuarvot ja vakioiden suuruudet. Koska tarkoituksena on vain vertailla menetelmiä, voidaan alkuarvoiksi valita
+Jotta menetelmiä voitaisiin käyttää, täytyy tietää systeemin alkuarvot ja vakioiden suuruudet. Koska tarkoituksena on vain vertailla menetelmiä, valitaan alkuarvoiksi 
 \begin{align}
-p_0 = 1.0 \:,& \quad q_0 = 0.0
+p_0 = 1.0 \:,& \quad q_0 = 0.0\,.
 \end{align}
-Kun valitaan vielä vakioiksi $\omega = 1$ ja $m = 1$ saadaan analyyttiselle ratkaisulle \ref{eq:harmanal} arvot
+Kun valitaan vielä vakioiksi $\omega = 1$ ja $m = 1$ saadaan analyyttiselle ratkaisulle (\ref{eq:harmanal}) arvot
 \begin{align}
-A = 1.0 \:,& \quad \phi = 0.0
+A = 1.0 \:,& \quad \phi = 0.0\,.
 \end{align}
-Näiden valintojen vuoksi saaduilla tuloksilla ei ole yksiköitä ja analyyttinen ratkaisu on käyrä, joka seuraa yksikköympyrää kuten kuvasta \ref{fi:ps_kuvat} nähdään. 
+Näiden valintojen vuoksi saaduilla tuloksilla ei ole yksiköitä ja analyyttinen ratkaisu on faasiavaruuden käyrä, joka seuraa yksikköympyrää kuten kuvasta \ref{fi:ps_kuvat} nähdään. 
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{phase_space.png}
-	\caption{Harmonisen oskillaattorin ensimmäinen värähdys kuvattuna faasiavaruudessa. Numeerisilla menetelmillä laskettiin seitsemän ensimmäistä askelta aika-askeleella $0.9$.}
+	\vspace{-2em}
+	\caption{Loikkakeinolle (vas.) ja RK4-menetelmälle (oik.) laskettiin 80 ensimmäistä arvoa aika-askeleella $h = 0.8\:$.}
 	\label{fi:ps_kuvat}
 \end{figure}
 
-Menetelmien vertailussa tarkastellaan ensin kuinka paljon ne eroavat analyyttisestä ratkaisusta. Tämä tehdään laskemalla jokaisen menetelmällä lasketun pisteen etäisyys analyyttisestä ratkaisusta faasiavaruudessa vastaavalla ajanhetkellä. 
+Menetelmien vertailussa tarkastellaan ensin kuinka paljon ne eroavat analyyttisestä ratkaisusta. Tämä tehdään laskemalla jokaisen menetelmällä lasketun pisteen etäisyys analyyttisestä ratkaisusta vastaavalla ajanhetkellä. Etäisyys lasketaan faasiavaruudessa, eli huomioon otetaan sekä paikka että liikemäärä. Numeerisesti lasketun pisteen $(q_l, p_l)$ etäisyydeksi analyyttisestä ratkaisusta $(q_a, p_a)$ saadaan siis
+\begin{align}\label{eq:virhe}
+d = \sqrt{(q_a-q_l)^2 + (p_a-p_l)^2}.
+\end{align}
+Koska etäisyys kertoo kuinka kaukana menetelmän antama arvo on tarkasta arvosta, kutsutaan tätä etäisyyttä tästä eteenpäin virheenä.
+
+Kuvassa \ref{fi:virheet} nähdään numeeristen menetelmien laskemien arvojen virheen kehitys ajan kuluessa. 
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\textwidth]{early_error.png}
-	\caption{Numeeristen menetelmien virhe ajankuluessa.}
-	\label{fi:alku_virhe}
+	\begin{minipage}[b]{0.36\textwidth}
+		\includegraphics[width=\textwidth]{early_error.png}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[b]{0.6\textwidth}
+		\includegraphics[width=\textwidth]{rk_to_1.png}
+	\end{minipage}	
+	\vspace{-0.5em}
+	\caption{Numeeristen menetelmien ($h = 0.8$) virheen suuruus ensimmäisten 40 askeleen (vas.) ja 2400 askeleen (oik.) aikana. Virheellä tarkoitetaan nyt kaavalla (\ref{eq:virhe}) määriteltyä etäisyyttä analyyttisestä ratkaisusta.}
+	\label{fi:virheet}
 \end{figure}
+
+Virheen kehityksestä voi huomata, että loikkakeinon virhe kasvaa aluksi nopeammin kuin RK4-menetelmän. Pidemmällä aikavälillä ilmenevän oskillaation ja kuvassa \ref{fi:ps_kuvat} nähtävän radan muodon perusteella voi päätellä, että suurin osa loikkakeinon virheestä on vaihevirhettä. Eli loikkakeino ei onnistu kuvaamaan harmonisen oskillaattorin, jota systeemi kuvaa, värähdyksen jakson aikaa yhtä tarkasti kuin RK4-menetelmä. 
+
+Lisäksi loikkakeinon virheessä esiintyy pienempi oskillaatio, jolla on huomattavasti lyhyempi jakson aika. Tämä johtuu faasiavaruuden radan muodosta, jota loikkakeino seuraa. Kuvassa (\ref{fi:ps_kuvat}) nähdään selvästi kuinka loikkakeinon laskemat pisteet ovat paikka-akselilla liian kaukana origosta.
+
+RK4-mentelmän vaihevirhe on pienempi. Vaihevirheestä tulee merkittävämpi pienemmillä aika-askeleilla, kuten kuvasta \ref{fi:rk_pieni} huomataan. Kuitenkin virhe lähestyy aina arvoa yksi ja jää siihen.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\textwidth]{rk_to_1.png}
-	\caption{Numeeristen menetelmien virhe pidemmällä ajanjaksolla.}
-	\label{fi:pitkä_virhe}
+	\includegraphics[scale=0.35]{rk_small_step.png}
+	\vspace{-1em}
+	\caption{RK4-menetelmän virhe pienemmällä aika-askeleella ($h = 0.3$).}
+	\label{fi:rk_pieni}
 \end{figure}
 
+Kuvan \ref{fi:ps_kuvat} perusteella voidaan päätellä, että RK4-menetelmän laskemat pisteet lähestyvät origoa, mikä selittää myös sen, kuinka virheen suurus lähestyy arvoa yksi. Koska systeemin kokonaisenergia riippuu liikemäärän ja paikan neliöistä, voidaan huomata, että pisteen etäisyys origosta faasiavaruudessa kuvaa pisteen energiaa. Voidaan siis päätellä, että RK4-menetelmä menettää energiaa ajan-kuluessa. Kuvassa \ref{fi:tot_e} on kokonaisenergian virheen kehitys molemmalle menetelmälle.
+\vspace{-0.2em}
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{tot_e.png}
-	\caption{Kokonaisenergian kehitys ajan kuluessa numeerisilla menetelmillä.}
+	\vspace{-2.2em}
+	\caption{Kokonaisenergian virheen ($\Delta$E) kehitys ajan kuluessa numeerisilla menetelmillä ($h = 1.1$). Virhe on laskettu numeerisen ja analyyttiseen ratkaisun erotuksena. Analyyttisen ratkaisun antama energia on $0.5\:$.}
 	\label{fi:tot_e}
 \end{figure}
+
+Kuten muista tuloksista pystyi päättelemään, RK4-menetelmän laskema kokonaisenergia vähenee ajan kuluessa, ja lähestyy lopulta nollaa. Loikkakeinon laskema energia sen sijaan heilahtelee edestakaisin, mutta pysyy rajoitetulla välillä.
 
 
 
 \chapter{Päätelmät}
 
-Lyhyellä ajanjaksolla Runge-Kutta antaa tarkempia tuloksia, mutta kun aikaa kuluu enemmän loikkakeino säilyttää realistisemman kuvan systeemistä.
+%- lf energia pysyy rajatulla välillä + selitys
+%- lf radan muoto säilyy samana + time-symmetry
+%- lf 2. kertluokka vs. rk 4.
 
+Loikkakeinon ja RK4-menetelmän numeeriset ratkaisut harmoniselle oskillaattorille käyttäytyivät eri tavoilla. Loikkakeino säilytti systeemin kulkeman radan muodon samana, mutta ajautui nopeasti eri vaiheeseen analyyttisen ratkaisun kanssa. RK4-menetelmä kuvasi värähtely taajuuden paremmin, mutta ei onnistunut säilyttämään systeemin kokonaisenergiaa.
+
+Menetelmien välillä oli suuri tarkkuus ero heti ensimmäisten aika-askelten jälkeen, mikä ilmeni kuvassa \ref{fi:virheet}. Tämä selittyy osittain sillä, että loikkakeino on toisen kertaluokan menetelmä ja RK4 puolestaan neljännen. Toisaalta tämä tarkoittaa myös sitä, että RK4 on laskennallisesti raskaampi. Loikkakeinosta on myös korkeamman kertaluokan variantteja \citep{hut_1995}, joilla voi mahdollisesti saada tarkempia tuloksia.
+
+Ensimmäisten askelten jälkeen kokonaisenergian kehitys antaa paremman kuvan menetelmien eroista. RK4-menetelmän laskemien arvojen virhe kasvoi ajan kuluessa. Loikkakeinon laskema energia sen sijaan pysyi rajoitetulla välillä, mikä on seurausta siitä, että loikkakeino säilyttää systeemin kulkeman radan muodon. Radan säilyminen on puolestaan seurausta loikkakeinon symplektisyydestä. 
+
+Eli lyhyellä ajanjaksolla Runge-Kutta antoi tarkempia tuloksia, mutta kun aikaa kului enemmän symplektinen loikkakeino säilytti realistisemman kuvan systeemistä.
 
 
 \appendix
@@ -424,10 +599,10 @@ Lyhyellä ajanjaksolla Runge-Kutta antaa tarkempia tuloksia, mutta kun aikaa kulu
 \addcontentsline{toc}{chapter}{Liitteet}
 \renewcommand{\thesection}{\Alph{section}}
 
-\section{Loikkakeino menetelmän koodi} \label{ap:lf}
+\section{Loikkakeino-ohjelman lähdekoodi} \label{ap:lf}
 \lstinputlisting[language=Python]{koodi_lf.py}
 \newpage
-\section{Runge-Kutta menetelmän koodi} \label{ap:rk4}
+\section{Runge-Kutta-ohjelman lähdekoodi} \label{ap:rk4}
 \lstinputlisting[language=Python]{koodi_rk.py}
 
 

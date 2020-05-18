@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.31)  11 MAY 2020 14:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.31)  18 MAY 2020 15:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -830,7 +830,7 @@ Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 \c@blind@pangrammax=\count163
 )
 (/usr/share/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
-Package: titlesec 2016/03/15 v2.10.1 Sectioning titles
+Package: titlesec 2019/10/16 v2.13 Sectioning titles
 \ttl@box=\box42
 \beforetitleunit=\skip59
 \aftertitleunit=\skip60
@@ -871,51 +871,51 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 
 Package hyperref Warning: Option `bookmarks' has already been used,
-(hyperref)                setting the option has no effect on input line 85.
+(hyperref)                setting the option has no effect on input line 86.
 
-Package hyperref Info: Option `unicode' set `true' on input line 85.
+Package hyperref Info: Option `unicode' set `true' on input line 86.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2012/11/06 v6.83m Hyperref: PDF Unicode definition (HO)
 )
-Package hyperref Info: Option `pdftoolbar' set `true' on input line 85.
-Package hyperref Info: Option `pdfmenubar' set `true' on input line 85.
-Package hyperref Info: Option `pdffitwindow' set `false' on input line 85.
-Package hyperref Info: Option `pdfnewwindow' set `true' on input line 85.
-Package hyperref Info: Option `colorlinks' set `true' on input line 85.
+Package hyperref Info: Option `pdftoolbar' set `true' on input line 86.
+Package hyperref Info: Option `pdfmenubar' set `true' on input line 86.
+Package hyperref Info: Option `pdffitwindow' set `false' on input line 86.
+Package hyperref Info: Option `pdfnewwindow' set `true' on input line 86.
+Package hyperref Info: Option `colorlinks' set `true' on input line 86.
  (./tutkielma.aux)
 \openout1 = `tutkielma.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 87.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 87.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 88.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 88.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 87.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 88.
 
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 87.
+(lastpage)             ! on input line 88.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -924,22 +924,21 @@ Package lastpage Info: Please have a look at the pageslts package at
 * paper: <default>
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* bindingoffset: 14.22636pt
-* modes: twoside 
-* h-part:(L,W,R)=(71.13188pt, 441.01775pt, 71.13188pt)
+* modes: 
+* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
 * v-part:(T,H,B)=(71.13188pt, 682.86613pt, 91.04883pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=441.01775pt
+* \textwidth=455.24411pt
 * \textheight=682.86613pt
-* \oddsidemargin=13.08826pt
+* \oddsidemargin=-1.1381pt
 * \evensidemargin=-1.1381pt
 * \topmargin=-29.59084pt
 * \headheight=14.22636pt
 * \headsep=14.22636pt
 * \topskip=12.0pt
 * \footskip=30.0pt
-* \marginparwidth=85.0pt
+* \marginparwidth=35.0pt
 * \marginparsep=10.0pt
 * \columnsep=10.0pt
 * \skip\footins=10.8pt plus 4.0pt minus 2.0pt
@@ -947,8 +946,8 @@ Package lastpage Info: Please have a look at the pageslts package at
 * \voffset=0.0pt
 * \mag=1000
 * \@twocolumnfalse
-* \@twosidetrue
-* \@mparswitchtrue
+* \@twosidefalse
+* \@mparswitchfalse
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
@@ -981,7 +980,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box46
-Package hyperref Info: Link coloring ON on input line 87.
+Package hyperref Info: Link coloring ON on input line 88.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -991,9 +990,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count175
 )
-LaTeX Info: Redefining \ref on input line 87.
-LaTeX Info: Redefining \pageref on input line 87.
-LaTeX Info: Redefining \nameref on input line 87.
+LaTeX Info: Redefining \ref on input line 88.
+LaTeX Info: Redefining \pageref on input line 88.
+LaTeX Info: Redefining \nameref on input line 88.
 
 (./tutkielma.out) (./tutkielma.out)
 \@outlinefile=\write5
@@ -1003,76 +1002,69 @@ LaTeX Info: Redefining \nameref on input line 87.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
-<sinetti.png, id=79, 2121.9275pt x 1929.2075pt>
+<sinetti.png, id=83, 2121.9275pt x 1929.2075pt>
 File: sinetti.png Graphic file (type png)
  <use sinetti.png>
-Package pdftex.def Info: sinetti.png used on input line 91.
+Package pdftex.def Info: sinetti.png used on input line 92.
 (pdftex.def)             Requested size: 142.26378pt x 129.31804pt.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 91.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 92.
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 91.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 92.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 91.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 92.
 
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 91.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 92.
 
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 91.
+(Font)              <14.4> on input line 92.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 91.
+(Font)              <10> on input line 92.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 91.
-LaTeX Font Info:    Try loading font information for U+lasy on input line 91.
+(Font)              <7> on input line 92.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 91.
+LaTeX Font Info:    Try loading font information for U+msa on input line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 91.
+LaTeX Font Info:    Try loading font information for U+msb on input line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 91.
+(babel)             in language  on input line 92.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 91.
+(babel)             in language  on input line 92.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./sinetti.png>]
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 91.
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 91.
- [2
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 99.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 99.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 99.
 
-]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 98.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 98.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 98.
-
-Overfull \hbox (167.435pt too wide) in paragraph at lines 100--100
+Overfull \hbox (153.20863pt too wide) in paragraph at lines 101--101
 [][] 
  []
 
@@ -1080,75 +1072,66 @@ Overfull \hbox (167.435pt too wide) in paragraph at lines 100--100
 Overfull \vbox (137.13387pt too high) has occurred while \output is active []
 
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 100.
+(babel)             in language  on input line 101.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 100.
-
-[3]
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 100.
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 100.
- [4
-
-
-] (./tutkielma.toc)
+(babel)             in language  on input line 101.
+pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.101 \end{abstract}
+                     [1] (./tutkielma.toc)
 \tf@toc=\write6
 \openout6 = `tutkielma.toc'.
 
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 103.
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 103.
- [5
 
-]
+
+Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
+less on input line 104.
+
+
+Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
+less on input line 104.
+
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 103.
+(babel)             in language  on input line 112.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 103.
- [6
+(babel)             in language  on input line 112.
+[1
+
 
 ]
 Luku 1.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 111.
+(babel)             in language  on input line 112.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 125.
+(babel)             in language  on input line 134.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 125.
-[1
-
-]
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 125.
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 125.
- [2
+(babel)             in language  on input line 134.
+[2
 
 ]
 Luku 2.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 125.
+(babel)             in language  on input line 134.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 132.
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 133.
+(babel)             in language  on input line 141.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 142.
 
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 133.
+(Font)              <5> on input line 142.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 146.
+(babel)             in language  on input line 155.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 150.
+(babel)             in language  on input line 158.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 150.
- [3]
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 173.
+(babel)             in language  on input line 158.
+ [3
 
+]
 
 Package Fancyhdr Warning: \headheight is too small (14.22636pt): 
  Make it at least 14.49998pt.
@@ -1156,247 +1139,247 @@ Package Fancyhdr Warning: \headheight is too small (14.22636pt):
  This may cause the page layout to be inconsistent, however.
 
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 190.
+(babel)             in language  on input line 197.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 190.
+(babel)             in language  on input line 197.
 [4]
 Package babel Info: Redefining finnish shorthand "|
 (babel)             in language  on input line 204.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 232.
+(babel)             in language  on input line 236.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 232.
+(babel)             in language  on input line 243.
+Package babel Info: Redefining finnish shorthand "|
+(babel)             in language  on input line 243.
  [5]
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 232.
+(babel)             in language  on input line 264.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 232.
+(babel)             in language  on input line 264.
  [6]
 Luku 3.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 232.
+(babel)             in language  on input line 264.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 239.
+(babel)             in language  on input line 268.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 265.
+(babel)             in language  on input line 294.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 265.
+(babel)             in language  on input line 294.
 [7
 
 ]
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 297.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+(babel)             in language  on input line 328.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 315.
+(babel)             in language  on input line 331.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 315.
-[8pdfTeX warning (ext4): destination with the same identifier (name{table.3.1})
- has been already used, duplicate ignored
+(babel)             in language  on input line 331.
+ [8pdfTeX warning (ext4): destination with the same identifier (name{table.3.1}
+) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.315 \begin{align}
-                   ]
+l.331 
+      ]
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 339.
+(babel)             in language  on input line 385.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 339.
+(babel)             in language  on input line 385.
  [9pdfTeX warning (ext4): destination with the same identifier (name{table.3.2}
 ) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.339 \chapter
-              {Loikkakeino} \label{ch:lf}]
+l.385 \end{align}
+                 ]
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 339.
+(babel)             in language  on input line 391.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 339.
- [10
-
-]
+(babel)             in language  on input line 391.
+ [10]
 Luku 4.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 339.
+(babel)             in language  on input line 391.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 343.
+(babel)             in language  on input line 397.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 352.
+(babel)             in language  on input line 418.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 360.
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 360.
-[11]
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 360.
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 360.
- [12
+(babel)             in language  on input line 418.
+[11
 
 ]
+Package babel Info: Redefining finnish shorthand "|
+(babel)             in language  on input line 449.
+Package babel Info: Redefining finnish shorthand "|
+(babel)             in language  on input line 478.
+Package babel Info: Redefining finnish shorthand "|
+(babel)             in language  on input line 478.
+ [12]
+Package babel Info: Redefining finnish shorthand "|
+(babel)             in language  on input line 482.
+Package babel Info: Redefining finnish shorthand "|
+(babel)             in language  on input line 500.
+Package babel Info: Redefining finnish shorthand "|
+(babel)             in language  on input line 500.
+ [13]
 Luku 5.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 360.
-<phase_space.png, id=274, 1300.86pt x 650.43pt>
+(babel)             in language  on input line 500.
+<phase_space.png, id=336, 1300.86pt x 650.43pt>
 File: phase_space.png Graphic file (type png)
  <use phase_space.png>
-Package pdftex.def Info: phase_space.png used on input line 386.
-(pdftex.def)             Requested size: 441.01775pt x 220.50809pt.
+Package pdftex.def Info: phase_space.png used on input line 526.
+(pdftex.def)             Requested size: 455.24411pt x 227.62413pt.
+Package babel Info: Redefining finnish shorthand "|
+(babel)             in language  on input line 533.
+Package babel Info: Redefining finnish shorthand "|
+(babel)             in language  on input line 533.
+ [14
 
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1}) 
+has been already used, duplicate ignored
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<early_error.png, id=276, 1156.32pt x 650.43pt>
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.533 \begin{align}
+                   \label{eq:virhe} <./phase_space.png>]
+<early_error.png, id=349, 433.62pt x 650.43pt>
 File: early_error.png Graphic file (type png)
  <use early_error.png>
-Package pdftex.def Info: early_error.png used on input line 395.
-(pdftex.def)             Requested size: 441.01775pt x 248.06912pt.
+Package pdftex.def Info: early_error.png used on input line 543.
+(pdftex.def)             Requested size: 163.88815pt x 245.83604pt.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<rk_to_1.png, id=277, 1156.32pt x 650.43pt>
+<rk_to_1.png, id=350, 722.7pt x 650.43pt>
 File: rk_to_1.png Graphic file (type png)
  <use rk_to_1.png>
-Package pdftex.def Info: rk_to_1.png used on input line 402.
-(pdftex.def)             Requested size: 441.01775pt x 248.06912pt.
+Package pdftex.def Info: rk_to_1.png used on input line 547.
+(pdftex.def)             Requested size: 273.14923pt x 245.83604pt.
+
+<rk_small_step.png, id=356, 722.7pt x 650.43pt>
+File: rk_small_step.png Graphic file (type png)
+ <use rk_small_step.png>
+Package pdftex.def Info: rk_small_step.png used on input line 562.
+(pdftex.def)             Requested size: 252.94878pt x 227.6539pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<tot_e.png, id=278, 1156.32pt x 650.43pt>
+<tot_e.png, id=359, 1156.32pt x 650.43pt>
 File: tot_e.png Graphic file (type png)
  <use tot_e.png>
-Package pdftex.def Info: tot_e.png used on input line 409.
-(pdftex.def)             Requested size: 441.01775pt x 248.06912pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+Package pdftex.def Info: tot_e.png used on input line 572.
+(pdftex.def)             Requested size: 455.24411pt x 256.06847pt.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 416.
+(babel)             in language  on input line 577.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 416.
-[13]
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 416.
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 416.
- [14pdfTeX warning (ext4): destination with the same identifier (name{figure.5.
-1}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.416 \chapter
-              {P‰‰telm‰t}pdfTeX warning (ext4): destination with the same ident
-ifier (name{figure.5.2}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.416 \chapter
-              {P‰‰telm‰t} <./phase_space.png> <./early_error.png>]
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 416.
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 416.
+(babel)             in language  on input line 577.
  [15pdfTeX warning (ext4): destination with the same identifier (name{figure.5.
+2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.577 
+       <./early_error.png> <./rk_to_1.png>]
+Package babel Info: Redefining finnish shorthand "|
+(babel)             in language  on input line 579.
+Package babel Info: Redefining finnish shorthand "|
+(babel)             in language  on input line 579.
+ [16pdfTeX warning (ext4): destination with the same identifier (name{figure.5.
 3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.416 \chapter
-              {P‰‰telm‰t}pdfTeX warning (ext4): destination with the same ident
-ifier (name{figure.5.4}) has been already used, duplicate ignored
+l.579 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+5.4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.416 \chapter
-              {P‰‰telm‰t} <./rk_to_1.png> <./tot_e.png>]
+l.579 
+       <./rk_small_step.png> <./tot_e.png>]
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 416.
+(babel)             in language  on input line 582.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 416.
- [16
-
-]
+(babel)             in language  on input line 582.
+ [17]
 Luku 6.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 416.
+(babel)             in language  on input line 582.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 423.
+(babel)             in language  on input line 598.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 423.
-[17]
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 423.
-Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 423.
- [18
+(babel)             in language  on input line 598.
+[18
 
 ]
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 424.
+(babel)             in language  on input line 599.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 427.
+(babel)             in language  on input line 602.
  (/usr/share/texmf/tex/latex/fpc-3.0.0/lstlang1.sty
 File: lstlang1 2002/07/31 v1.0d listings language file
 ) (./koodi_lf.py)
-Overfull \hbox (50.98726pt too wide) in paragraph at lines 30--428
+Overfull \hbox (36.7609pt too wide) in paragraph at lines 30--603
 [][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 429.
+(babel)             in language  on input line 604.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 429.
-[19]
+(babel)             in language  on input line 604.
+[19
+
+]
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 430.
+(babel)             in language  on input line 605.
  (./koodi_rk.py)
-Overfull \hbox (50.98726pt too wide) in paragraph at lines 40--431
+Overfull \hbox (36.7609pt too wide) in paragraph at lines 40--606
 [][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 440.
+(babel)             in language  on input line 615.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 440.
+(babel)             in language  on input line 615.
 [20]
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 443.
- (./tutkielma.bbl) 
+(babel)             in language  on input line 618.
+ (./tutkielma.bbl
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 54.
+ (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+))
+
 AED: lastpage setting LastPage
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 448.
+(babel)             in language  on input line 623.
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 448.
+(babel)             in language  on input line 623.
 [21
 
 
 ]
 Package babel Info: Redefining finnish shorthand "|
-(babel)             in language  on input line 448.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 448.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 448.
+(babel)             in language  on input line 623.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 623.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 623.
  (./tutkielma.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 448.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 448.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 623.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 623.
 Package rerunfilecheck Info: File `tutkielma.out' has not changed.
-(rerunfilecheck)             Checksum: FECB1B085C737805BC15754F3B994688;2261.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 448.
+(rerunfilecheck)             Checksum: 637502B0C34E10448032F42239C492DC;2425.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 623.
  ) 
 Here is how much of TeX's memory you used:
- 24102 strings out of 493029
- 412426 string characters out of 6136233
- 498609 words of memory out of 5000000
- 27009 multiletter control sequences out of 15000+600000
- 105820 words of font info for 85 fonts, out of 8000000 for 9000
+ 24224 strings out of 493029
+ 414237 string characters out of 6136233
+ 502065 words of memory out of 5000000
+ 27098 multiletter control sequences out of 15000+600000
+ 106138 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,14n,54p,451b,639s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,15n,54p,532b,639s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -1404,24 +1387,26 @@ pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 , replaced by a fixed one
 
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvip
-s/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/
-texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-math
+s/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texm
+f/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-math
 sy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf/fon
 ts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pf
 b></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/t
 ype1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></
 usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/
-public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/sha
-re/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/l
-m/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/f
-onts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pf
-b></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/ty
-pe1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on tutkielma.pdf (27 pages, 843185 bytes).
+public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/sha
+re/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/l
+m/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/
+fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb
+></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/typ
+e1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></us
+r/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/pub
+lic/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/sy
+mbols/msbm10.pfb>
+Output written on tutkielma.pdf (23 pages, 847576 bytes).
 PDF statistics:
- 509 PDF objects out of 1000 (max. 8388607)
- 449 compressed objects within 5 object streams
- 166 named destinations out of 1000 (max. 500000)
- 182 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 596 PDF objects out of 1000 (max. 8388607)
+ 534 compressed objects within 6 object streams
+ 194 named destinations out of 1000 (max. 500000)
+ 195 words of extra memory for PDF output out of 10000 (max. 10000000)
 

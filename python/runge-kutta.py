@@ -2,10 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.collections as mcoll
 import matplotlib.path as mpath
+import matplotlib.gridspec as gridspec
 import mpl_toolkits.mplot3d.art3d as mpl3d
 
 fig = plt.figure(figsize=(18, 9), edgecolor='w')
-fig2 = plt.figure(figsize=(16, 9), edgecolor='w')
+fig2 = plt.figure(figsize=(10, 9), edgecolor='w')
 fig3 = plt.figure(figsize=(16, 9), edgecolor='w')
 #fig4 = plt.figure(figsize=(16, 9), edgecolor='w')
 
@@ -127,10 +128,12 @@ def lag_calculate(method, steps, h, t0, q0, p0, ddq):
 
     return q, p
 
+
+
 def main():
     
-    h = 0.9
-    steps = 50
+    h = 1.1
+    steps = 200
 
     def dq(t, q, p): return p
     def dp(t, q, p): return -q
@@ -165,26 +168,26 @@ def main():
     errornt_lf = [abs(np.sqrt(lf_plot[0][i]**2 + lf_plot[1][i]**2) - 1) for i in range(steps)]
     errornt_rk4 = [abs(np.sqrt(rk4_plot[0][i]**2 + rk4_plot[1][i]**2) - 1) for i in range(steps)]
 
-    tote_lf = [lf_plot[1][i]**2/2 + lf_plot[0][i]**2/2 for i in range(steps)]
-    tote_rk4 = [rk4_plot[1][i]**2/2 + rk4_plot[0][i]**2/2 for i in range(steps)]
+    tote_lf = [lf_plot[1][i]**2/2 + lf_plot[0][i]**2/2 - (anal_plot[1][i]**2/2 + anal_plot[0][i]**2/2) for i in range(steps)]
+    tote_rk4 = [rk4_plot[1][i]**2/2 + rk4_plot[0][i]**2/2 - (anal_plot[1][i]**2/2 + anal_plot[0][i]**2/2) for i in range(steps)]
     tote_anal = [anal_plot[1][i]**2/2 + anal_plot[0][i]**2/2 for i in range(steps)]
 
     #ax21.plot(time, error_lf, "-", label="Loikkakeino virhe")
     #ax21.plot(time, error_rk4, "-", label="Runge-Kutta virhe")
     
-    ax22.plot(time, errorps_lf, "-", color="black", label="Loikkakeino")
-    ax22.plot(time, errorps_rk4, "--", color="black", lw=2.0, label="Runge-Kutta")
+    #ax22.plot(time, errorps_lf, "-", color="black", label="Loikkakeino")
+    ax22.plot(time, errorps_rk4, "--", color="black", lw=2.0, label="RK4")
 
     #ax3.plot(time, errornt_lf, "-", color="black", label="Loikkakeino")
     #ax3.plot(time, errornt_rk4, "--", color="black", lw=2.0, label="Runge-Kutta")
 
     ax4.plot(time, tote_lf, "-", color="black", label="Loikkakeino")
-    ax4.plot(time, tote_rk4, "--", color="black", lw=2.0, label="Runge-Kutta")
-    ax4.plot(time, tote_anal, linestyle=(0, (14, 4, 4, 4)), color="black", lw=3.0, label="Analyyttinen")
+    ax4.plot(time, tote_rk4, "--", color="black", lw=2.0, label="RK4")
+   # ax4.plot(time, tote_anal, linestyle=(0, (14, 4, 4, 4)), color="black", lw=3.0, label="Analyyttinen")
 
 
 
-    err_lim = 2.5
+    err_lim = 2.3
     #ax21.set_ylim(0, err_lim)
     ax22.set_ylim(0, err_lim)
     ax22.set_xlim(0, (steps-1)*h)
@@ -196,7 +199,7 @@ def main():
     #ax3.set_xlabel("Aika", fontsize=22)
 
     ax4.set_xlim(0, (steps-1)*h)
-    ax4.set_ylabel("Kokonais energia", fontsize=22)
+    ax4.set_ylabel(r"$\Delta$E", fontsize=22)
     ax4.set_xlabel("Aika", fontsize=22)
 
     #ax3.legend(fontsize="small")
@@ -209,7 +212,7 @@ def main():
     ax2 = fig.add_subplot(122)
     
     ax1.plot(lf_plot[0], lf_plot[1], "+", ms=10.0, mew=3, label="Loikkakeino", color="black")
-    ax2.plot(rk4_plot[0], rk4_plot[1], "+", ms=10.0, mew=3, label="Runge-Kutta", color="black")
+    ax2.plot(rk4_plot[0], rk4_plot[1], "+", ms=10.0, mew=3, label="RK4", color="black")
     #ax1.plot(anal_plot[0], anal_plot[1], "x", ms=10.0, mew=3, label="Analyyttinen", color="black")
     #ax2.plot(anal_plot[0], anal_plot[1], "x", ms=10.0, mew=3, label="Analyyttinen", color="black")
     ax1.plot(anal_inf[0], anal_inf[1], "-", lw=1, label="Analyyttinen", color="black")
@@ -373,7 +376,7 @@ def make_segments3(x, y, z):
     return segments
 
 if __name__ == "__main__":
-    
+
     main()
     #lorenz_attractor()
     #scroll_attractor()
@@ -382,5 +385,4 @@ if __name__ == "__main__":
     fig.tight_layout()
     fig2.tight_layout()
     fig3.tight_layout()
- #   fig4.tight_layout()
     plt.show()
