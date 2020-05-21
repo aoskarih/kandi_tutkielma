@@ -4,45 +4,45 @@ The top-level auxiliary file: tutkielma.aux
 The style file: apalike.bst
 Database file #1: bibliography.bib.bib
 Warning--can't use both author and editor fields in arnold_1989
-You've used 10 entries,
+You've used 11 entries,
             1935 wiz_defined-function locations,
-            531 strings with 4893 characters,
-and the built_in function-call counts, 3378 in all, are:
-= -- 322
-> -- 109
-< -- 7
-+ -- 36
-- -- 34
-* -- 265
-:= -- 609
-add.period$ -- 30
-call.type$ -- 10
-change.case$ -- 63
-chr.to.int$ -- 10
-cite$ -- 11
-duplicate$ -- 136
-empty$ -- 257
-format.name$ -- 46
-if$ -- 659
+            537 strings with 5047 characters,
+and the built_in function-call counts, 3726 in all, are:
+= -- 357
+> -- 116
+< -- 8
++ -- 38
+- -- 36
+* -- 292
+:= -- 670
+add.period$ -- 33
+call.type$ -- 11
+change.case$ -- 69
+chr.to.int$ -- 11
+cite$ -- 12
+duplicate$ -- 150
+empty$ -- 286
+format.name$ -- 49
+if$ -- 729
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 13
-newline$ -- 53
-num.names$ -- 30
-pop$ -- 59
+missing$ -- 14
+newline$ -- 58
+num.names$ -- 33
+pop$ -- 62
 preamble$ -- 1
-purify$ -- 67
+purify$ -- 73
 quote$ -- 0
-skip$ -- 102
+skip$ -- 113
 stack$ -- 0
-substring$ -- 233
-swap$ -- 10
+substring$ -- 266
+swap$ -- 11
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 52
+type$ -- 58
 warning$ -- 1
-while$ -- 25
+while$ -- 28
 width$ -- 0
-write$ -- 127
+write$ -- 140
 (There was 1 warning)
