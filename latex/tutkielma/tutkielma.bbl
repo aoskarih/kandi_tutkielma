@@ -1,0 +1,62 @@
+\begin{thebibliography}{}
+
+\bibitem[Arnold, 1989]{arnold_1989}
+Arnold, V.~I. (1989).
+\newblock {\em Mathematical Methods of Classical Mechanics}.
+\newblock Springer.
+
+\bibitem[Butcher, 1963]{butcher_1963}
+Butcher, J.~C. (1963).
+\newblock Coefficients for the study of {Runge-Kutta} integration processes.
+\newblock {\em Journal of the Australian Mathematical Society}, 3(2):185--201.
+
+\bibitem[Hairer et~al., 2006]{hairer_2006}
+Hairer, E., Lubich, C., and Wanner, G. (2006).
+\newblock {\em Geometric Numerical Integration}.
+\newblock Springer.
+
+\bibitem[Hairer et~al., 1993]{hairer_1993}
+Hairer, E., Norsett, S.~P., and Wanner, G. (1993).
+\newblock {\em Solving Ordinary Differential Equations I: Nonstiff Problems}.
+\newblock Springer.
+
+\bibitem[Hut et~al., 1995]{hut_1995}
+Hut, P., Makino, J., and McMillan, S. (1995).
+\newblock Building a better leapfrog.
+\newblock {\em The Astrophysical Journal}, 443:L93--L96.
+
+\bibitem[Kutta, 1901]{kutta_1901}
+Kutta, W. (1901).
+\newblock Beitrag zur naherungsweisen integration totaler
+  differentialgleichungen.
+\newblock {\em Z. Math. Phys.}, 46:435--453.
+
+\bibitem[McLachlan and Quispel, 2002]{mclachlan_2002}
+McLachlan, R.~I. and Quispel, G. R.~W. (2002).
+\newblock Splitting methods.
+\newblock {\em Acta Numerica}, 11:341--434.
+
+\bibitem[Nolte, 2015]{nolte_2015}
+Nolte, D.~D. (2015).
+\newblock {\em Introduction to Modern Dynamics: Chaos, Networks, Space and
+  Time}.
+\newblock Oxford University Press.
+
+\bibitem[Pihajoki, 2015]{pihajoki_2015}
+Pihajoki, P. (2015).
+\newblock Explicit methods in extended phase space for inseparable hamiltonian
+  problems.
+\newblock {\em Celestial Mechanics and Dynamical Astronomy}, 121:211--231.
+
+\bibitem[Ruth, 1983]{ruth_1983}
+Ruth, R.~D. (1983).
+\newblock A canonical integration technique.
+\newblock {\em IEEE Trans. Nucl. Sci.}, 30(CERN-LEP-TH-83-14):2669--2671.
+
+\bibitem[Tuominen, 2017]{tuominen_2017}
+Tuominen, K. (2017).
+\newblock Analytical mechanics.
+\newblock
+  \url{https://geom.mathstat.helsinki.fi/moodle/pluginfile.php/44044/mod_resource/content/4/amek_notes.pdf}.
+
+\end{thebibliography}
