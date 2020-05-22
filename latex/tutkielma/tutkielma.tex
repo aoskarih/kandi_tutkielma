@@ -76,7 +76,7 @@
     pdfsubject={},          % subject of the document
     pdfcreator={},          % creator of the document
     pdfproducer={pdfLaTeX}, % producer of the document
-    pdfkeywords={something} {something else}, % list of keywords for
+    pdfkeywords={} {}, % list of keywords for
     pdfnewwindow=true,      % links in new window
     colorlinks=true,        % false: boxed links; true: colored links
     linkcolor=black,        % color of internal links
@@ -97,7 +97,9 @@
 % language as well, in between the abstract definitions.
 
 \begin{abstract}
-Kirjoita tiivistelmään lyhyt, enintään 250 sanan yhteenveto työstäsi: mitä olet tutkinut, millaisia menetelmiä olet käyttänyt, millaisia tuloksia sait ja millaisia johtopäätöksiä niiden perusteella voi tehdä.
+
+Tässä työssä tutkittiin kahta erilaista numeerista menetelmää, joilla ratkaistiin Hamiltonisen systeemin liikeyhtälöiden aikakehitys. Erityisesti haluttiin selvittää, miten menetelmän symplektisyys vaikuttaa saatuihin tuloksiin. Menetelmiksi valittiin ei-symplektinen Runge-Kutta menetelmä ja symplektinen loikkakeino. Ensin molemmat menetelmät johdettiin, minkä jälkeen niitä testattiin käytännössä. Testausta varten tehtiin Python-ohjelma, jolla laskettiin harmonisen oskillaattorin aikakehitys valittuja menetelmiä käyttäen. Saatuja tuloksia vertailtiin, minkä perusteella huomattiin, että lyhyellä ajanjaksolla Runge-Kutta menetelmä antoi tarkempia tuloksia, mutta kun aikaa kului enemmän symplektinen loikkakeino säilytti realistisemman kuvan systeemistä.
+
 \end{abstract}
 
 % Place ToC
@@ -134,7 +136,7 @@ Runge-Kutta-menetelmät sopivat käyttöön suuressa määrässä eri ongelmia, mutta ve
 \chapter{Liikeyhtälöt}
 Jos halutaan ratkaista fysikaalisen systeemin kehitys, ensin tarvitaan yhtälöt kuvaamaan tätä kehitystä. Monesti järkevin tapa systeemin liikeyhtälöiden selvittämiseen on käyttää Hamiltonin mekaniikkaa. 
 
-Hamiltonin mekaniikka voidaan johtaa Lagrangen mekaniikasta, joka puolestaan esittää Newtonin mekaniikan variaatiolaskennan avulla. Muista tavoista poiketen Hamiltonin mekaniikalla liikeyhtälöiksi saadaan ensimmäisen asteen differentiaaliyhtälöitä, joka tekee numeerisesta laskennasta suoraviivaisempaa.
+Hamiltonin mekaniikka voidaan johtaa Lagrangen mekaniikasta, joka puolestaan esittää Newtonin mekaniikan variaatiolaskennan avulla. Muista tavoista poiketen Hamiltonin mekaniikalla liikeyhtälöiksi saadaan ensimmäisen asteen differentiaaliyhtälöitä, mikä tekee numeerisesta laskennasta suoraviivaisempaa.
 
 %Mistä saadaan differentiaaliyhtälöt joita yritetään ratkaista?
 
@@ -164,7 +166,7 @@ josta voidaan eliminoida $\dot{q}_i$ yleistettyjen liikemäärien
 \begin{align} \label{eq:liikemäärä}
 p_i = \frac{\partial L}{\partial \dot{q}_i}
 \end{align}
-avulla, jotta saadaan funktio $H = H(q_i, p_i, t)$.
+avulla.
 % H = H(q_i, p_i, t) vai H(\mathbf{q},...
 
 Hamiltonin funktion kokonaisderivaatta voidaan muodostaa kahdella eri tavalla. Käyttämällä määritelmää (\ref{eq:ham_funk}) saadaan
@@ -315,7 +317,7 @@ missä $c_i$ ja $a_{ij}$ ovat tiedettyjä kertoimia, jotka yhdessä kaavan (\ref{eq
 
 Menetelmän kertoimia $a_{ij}$, $b_i$ ja $c_i$ ei voi valita mielivaltaisesti. Sen sijaan kertoimet voidaan johtaa menetelmälle, joka on haluttua kertaluokkaa \citep{butcher_1963}. Menetelmän kertaluokka määräytyy siitä, mitä aika-askeleen kertaluokkaa virhe on. Menetelmä on kertaluokkaa $p$ jos sen virhe on luokkaa $\mathcal{O}(h^{p+1})$ \citep{hairer_2006}.
 
-Näin määritellyt menetelmät ovat eksplisiittisiä. Menetelmä voi olla myös implisiittinen, jolloin kulmakertoimet voivat riippua kaikista aika-askeleen muista kulmakertoimista, eivät vain edeltävistä. Molemmassa tapauksessa kertoimet esitetään yleensä Butcher-taulukossa, jollainen on esitetty taulukossa \ref{ta:butcheresim}. Eksplisiittisessä tapauksessa kertoimet $a_{ij}$, joissa $i \leq j$, ovat nollia, ja monesti jätetään siksi taulukosta pois.\citep{hairer_2006}
+Näin määritellyt menetelmät ovat eksplisiittisiä. Menetelmä voi olla myös implisiittinen, jolloin kulmakertoimet voivat riippua kaikista aika-askeleen muista kulmakertoimista, eivät vain edeltävistä. Molemmassa tapauksessa kertoimet esitetään yleensä Butcher-taulukossa, jollainen on esitetty taulukossa \ref{ta:butcheresim}. Eksplisiittisessä tapauksessa kertoimet $a_{ij}$, joissa $i \leq j$, ovat nollia, ja monesti jätetään siksi taulukosta pois. \citep{hairer_2006}
 
 \begin{table}[!h]
 	\centering
@@ -448,11 +450,11 @@ ja näiden avulla kirjoittaa yhtälö (\ref{eq:loikka}) uudelleen muodossa
 \begin{align} \label{eq:incomplete}
 p_{n+1/2} - p_{n-1/2} = -h \, \frac{\partial V(q_n)}{\partial q}.
 \end{align}
-Yhtälöistä (\ref{eq:liikema1}) ja (\ref{eq:liikema1}) seuraa myös relaatio
+Yhtälöistä (\ref{eq:liikema1}) ja (\ref{eq:liikema2}) seuraa myös relaatio
 \begin{align}
 p_{n+1/2} - 2 p_n + p_{n-1/2} = 0,
 \end{align}
-jonka avulla voidaan eliminoida $p_{n-1/2}$ yhtälöstä (\ref{eq:incomplete}). Sitten voidaan menetelmä kirjoittaa muodossa
+jonka avulla voidaan eliminoida $p_{n-1/2}$ yhtälöstä (\ref{eq:incomplete}). Näin voidaan menetelmä kirjoittaa muodossa
 \begin{align}
 p_{n+1/2} =&\: p_n + \frac{h}{2} f(q_n) \\
 q_{n+1} =&\: q_n + h p_{n+1/2} \\
@@ -571,7 +573,7 @@ Virheen kehityksestä voi huomata, että loikkakeinon virhe kasvaa aluksi nopeammi
 
 Lisäksi loikkakeinon virheessä esiintyy pienempi oskillaatio, jolla on huomattavasti lyhyempi jaksonaika. Tämä johtuu faasiavaruuden radan muodosta, jota loikkakeino seuraa. Kuvassa \ref{fi:ps_kuvat} nähdään selvästi kuinka loikkakeinon laskemat pisteet ovat paikka-akselilla liian kaukana origosta.
 
-RK4-mentelmän vaihevirhe on pienempi. Vaihevirheestä tulee merkittävämpi pienemmillä aika-askeleilla, kuten kuvasta \ref{fi:rk_pieni} huomataan. Kuitenkin virhe lähestyy aina arvoa yksi ja jää siihen.
+RK4-mentelmän vaihevirhe on pienempi. Vaihevirheestä tulee merkittävämpi pienemmillä aika-askeleilla, kuten kuvasta \ref{fi:rk_pieni} huomataan. Virhe kuitenkin lähestyy aina arvoa yksi ja jää siihen.
 
 \begin{figure}[!h]
 	\centering
@@ -605,7 +607,7 @@ Loikkakeinon ja RK4-menetelmän numeeriset ratkaisut harmoniselle oskillaattorill
 
 Menetelmien välillä oli suuri tarkkuusero heti ensimmäisten aika-askelten jälkeen, mikä ilmeni kuvassa \ref{fi:virheet}. Tämä selittyy osittain sillä, että loikkakeino on toisen kertaluokan menetelmä ja RK4 puolestaan neljännen. Toisaalta tämä tarkoittaa myös sitä, että RK4 on laskennallisesti raskaampi. Loikkakeinosta on myös korkeamman kertaluokan variantteja \citep{hut_1995}, joilla voi mahdollisesti saada tarkempia tuloksia myös lyhyellä ajanjaksolla.
 
-Ensimmäisten askelten jälkeen kokonaisenergian kehitys antaa paremman kuvan menetelmien eroista. RK4-menetelmän laskemien arvojen virhe kasvoi ajan kuluessa. Loikkakeinon laskema energia sen sijaan pysyi rajoitetulla välillä, mikä on seurausta siitä, että loikkakeino säilyttää systeemin kulkeman radan muodon. Radan säilyminen on puolestaan seurausta loikkakeinon symplektisyydestä. 
+Pidemmällä aikavälillä kokonaisenergian kehitys antaa paremman kuvan menetelmien eroista. RK4-menetelmän laskemien arvojen virhe kasvoi ajan kuluessa. Loikkakeinon laskema energia sen sijaan pysyi rajoitetulla välillä, mikä on seurausta siitä, että loikkakeino säilyttää systeemin kulkeman radan muodon. Radan säilyminen on puolestaan seurausta loikkakeinon symplektisyydestä. 
 
 Eli lyhyellä ajanjaksolla Runge-Kutta antoi tarkempia tuloksia, mutta kun aikaa kului enemmän symplektinen loikkakeino säilytti realistisemman kuvan systeemistä.
 

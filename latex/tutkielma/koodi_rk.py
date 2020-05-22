@@ -17,13 +17,13 @@ def rk4(h, t, q0, p0, dq, dp):
     p1 = p0 + (l1 + 2*l2 + 2*l3 + l4)/6.0
     return [q1, p1]
 
-def calculate(method, steps, h, t0, q0, p0, dq, dp):
+def calculate(steps, h, t0, q0, p0, dq, dp):
     q = [q0]
     p = [p0]
     t = t0
     # lasketaan arvot jokaiselle askeleelle ja lisataan ne listaan
     for _ in range(steps):
-        tmp = method(h, t, q[-1], p[-1], dq, dp)
+        tmp = rk4(h, t, q[-1], p[-1], dq, dp)
         q.append(tmp[0])
         p.append(tmp[1])
         t += h
